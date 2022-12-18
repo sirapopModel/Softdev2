@@ -1,0 +1,36 @@
+** Winform template note **
+
+- Program.cs
+1: [STA_Thread] = Single Thread Apartment (tell a computer this is single thread apartment application)
+
+-Form1
+--Form1.Designer.cs			// this one initial like dispose a resource to hardware after
+* dispose mean release
+1.disposing is parameter that will be true if the resouce monitor want to dispose a resource
+
+--Form1.cs
+	---Form1.cs [Design View] 
+	---Form1.cs [Code View ] 
+	The design view and Code View is connected with window form template for easily to design
+
+--Form1.resx is the resource file from visual studio 
+
+Note that read order will be build a Form class --> its property ---> public fuction name "Form1()" so you cant declare a UI component outside method !!
+Cause Form1() do Initialize Component After read a property !!
+
+Q&A part:
+
+1. "this" key word what does it do --> ( is a key word used to refers instance of current class !! )
+
+2. (class).Control mean ? --> All Ui component that from System class or this template ** used appearance from class Control
+	Ex. - System.Windows.Forms.Control
+   		A	-System.Windows.Forms.ScrollableControl
+   		B	-System.Windows.Forms.ContainerControl
+   		C	-System.Windows.Forms.Form
+   A,B and C are inherit from Control that is sub class of System
+
+   (in this situation we need to use method named "Add" to adding a UI component).
+ref:https://stackoverflow.com/questions/40286051/what-is-a-control-class-in-c-sharp
+
+
+
