@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "Dynamic_UI_gen_demo/1.0.0": {
+        "runtime": {
+          "Dynamic_UI_gen_demo.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Dynamic_UI_gen_demo/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
