@@ -1,0 +1,58 @@
+﻿<Window x:Class="WPF_first_touch.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_first_touch"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    
+    
+    <Grid Name="My_Grid">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width ="5*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.3*" />
+
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" Padding="40">
+            <Canvas Name="my_Canvas">
+                
+            </Canvas>
+        </Border>
+        
+        <Border Grid.Column="1" Padding="100"></Border>
+        <StackPanel Grid.Column="1">
+            <Border Padding="20"/>
+            <TextBox  Name="Size_Text" Text="Enter an Integer" HorizontalAlignment="Center" TextElement.FontSize="17" />
+            <Border Padding="5"/>
+            <Button Name="Play_button" Content="Play" Margin="3,3,3,3" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="GreenYellow" Click="Play_Pressed" />
+            <Border Padding="10"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+                <Label Content="TURN:" HorizontalAlignment="Center" TextElement.FontSize="20" TextElement.FontWeight="Bold"/>
+                <Label Content="LEFT:" Grid.Row="1" HorizontalAlignment="Center" TextElement.FontSize="20" TextElement.FontWeight="Bold"/>
+
+                <Label Name="Turn_UI" Grid.Column="1" Content="X" TextElement.FontSize="20" TextElement.FontWeight="Bold" />
+                <Label Name="Count_Move_UI" Grid.Column="1" Grid.Row="1" Content="0" TextElement.FontSize="20" TextElement.FontWeight="Bold" />
+
+            </Grid>
+            
+            <Border Padding="10"/>
+            <Button Name="Save_button" Content="Save" Click="Save_Pressed" Margin="3,3,3,3" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="OrangeRed" />
+            <Border Padding="5"/>
+            <Button Name="Load_button" Content="Load" Margin="3,3,3,3" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="Yellow" />
+        </StackPanel>
+        
+    </Grid>
+    
+</Window>
