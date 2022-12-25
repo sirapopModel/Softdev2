@@ -429,3 +429,4 @@ WPF_first_touch/.vs/WPF_first_touch/v17/.futdcache.v2
 WPF_first_touch/.vs/WPF_first_touch/v17/.suo
 WPF_first_touch/obj/Debug/net7.0-windows/MainWindow.baml
 WPF_first_touch/obj/Debug/net7.0-windows/WPF_first_touch.csproj.AssemblyReference.cache
+*.cache
