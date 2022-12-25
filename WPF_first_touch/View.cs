@@ -1,28 +1,21 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Media.Animation;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 
-namespace Model
+namespace WPF_first_touch
 {
-    public class game_data
+    public class View
     {
-        public int n ;
-        public int grid_size ;
-        public Grid grid_field ;
-        public Button[][] checked_array ;
-        public Canvas[,] sheet_2d_array ;
-        public Point[] x_array = { new Point(20, 20), new Point(80, 80) , new Point(80,20), new Point(20,80) };
+        public Point[] x_array = { new Point(20, 20), new Point(80, 80), new Point(80, 20), new Point(20, 80) };
+        public Canvas[,] sheet_2d_array;
         public Storyboard x_Story = new Storyboard();
-
-
         public void X_model(int row, int col)
         {
 
@@ -65,8 +58,5 @@ namespace Model
             x_Story.Begin();
 
         }
-
-
     }
-    
 }

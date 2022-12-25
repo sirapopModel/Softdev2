@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using WPF_first_touch;
 
 namespace Controller
 
@@ -14,10 +15,10 @@ namespace Controller
     public class Button_Controller
     {
         public game_data data = new game_data();
-
+        public View view = new View();
         public void Play_Setup(int n)
         {
-            data.sheet_2d_array = new Canvas[n,n];
+            view.sheet_2d_array = new Canvas[n,n];
             data.grid_size = 300/n ;
             data.n = n;
             //data.checked_array = new Button[n][];
@@ -44,7 +45,7 @@ namespace Controller
                 for (int Col=0; Col <n; Col++)
                 {
                     Canvas temp = new Canvas();
-                    data.sheet_2d_array[Row,Col] = temp;
+                    view.sheet_2d_array[Row,Col] = temp;
                     Grid.SetRow(temp,Row);
                     Grid.SetColumn(temp, Col);
                     data.grid_field.Children.Add(temp);
@@ -63,7 +64,7 @@ namespace Controller
             //Grid.SetRow(temp,row);
             //Grid.SetColumn(temp, col);
             //grid_field.Children.Add(temp);
-            data.X_model(row, col);
+            view.X_model(row, col);
 
         }
 

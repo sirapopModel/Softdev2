@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -32,25 +33,23 @@ namespace WPF_first_touch
         public void Play_Pressed(object sender, EventArgs e)
         {
 
-            button_Controller.Play_Setup( Int32.Parse(Size_Text.Text) );
+            button_Controller.Play_Setup(Int32.Parse(Size_Text.Text));
             int n = button_Controller.data.n;
             my_Canvas.Children.Add(button_Controller.data.grid_field);
-
+            
         }
 
         public void Change_Colour()
         {
-            
+
         }
 
         public void Save_Pressed(object sender, EventArgs e)
         {
-            
+
 
         }
 
-        
-
-
+       
     }
 }
