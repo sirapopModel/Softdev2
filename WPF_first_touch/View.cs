@@ -15,6 +15,7 @@ namespace WPF_first_touch
     {
         public Point[] x_array = { new Point(20, 20), new Point(80, 80), new Point(80, 20), new Point(20, 80) };
         public Canvas[,] sheet_2d_array;
+        
         public Storyboard x_Story = new Storyboard();
         public Storyboard x_Story1 = new Storyboard();
 
@@ -53,22 +54,22 @@ namespace WPF_first_touch
             (sheet_2d_array[row, col]).Children.Add(my_line);
             (sheet_2d_array[row, col]).Children.Add(my_line1);
             //create animation
-            DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(1000)));
-            DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(1000)));
+            DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(500)));
+            DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(500)));
             varX.BeginTime = TimeSpan.FromMilliseconds(0);
             varY.BeginTime = TimeSpan.FromMilliseconds(0);
 
-            DoubleAnimation varX1 = new DoubleAnimation(end_point1_X, new Duration(TimeSpan.FromMilliseconds(1000)));
-            DoubleAnimation varY1 = new DoubleAnimation(end_point1_Y, new Duration(TimeSpan.FromMilliseconds(1000)));
-            varX1.BeginTime = TimeSpan.FromMilliseconds(0);
-            varY1.BeginTime = TimeSpan.FromMilliseconds(0);
+            DoubleAnimation varX1 = new DoubleAnimation(end_point1_X, new Duration(TimeSpan.FromMilliseconds(500)));
+            DoubleAnimation varY1 = new DoubleAnimation(end_point1_Y, new Duration(TimeSpan.FromMilliseconds(500)));
+            varX1.BeginTime = TimeSpan.FromMilliseconds(510);
+            varY1.BeginTime = TimeSpan.FromMilliseconds(510);
 
             //connect an animation to story board
 
             x_Story.Children.Add(varX);
             x_Story.Children.Add(varY);
-            x_Story.Children.Add(varX1);
-            x_Story.Children.Add(varY1);
+            x_Story1.Children.Add(varX1);
+            x_Story1.Children.Add(varY1);
 
             // add property of animation in this case line property 
             Storyboard.SetTarget(varX, my_line);
