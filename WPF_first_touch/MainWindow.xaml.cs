@@ -28,24 +28,14 @@ namespace WPF_first_touch
         {
             InitializeComponent();
         }
+
         public void Play_Pressed(object sender, EventArgs e)
         {
+
             button_Controller.Play_Setup( Int32.Parse(Size_Text.Text) );
             int n = button_Controller.data.n;
-            Size_Text.Text = n.ToString();
+            my_Canvas.Children.Add(button_Controller.data.grid_field);
 
-            for (int Row = 0; Row < n; Row++)
-            {
-                for (int Column = 0; Column < n; Column++)
-                {
-                    Button temp = button_Controller.data.checked_array[Row][Column];
-                    Canvas.SetLeft(temp, (Column* button_Controller.data.button_size) +20);
-                    Canvas.SetTop(temp, (Row * button_Controller.data.button_size) + 20);
-                    my_Canvas.Children.Add(temp);
-                    
-                }
-                
-            }       
         }
 
         public void Change_Colour()
@@ -55,16 +45,11 @@ namespace WPF_first_touch
 
         public void Save_Pressed(object sender, EventArgs e)
         {
-            Size_Text.Text = "HELLO";
-            Button temp = new Button();
-            temp.Height = 40;
-            temp.Width = 40;
-            Canvas.SetLeft(temp, 100);
-            Canvas.SetBottom(temp, 100);
-            my_Canvas.Children.Add(temp);
-            temp.Content = "HELLO";
+            
 
         }
+
+        
 
 
     }

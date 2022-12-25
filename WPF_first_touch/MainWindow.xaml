@@ -25,7 +25,9 @@
         <Border Grid.Column="1" Padding="100"></Border>
         <StackPanel Grid.Column="1">
             <Border Padding="20"/>
-            <TextBox  Name="Size_Text" Text="Enter an Integer" HorizontalAlignment="Center" TextElement.FontSize="17" />
+            <Label Content="ENTER SIZE" HorizontalAlignment="Center" TextElement.FontSize="20"/>
+            <Border Padding="5"/>
+            <TextBox  Name="Size_Text" Text="3" Width="100" TextAlignment="Center" HorizontalAlignment="Center" TextElement.FontSize="17" />
             <Border Padding="5"/>
             <Button Name="Play_button" Content="Play" Margin="3,3,3,3" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="GreenYellow" Click="Play_Pressed" />
             <Border Padding="10"/>
