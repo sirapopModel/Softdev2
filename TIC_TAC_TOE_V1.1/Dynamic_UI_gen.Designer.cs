@@ -48,10 +48,10 @@
             this.Generate.BackColor = System.Drawing.Color.Green;
             this.Generate.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Generate.ForeColor = System.Drawing.Color.Transparent;
-            this.Generate.Location = new System.Drawing.Point(1345, 146);
-            this.Generate.Margin = new System.Windows.Forms.Padding(6);
+            this.Generate.Location = new System.Drawing.Point(828, 91);
+            this.Generate.Margin = new System.Windows.Forms.Padding(4);
             this.Generate.Name = "Generate";
-            this.Generate.Size = new System.Drawing.Size(206, 87);
+            this.Generate.Size = new System.Drawing.Size(127, 54);
             this.Generate.TabIndex = 0;
             this.Generate.Text = "Play";
             this.Generate.UseVisualStyleBackColor = false;
@@ -62,10 +62,10 @@
             this.SAVE_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.SAVE_Button.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.SAVE_Button.ForeColor = System.Drawing.Color.Transparent;
-            this.SAVE_Button.Location = new System.Drawing.Point(1345, 245);
-            this.SAVE_Button.Margin = new System.Windows.Forms.Padding(6);
+            this.SAVE_Button.Location = new System.Drawing.Point(828, 153);
+            this.SAVE_Button.Margin = new System.Windows.Forms.Padding(4);
             this.SAVE_Button.Name = "SAVE_Button";
-            this.SAVE_Button.Size = new System.Drawing.Size(206, 87);
+            this.SAVE_Button.Size = new System.Drawing.Size(127, 54);
             this.SAVE_Button.TabIndex = 1;
             this.SAVE_Button.Text = "SAVE";
             this.SAVE_Button.UseVisualStyleBackColor = false;
@@ -74,10 +74,10 @@
             // NumGen_Box
             // 
             this.NumGen_Box.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.NumGen_Box.Location = new System.Drawing.Point(1298, 31);
-            this.NumGen_Box.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.NumGen_Box.Location = new System.Drawing.Point(799, 19);
+            this.NumGen_Box.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.NumGen_Box.Name = "NumGen_Box";
-            this.NumGen_Box.Size = new System.Drawing.Size(286, 93);
+            this.NumGen_Box.Size = new System.Drawing.Size(178, 61);
             this.NumGen_Box.TabIndex = 2;
             this.NumGen_Box.TextChanged += new System.EventHandler(this.NumGen_Box_TextChanged);
             // 
@@ -86,10 +86,10 @@
             this.LOAD.BackColor = System.Drawing.Color.Gold;
             this.LOAD.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.LOAD.ForeColor = System.Drawing.Color.Transparent;
-            this.LOAD.Location = new System.Drawing.Point(1345, 344);
-            this.LOAD.Margin = new System.Windows.Forms.Padding(6);
+            this.LOAD.Location = new System.Drawing.Point(828, 215);
+            this.LOAD.Margin = new System.Windows.Forms.Padding(4);
             this.LOAD.Name = "LOAD";
-            this.LOAD.Size = new System.Drawing.Size(206, 87);
+            this.LOAD.Size = new System.Drawing.Size(127, 54);
             this.LOAD.TabIndex = 10;
             this.LOAD.Text = "LOAD";
             this.LOAD.UseVisualStyleBackColor = false;
@@ -99,9 +99,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 19.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(1154, 46);
+            this.label1.Location = new System.Drawing.Point(710, 29);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 71);
+            this.label1.Size = new System.Drawing.Size(89, 46);
             this.label1.TabIndex = 11;
             this.label1.Text = "SIZE";
             // 
@@ -109,9 +110,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 19.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(1282, 449);
+            this.label2.Location = new System.Drawing.Point(789, 281);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(346, 71);
+            this.label2.Size = new System.Drawing.Size(225, 46);
             this.label2.TabIndex = 12;
             this.label2.Text = "Current Turn";
             // 
@@ -119,9 +121,10 @@
             // 
             this.Turn_temp.AutoSize = true;
             this.Turn_temp.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Turn_temp.Location = new System.Drawing.Point(1401, 530);
+            this.Turn_temp.Location = new System.Drawing.Point(862, 331);
+            this.Turn_temp.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Turn_temp.Name = "Turn_temp";
-            this.Turn_temp.Size = new System.Drawing.Size(117, 128);
+            this.Turn_temp.Size = new System.Drawing.Size(74, 81);
             this.Turn_temp.TabIndex = 13;
             this.Turn_temp.Text = "X";
             // 
@@ -129,9 +132,10 @@
             // 
             this.Total_Move.AutoSize = true;
             this.Total_Move.Font = new System.Drawing.Font("Segoe UI", 19.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Total_Move.Location = new System.Drawing.Point(1298, 658);
+            this.Total_Move.Location = new System.Drawing.Point(799, 411);
+            this.Total_Move.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Total_Move.Name = "Total_Move";
-            this.Total_Move.Size = new System.Drawing.Size(308, 71);
+            this.Total_Move.Size = new System.Drawing.Size(198, 46);
             this.Total_Move.TabIndex = 14;
             this.Total_Move.Text = "Total Move";
             // 
@@ -139,17 +143,18 @@
             // 
             this.num_Move.AutoSize = true;
             this.num_Move.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.num_Move.Location = new System.Drawing.Point(1401, 733);
+            this.num_Move.Location = new System.Drawing.Point(862, 458);
+            this.num_Move.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.num_Move.Name = "num_Move";
-            this.num_Move.Size = new System.Drawing.Size(109, 128);
+            this.num_Move.Size = new System.Drawing.Size(70, 81);
             this.num_Move.TabIndex = 15;
             this.num_Move.Text = "0";
             // 
             // Dynamic_UI_gen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1653, 981);
+            this.ClientSize = new System.Drawing.Size(1017, 753);
             this.Controls.Add(this.num_Move);
             this.Controls.Add(this.Total_Move);
             this.Controls.Add(this.Turn_temp);
@@ -159,7 +164,7 @@
             this.Controls.Add(this.NumGen_Box);
             this.Controls.Add(this.SAVE_Button);
             this.Controls.Add(this.Generate);
-            this.Margin = new System.Windows.Forms.Padding(6);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Dynamic_UI_gen";
             this.Text = "Dynamic_Ui_gen";
             this.ResumeLayout(false);

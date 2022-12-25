@@ -177,7 +177,7 @@ namespace Dynamic_UI_gen_demo
             }
             limiter = k * k;
 
-            int square_button_size = (800 / k);
+            int square_button_size = (500 / k);
             for (int Row = 0; Row < k; Row++)
             {
                 for (int Column = 0; Column < k; Column++)
@@ -264,7 +264,7 @@ namespace Dynamic_UI_gen_demo
         {
             OpenFileDialog win = new OpenFileDialog();
             win.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            win.InitialDirectory = "C:\\Users\\sirapophuangwilai\\Desktop\\My_Dotnet\\Dynamic_UI_gen_demo\\SAVE";
+            win.InitialDirectory = Directory.GetCurrentDirectory();
             win.FilterIndex = 2;
             win.RestoreDirectory = true;
             if (win.ShowDialog() == DialogResult.OK)

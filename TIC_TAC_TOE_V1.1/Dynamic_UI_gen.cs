@@ -190,7 +190,7 @@ namespace Dynamic_UI_gen_demo
             }
             limiter = k * k;
 
-            int square_button_size = (800 / k);
+            int square_button_size = (600 / k);
             for (int Row = 0; Row < k; Row++)
             {
                 for (int Column = 0; Column < k; Column++)
@@ -349,7 +349,6 @@ namespace Dynamic_UI_gen_demo
                 }
             }
         }
-
 
     }// end program class
 }
