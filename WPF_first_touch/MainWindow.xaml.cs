@@ -35,7 +35,7 @@ namespace WPF_first_touch
 
             button_Controller.Play_Setup(Int32.Parse(Size_Text.Text));
             int n = button_Controller.data.n;
-            my_Canvas.Children.Add(button_Controller.data.grid_field);
+            my_Canvas.Children.Add(button_Controller.view.grid_field);
             
         }
 

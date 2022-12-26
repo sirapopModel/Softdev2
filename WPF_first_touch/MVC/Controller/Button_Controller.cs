@@ -25,7 +25,7 @@ namespace WPF_first_touch.MVC.Controller
             view.sheet_2d_array = new Canvas[n, n];
             view.grid_size = 300 / n;
 
-            data.n = n;
+            data.CreateArray(n);
             //data.checked_array = new Button[n][];
             //set grid property
             view.grid_field = new Grid();
@@ -79,17 +79,16 @@ namespace WPF_first_touch.MVC.Controller
             //Grid.SetColumn(temp, col);
             //grid_field.Children.Add(temp);
 
-            if (data.Turn_check == true)
+            if (data.Is_X_turn())
             {
                 view.X_model(row, col);
-                data.Turn_check = false;
             }
             else
             {
                 view.O_model(row,col);
-                data.Turn_check = true;
-
             }
+
+            data.PlayerPlay(row, col);
 
 
 
