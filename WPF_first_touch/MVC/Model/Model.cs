@@ -10,22 +10,22 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace Model
+namespace WPF_first_touch.MVC.Model
 {
     public class game_data
     {
-        public int n ;
-        public int grid_size ;
-        public Grid grid_field ;
-        public Button[][] checked_array ;
-        
-        
-        
+        public int n;
+        public int grid_size;
+        public Grid grid_field;
+        public Button[][] checked_array;
 
 
-        
+
+
+
+
 
 
     }
-    
+
 }

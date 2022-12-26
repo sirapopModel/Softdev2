@@ -1,4 +1,4 @@
-using Model;
+using WPF_first_touch.MVC.Model;
 using System;
 using System.Data.Common;
 using System.Windows;
@@ -9,7 +9,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using WPF_first_touch;
 
-namespace Controller
+namespace WPF_first_touch.MVC.Controller
 
 {
     public class Button_Controller
@@ -18,8 +18,8 @@ namespace Controller
         public View view = new View();
         public void Play_Setup(int n)
         {
-            view.sheet_2d_array = new Canvas[n,n];
-            data.grid_size = 300/n ;
+            view.sheet_2d_array = new Canvas[n, n];
+            data.grid_size = 300 / n;
             data.n = n;
             //data.checked_array = new Button[n][];
             //set grid property
@@ -27,7 +27,7 @@ namespace Controller
             data.grid_field.Background = new SolidColorBrush(Colors.Cornsilk);
             data.grid_field.ShowGridLines = true;
 
-            for (int Row = 0; Row < n; Row ++ )
+            for (int Row = 0; Row < n; Row++)
             {
                 RowDefinition R = new RowDefinition();
                 R.Height = new GridLength(data.grid_size);
@@ -39,14 +39,14 @@ namespace Controller
                 C.Width = new GridLength(data.grid_size);
                 data.grid_field.ColumnDefinitions.Add(C);
             }
-            
-            for (int Row =0; Row< n; Row++)
+
+            for (int Row = 0; Row < n; Row++)
             {
-                for (int Col=0; Col <n; Col++)
+                for (int Col = 0; Col < n; Col++)
                 {
                     Canvas temp = new Canvas();
-                    view.sheet_2d_array[Row,Col] = temp;
-                    Grid.SetRow(temp,Row);
+                    view.sheet_2d_array[Row, Col] = temp;
+                    Grid.SetRow(temp, Row);
                     Grid.SetColumn(temp, Col);
                     data.grid_field.Children.Add(temp);
                 }
@@ -64,6 +64,7 @@ namespace Controller
             //Grid.SetRow(temp,row);
             //Grid.SetColumn(temp, col);
             //grid_field.Children.Add(temp);
+
             view.X_model(row, col);
 
         }

@@ -9,19 +9,18 @@ using System.Windows.Shapes;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WPF_first_touch
+namespace WPF_first_touch.MVC.Controller
 {
     public class View
     {
         public Point[] x_array = { new Point(20, 20), new Point(80, 80), new Point(80, 20), new Point(20, 80) };
         public Canvas[,] sheet_2d_array;
-        
+
         public Storyboard x_Story = new Storyboard();
         public Storyboard x_Story1 = new Storyboard();
 
         public void X_model(int row, int col)
         {
-
             // line property
             var my_line = new Line();
             my_line.StrokeThickness = 4;
@@ -31,14 +30,14 @@ namespace WPF_first_touch
             my_line1.Stroke = Brushes.Blue;
 
             // set variable
-            double start_point_X = (x_array[0].X);
-            double start_point_Y = (x_array[0].Y);
-            double end_point_X = (x_array[1].X); ;
-            double end_point_Y = (x_array[1].Y); ;
-            double start_point1_X = (x_array[2].X);
-            double start_point1_Y = (x_array[2].Y);
-            double end_point1_X = (x_array[3].X); ;
-            double end_point1_Y = (x_array[3].Y); ;
+            double start_point_X = x_array[0].X;
+            double start_point_Y = x_array[0].Y;
+            double end_point_X = x_array[1].X; ;
+            double end_point_Y = x_array[1].Y; ;
+            double start_point1_X = x_array[2].X;
+            double start_point1_Y = x_array[2].Y;
+            double end_point1_X = x_array[3].X; ;
+            double end_point1_Y = x_array[3].Y; ;
             //set initial state of line and that to UI
             my_line.X1 = start_point_X;
             my_line.Y1 = start_point_Y;
@@ -51,8 +50,8 @@ namespace WPF_first_touch
 
             //Grid.SetRow(my_line, row);
             //Grid.SetColumn(my_line, col);
-            (sheet_2d_array[row, col]).Children.Add(my_line);
-            (sheet_2d_array[row, col]).Children.Add(my_line1);
+            sheet_2d_array[row, col].Children.Add(my_line);
+            sheet_2d_array[row, col].Children.Add(my_line1);
             //create animation
             DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(500)));
             DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(500)));

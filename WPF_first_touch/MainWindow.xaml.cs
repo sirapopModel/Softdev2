@@ -1,5 +1,5 @@
-﻿using Controller;
-using Model;
+﻿using WPF_first_touch.MVC.Controller;
+using WPF_first_touch.MVC.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
