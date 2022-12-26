@@ -7,4 +7,11 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="MVC\View\" />
+    <Folder Include="Theme\" />
+    <Folder Include="Assets\" />
+    <Folder Include="Save\" />
+  </ItemGroup>
+
 </Project>
