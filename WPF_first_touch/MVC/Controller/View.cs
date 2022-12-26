@@ -16,10 +16,7 @@ namespace WPF_first_touch.MVC.Controller
         //public Point[] x_array = { new Point(20, 20), new Point(80, 80), new Point(80, 20), new Point(20, 80) };
         public Point[] x_array = new Point[4] ;
         public Canvas[,] sheet_2d_array;
-<<<<<<< HEAD:WPF_first_touch/View.cs
-=======
 
->>>>>>> eb457723fa5dfdb9108045342fadc07ad77cc2b2:WPF_first_touch/MVC/Controller/View.cs
         public Storyboard x_Story = new Storyboard();
         public Storyboard x_Story1 = new Storyboard();
 

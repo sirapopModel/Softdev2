@@ -18,13 +18,13 @@ namespace WPF_first_touch.MVC.Controller
         public View view = new View();
         public void Play_Setup(int n)
         {
-<<<<<<< HEAD:WPF_first_touch/Button_Controller.cs
+
             
             data.grid_size = 300/n ;
-=======
+
             view.sheet_2d_array = new Canvas[n, n];
             data.grid_size = 300 / n;
->>>>>>> eb457723fa5dfdb9108045342fadc07ad77cc2b2:WPF_first_touch/MVC/Controller/Button_Controller.cs
+
             data.n = n;
             //data.checked_array = new Button[n][];
             //set grid property
@@ -32,16 +32,15 @@ namespace WPF_first_touch.MVC.Controller
             data.grid_field.Background = new SolidColorBrush(Colors.Cornsilk);
             data.grid_field.ShowGridLines = true;
 
-<<<<<<< HEAD:WPF_first_touch/Button_Controller.cs
+
             view.sheet_2d_array = new Canvas[n, n];
             view.X_size_config(n);
 
             view.O_size_config(n);
 
-            for (int Row = 0; Row < n; Row ++ )
-=======
+           
             for (int Row = 0; Row < n; Row++)
->>>>>>> eb457723fa5dfdb9108045342fadc07ad77cc2b2:WPF_first_touch/MVC/Controller/Button_Controller.cs
+
             {
                 RowDefinition R = new RowDefinition();
                 R.Height = new GridLength(data.grid_size);
@@ -79,7 +78,7 @@ namespace WPF_first_touch.MVC.Controller
             //Grid.SetRow(temp,row);
             //Grid.SetColumn(temp, col);
             //grid_field.Children.Add(temp);
-<<<<<<< HEAD:WPF_first_touch/Button_Controller.cs
+
             if (data.Turn_check == true)
             {
                 view.X_model(row, col);
@@ -92,10 +91,9 @@ namespace WPF_first_touch.MVC.Controller
 
             }
 
-=======
 
-            view.X_model(row, col);
->>>>>>> eb457723fa5dfdb9108045342fadc07ad77cc2b2:WPF_first_touch/MVC/Controller/Button_Controller.cs
+
+
 
         }
 
