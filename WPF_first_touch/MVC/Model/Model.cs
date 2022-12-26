@@ -16,9 +16,6 @@ namespace WPF_first_touch.MVC.Model
     {
 
         public int n ;
-        public int grid_size ;
-        public Grid grid_field ;
-        public Button[][] checked_array ;
         public Boolean Turn_check = true ;
         
 
