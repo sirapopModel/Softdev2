@@ -13,12 +13,41 @@ namespace WPF_first_touch
 {
     public class View
     {
-        public Point[] x_array = { new Point(20, 20), new Point(80, 80), new Point(80, 20), new Point(20, 80) };
+        //public Point[] x_array = { new Point(20, 20), new Point(80, 80), new Point(80, 20), new Point(20, 80) };
+        public Point[] x_array = new Point[4] ;
         public Canvas[,] sheet_2d_array;
-        
         public Storyboard x_Story = new Storyboard();
         public Storyboard x_Story1 = new Storyboard();
 
+        public int o_size = 0 ;
+        public int o_position = 0 ;
+        public Storyboard o_Story = new Storyboard();
+        
+        public void O_model(int row, int col)
+        {
+            Ellipse O_la = new Ellipse();
+            O_la.StrokeThickness = 4;
+            O_la.Stroke = Brushes.Red;
+            O_la.Height = o_size ;
+            O_la.Width = o_size ;
+            Canvas.SetTop(O_la,o_position);
+            Canvas.SetLeft(O_la, o_position);
+            (sheet_2d_array[row,col]).Children.Add(O_la);
+
+        }
+
+        public void O_size_config(int n)
+        {
+            o_size = 210/n ;
+            o_position = 43 / n;
+        }
+        public void X_size_config(int n)
+        {
+            x_array[0] = new Point(60/n,60/n);
+            x_array[1] = new Point(240 / n, 240 / n);
+            x_array[2] = new Point(60 / n, 240 / n);
+            x_array[3] = new Point(240 / n, 60 / n);
+        }
         public void X_model(int row, int col)
         {
 

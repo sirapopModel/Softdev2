@@ -18,7 +18,7 @@ namespace Controller
         public View view = new View();
         public void Play_Setup(int n)
         {
-            view.sheet_2d_array = new Canvas[n,n];
+            
             data.grid_size = 300/n ;
             data.n = n;
             //data.checked_array = new Button[n][];
@@ -26,6 +26,11 @@ namespace Controller
             data.grid_field = new Grid();
             data.grid_field.Background = new SolidColorBrush(Colors.Cornsilk);
             data.grid_field.ShowGridLines = true;
+
+            view.sheet_2d_array = new Canvas[n, n];
+            view.X_size_config(n);
+
+            view.O_size_config(n);
 
             for (int Row = 0; Row < n; Row ++ )
             {
@@ -59,12 +64,24 @@ namespace Controller
             Point my_point = e.GetPosition(data.grid_field);
             int row = (int)(my_point.Y / data.grid_size);
             int col = (int)(my_point.X / data.grid_size);
+            
             //TextBlock temp = new TextBlock();
             //temp.Text = "Hello";
             //Grid.SetRow(temp,row);
             //Grid.SetColumn(temp, col);
             //grid_field.Children.Add(temp);
-            view.X_model(row, col);
+            if (data.Turn_check == true)
+            {
+                view.X_model(row, col);
+                data.Turn_check = false;
+            }
+            else
+            {
+                view.O_model(row,col);
+                data.Turn_check = true;
+
+            }
+
 
         }
 

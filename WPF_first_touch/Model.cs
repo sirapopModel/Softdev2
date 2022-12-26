@@ -18,8 +18,9 @@ namespace Model
         public int grid_size ;
         public Grid grid_field ;
         public Button[][] checked_array ;
+        public Boolean Turn_check = true ;
         
-        
+
         
 
 
