@@ -19,14 +19,11 @@ namespace WPF_first_touch.MVC.Model
         private Boolean _turnCheck = true ;
         public string[,] GameResultArray = new string[3, 3];
 
-        public void ClearArray()
-        {
-            Array.Clear(GameResultArray, 0, GameResultArray.Length);
-        }
+        public void ClearAllArray() => Array.Clear(GameResultArray, 0, GameResultArray.Length);
         public void CreateArray(int size)
         {
             n = size;
-            ClearArray();
+            ClearAllArray();
             GameResultArray = new string[size, size];
         }
         public Boolean Is_X_turn()
@@ -76,6 +73,38 @@ namespace WPF_first_touch.MVC.Model
                     return true;
                 }
             }
+
+            // Check win for diaganal.
+            if (row == column)
+            {
+                for (int i = 1; i < n; i++)
+                {
+                    if (GameResultArray[0, 0] != GameResultArray[i, i] || String.IsNullOrEmpty(GameResultArray[i, i]))
+                    {
+                        break;
+                    }
+                    if (i == n - 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            if (row + column == n-1)
+            {
+                for (int i = 1; i < n; i++)
+                {
+                    if (GameResultArray[0, n-1] != GameResultArray[i, n-1-i] || String.IsNullOrEmpty(GameResultArray[i, n - 1 - i]))
+                    {
+                        break;
+                    }
+                    if (i == n - 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            
             return false;
         }
 
