@@ -15,7 +15,7 @@ namespace WPF_first_touch.MVC.Model
     public class game_data
     {
 
-        public int n = 3 ;
+        public int n ;
         private Boolean _turnCheck = true ;
         public string[,] GameResultArray = new string[3, 3];
 

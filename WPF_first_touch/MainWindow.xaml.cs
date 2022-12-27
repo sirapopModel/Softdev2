@@ -16,6 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace WPF_first_touch
 {
@@ -25,6 +26,7 @@ namespace WPF_first_touch
     public partial class MainWindow : Window
     {
         public Button_Controller button_Controller = new Button_Controller();
+       
         public MainWindow()
         {
             InitializeComponent();
@@ -32,21 +34,32 @@ namespace WPF_first_touch
 
         public void Play_Pressed(object sender, EventArgs e)
         {
-
-            button_Controller.Play_Setup(Int32.Parse(Size_Text.Text));
-            int n = button_Controller.data.n;
-            my_Canvas.Children.Add(button_Controller.view.grid_field);
+            try
+            {
+                button_Controller.Play_Setup(Int32.Parse(Size_Text.Text));
+            }
             
+            catch(System.Exception)
+            {
+                MessageBox.Show("Integer_Only" ,"Alert!!",MessageBoxButton.OK,MessageBoxImage.Error);
+                return;
+            }
+            //int n = button_Controller.data.n;
+            my_Canvas.Children.Remove(button_Controller.view.grid_field_old_one);
+            button_Controller.view.grid_field_old_one = button_Controller.view.grid_field;
+            my_Canvas.Children.Add(button_Controller.view.grid_field);
+
+
         }
 
         public void Change_Colour()
         {
-
+            
         }
 
         public void Save_Pressed(object sender, EventArgs e)
         {
-
+            button_Controller.view.Save_window_call();
 
         }
 

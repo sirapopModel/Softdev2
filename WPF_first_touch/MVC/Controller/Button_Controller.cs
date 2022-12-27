@@ -18,7 +18,7 @@ namespace WPF_first_touch.MVC.Controller
         public View view = new View();
         public void Play_Setup(int n)
         {
-
+            data.n = n;
             
             view.grid_size = 300/n ;
 

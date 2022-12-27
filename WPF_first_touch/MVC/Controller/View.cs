@@ -8,18 +8,18 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Win32;
+using System.IO;
 
 namespace WPF_first_touch.MVC.Controller
 {
     public class View
     {
-
-        
-        //public Point[] x_array = { new Point(20, 20), new Point(80, 80), new Point(80, 20), new Point(20, 80) };
         public Point[] x_array = new Point[4] ;
         public Canvas[,] sheet_2d_array;
 
         public Grid grid_field ;
+        public Grid grid_field_old_one ;
         public int grid_size;
 
         public Storyboard x_Story = new Storyboard();
@@ -30,6 +30,31 @@ namespace WPF_first_touch.MVC.Controller
         public Point[] o_cooardinate_list = new Point[721] ;
         public double one_radian = 3.14 / 360 ;
         public Storyboard o_Story = new Storyboard();
+
+        public SaveFileDialog my_save_window = new SaveFileDialog();
+        string save_path = Directory.GetCurrentDirectory() + "\\Save";
+
+        public void Save_window_call()
+        {
+            MessageBoxResult confirm_result = MessageBox.Show("Do you want to save find?","Alert!!",MessageBoxButton.YesNo,MessageBoxImage.Warning);
+            if ( confirm_result == MessageBoxResult.Yes)
+            {
+                my_save_window.InitialDirectory = save_path;
+                if (!Directory.Exists(save_path))
+                {
+                    Directory.CreateDirectory(save_path);
+                }
+                
+                if (my_save_window.ShowDialog() == true) // press save the saveFileDialog.show will return true
+                {
+                    
+                }
+
+
+
+
+            }
+        }
         
         public void O_model(int row, int col)
         {
@@ -87,7 +112,7 @@ namespace WPF_first_touch.MVC.Controller
                 Double x_point = Math.Round( ((o_size)*Math.Cos(i*one_radian)+ (o_size)) + o_position ,5);
                 Double y_point = Math.Round(((o_size) * Math.Sin(i*one_radian)+ (o_size)) + o_position ,5);
                 o_cooardinate_list[i] = new Point( x_point, y_point);
-                o_cooardinate_list[720] = o_cooardinate_list[719];
+                o_cooardinate_list[720] = o_cooardinate_list[1];
             }
             
 
