@@ -20,17 +20,17 @@ namespace WPF_first_touch.MVC.Controller
         {
 
             
-            data.grid_size = 300/n ;
+            view.grid_size = 300/n ;
 
             view.sheet_2d_array = new Canvas[n, n];
-            data.grid_size = 300 / n;
+            view.grid_size = 300 / n;
 
-            data.n = n;
+            data.CreateArray(n);
             //data.checked_array = new Button[n][];
             //set grid property
-            data.grid_field = new Grid();
-            data.grid_field.Background = new SolidColorBrush(Colors.Cornsilk);
-            data.grid_field.ShowGridLines = true;
+            view.grid_field = new Grid();
+            view.grid_field.Background = new SolidColorBrush(Colors.Cornsilk);
+            view.grid_field.ShowGridLines = true;
 
 
             view.sheet_2d_array = new Canvas[n, n];
@@ -43,14 +43,14 @@ namespace WPF_first_touch.MVC.Controller
 
             {
                 RowDefinition R = new RowDefinition();
-                R.Height = new GridLength(data.grid_size);
-                data.grid_field.RowDefinitions.Add(R);
+                R.Height = new GridLength(view.grid_size);
+                view.grid_field.RowDefinitions.Add(R);
             }
             for (int Col = 0; Col < n; Col++)
             {
                 ColumnDefinition C = new ColumnDefinition();
-                C.Width = new GridLength(data.grid_size);
-                data.grid_field.ColumnDefinitions.Add(C);
+                C.Width = new GridLength(view.grid_size);
+                view.grid_field.ColumnDefinitions.Add(C);
             }
 
             for (int Row = 0; Row < n; Row++)
@@ -61,17 +61,17 @@ namespace WPF_first_touch.MVC.Controller
                     view.sheet_2d_array[Row, Col] = temp;
                     Grid.SetRow(temp, Row);
                     Grid.SetColumn(temp, Col);
-                    data.grid_field.Children.Add(temp);
+                    view.grid_field.Children.Add(temp);
                 }
             }
-            data.grid_field.MouseDown += new MouseButtonEventHandler(grid_click);
+            view.grid_field.MouseDown += new MouseButtonEventHandler(grid_click);
         }
 
         public void grid_click(object sender, MouseButtonEventArgs e)
         {
-            Point my_point = e.GetPosition(data.grid_field);
-            int row = (int)(my_point.Y / data.grid_size);
-            int col = (int)(my_point.X / data.grid_size);
+            Point my_point = e.GetPosition(view.grid_field);
+            int row = (int)(my_point.Y / view.grid_size);
+            int col = (int)(my_point.X / view.grid_size);
             
             //TextBlock temp = new TextBlock();
             //temp.Text = "Hello";
@@ -79,17 +79,16 @@ namespace WPF_first_touch.MVC.Controller
             //Grid.SetColumn(temp, col);
             //grid_field.Children.Add(temp);
 
-            if (data.Turn_check == true)
+            if (data.Is_X_turn())
             {
                 view.X_model(row, col);
-                data.Turn_check = false;
             }
             else
             {
                 view.O_model(row,col);
-                data.Turn_check = true;
-
             }
+
+            data.PlayerPlay(row, col);
 
 
 
