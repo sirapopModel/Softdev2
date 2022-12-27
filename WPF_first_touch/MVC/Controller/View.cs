@@ -34,6 +34,28 @@ namespace WPF_first_touch.MVC.Controller
         public SaveFileDialog my_save_window = new SaveFileDialog();
         string save_path = Directory.GetCurrentDirectory() + "\\Save";
 
+        
+        public Label label_num_count ;
+        public Label label_OX_turn;
+
+        public void num_turn_update(int turn_count) 
+        {
+            label_num_count.Content =turn_count.ToString();
+            
+        }
+
+        public void XO_turn_update(bool is_X_turn)
+        {
+            if (is_X_turn) 
+            {
+                label_OX_turn.Content = "X";
+            }
+            else
+            {
+                label_OX_turn.Content = "O";
+            }
+        }
+
         public void Save_window_call()
         {
             MessageBoxResult confirm_result = MessageBox.Show("Do you want to save find?","Alert!!",MessageBoxButton.YesNo,MessageBoxImage.Warning);
@@ -60,7 +82,6 @@ namespace WPF_first_touch.MVC.Controller
         {
             for (int i = 0; i< 720; i++)
             {
-
 
                 Line my_line = new Line();
                 my_line.StrokeThickness = 4;

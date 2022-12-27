@@ -72,24 +72,24 @@ namespace WPF_first_touch.MVC.Controller
             Point my_point = e.GetPosition(view.grid_field);
             int row = (int)(my_point.Y / view.grid_size);
             int col = (int)(my_point.X / view.grid_size);
-            
-            //TextBlock temp = new TextBlock();
-            //temp.Text = "Hello";
-            //Grid.SetRow(temp,row);
-            //Grid.SetColumn(temp, col);
-            //grid_field.Children.Add(temp);
 
-            if (data.GameResultArray[row,col] == null)
+            if ( !data.IsAlreadyPlayed(row,col) )
             {
                 data.PlayerPlay(row, col);
                 bool winner_found = data.CheckForWinner(row, col);
+                view.num_turn_update(data.TurnCount);
+                
+
                 if (data.Is_X_turn())
                 {
                     view.X_model(row, col);
                     if (winner_found == true)
                     {
+                        view.num_turn_update(data.TurnCount);
                         MessageBox.Show("winner is X", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                         data.ClearAllArray();
+                        return;
+
                     }
                     
                 }
@@ -98,12 +98,24 @@ namespace WPF_first_touch.MVC.Controller
                     view.O_model(row, col);
                     if (winner_found == true)
                     {
+                        view.num_turn_update(data.TurnCount);
                         MessageBox.Show("winner is O", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                         data.ClearAllArray();
+                        return;
+
                     }
                 }
-                data.switchTurn();
+                if (data.IsDraw())
+                {
+                    view.num_turn_update(data.TurnCount);
+                    MessageBox.Show("Draw", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                    data.ClearAllArray();
+                    return;
+                }
+
                 
+                data.switchTurn();
+                view.XO_turn_update(data.Is_X_turn());
             }
             
 
