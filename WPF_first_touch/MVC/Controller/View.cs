@@ -13,10 +13,13 @@ namespace WPF_first_touch.MVC.Controller
 {
     public class View
     {
+
+        
         //public Point[] x_array = { new Point(20, 20), new Point(80, 80), new Point(80, 20), new Point(20, 80) };
         public Point[] x_array = new Point[4] ;
         public Canvas[,] sheet_2d_array;
-        public Grid grid_field;
+
+        public Grid grid_field ;
         public int grid_size;
 
         public Storyboard x_Story = new Storyboard();
@@ -32,6 +35,8 @@ namespace WPF_first_touch.MVC.Controller
         {
             for (int i = 0; i< 720; i++)
             {
+
+
                 Line my_line = new Line();
                 my_line.StrokeThickness = 4;
                 my_line.Stroke = Brushes.Red;
@@ -47,10 +52,10 @@ namespace WPF_first_touch.MVC.Controller
                 my_line.Y2 = start_point_Y;
 
                 sheet_2d_array[row, col].Children.Add(my_line);
-                DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(1)));
-                varX.BeginTime = TimeSpan.FromMilliseconds(3*i);
-                DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(1)));
-                varY.BeginTime = TimeSpan.FromMilliseconds(3*i);
+                DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(0.2)));
+                varX.BeginTime = TimeSpan.FromMilliseconds(i);
+                DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(0.2)));
+                varY.BeginTime = TimeSpan.FromMilliseconds(i);
 
                 o_Story.Children.Add(varX);
                 o_Story.Children.Add(varY);
@@ -130,15 +135,15 @@ namespace WPF_first_touch.MVC.Controller
             sheet_2d_array[row, col].Children.Add(my_line);
             sheet_2d_array[row, col].Children.Add(my_line1);
             //create animation
-            DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(500)));
-            DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(500)));
+            DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(300)));
+            DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(300)));
             varX.BeginTime = TimeSpan.FromMilliseconds(0);
             varY.BeginTime = TimeSpan.FromMilliseconds(0);
 
-            DoubleAnimation varX1 = new DoubleAnimation(end_point1_X, new Duration(TimeSpan.FromMilliseconds(500)));
-            DoubleAnimation varY1 = new DoubleAnimation(end_point1_Y, new Duration(TimeSpan.FromMilliseconds(500)));
-            varX1.BeginTime = TimeSpan.FromMilliseconds(510);
-            varY1.BeginTime = TimeSpan.FromMilliseconds(510);
+            DoubleAnimation varX1 = new DoubleAnimation(end_point1_X, new Duration(TimeSpan.FromMilliseconds(300)));
+            DoubleAnimation varY1 = new DoubleAnimation(end_point1_Y, new Duration(TimeSpan.FromMilliseconds(300)));
+            varX1.BeginTime = TimeSpan.FromMilliseconds(350);
+            varY1.BeginTime = TimeSpan.FromMilliseconds(350);
 
             //connect an animation to story board
 
