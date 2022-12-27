@@ -82,18 +82,27 @@ namespace WPF_first_touch.MVC.Controller
             if (data.GameResultArray[row,col] == null)
             {
                 data.PlayerPlay(row, col);
-                data.CheckForWinner(row, col);
+                bool winner_found = data.CheckForWinner(row, col);
                 if (data.Is_X_turn())
                 {
                     view.X_model(row, col);
+                    if (winner_found == true)
+                    {
+                        MessageBox.Show("winner is X", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                        data.ClearAllArray();
+                    }
                     
                 }
                 else
                 {
                     view.O_model(row, col);
-
+                    if (winner_found == true)
+                    {
+                        MessageBox.Show("winner is O", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                        data.ClearAllArray();
+                    }
                 }
-
+                data.switchTurn();
                 
             }
             

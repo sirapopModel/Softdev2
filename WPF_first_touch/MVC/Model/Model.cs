@@ -32,7 +32,7 @@ namespace WPF_first_touch.MVC.Model
             return _turnCheck; 
         }
 
-        private void _switchTurn()
+        public void switchTurn()
         {
             // Switch player's turn.
             _turnCheck = !_turnCheck;
@@ -45,7 +45,6 @@ namespace WPF_first_touch.MVC.Model
 
             // Insert "x" or "o" into GameResultArray when player plays.
             GameResultArray[row, column] = (Is_X_turn()) ? "x" : "o";
-            _switchTurn();
         }
 
         public Boolean IsPlayed(int row, int column)
