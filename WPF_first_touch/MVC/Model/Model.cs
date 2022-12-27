@@ -18,10 +18,12 @@ namespace WPF_first_touch.MVC.Model
         public int n ;
         private Boolean _turnCheck = true ;
         public string[,] GameResultArray = new string[3, 3];
+        public int TurnCount = 0 ;
 
         public void ClearAllArray() => Array.Clear(GameResultArray, 0, GameResultArray.Length);
         public void CreateArray(int size)
         {
+            // Set n = size. Clear all array and create new string.
             n = size;
             ClearAllArray();
             GameResultArray = new string[size, size];
@@ -32,7 +34,7 @@ namespace WPF_first_touch.MVC.Model
             return _turnCheck; 
         }
 
-        private void _switchTurn()
+        public void SwitchTurn()
         {
             // Switch player's turn.
             _turnCheck = !_turnCheck;
@@ -41,15 +43,16 @@ namespace WPF_first_touch.MVC.Model
         public void PlayerPlay(int row, int column)
         {
             // If already played, return
-            if (IsPlayed(row, column)) { return; }
+            if (IsAlreadyPlayed(row, column)) { return; }
 
             // Insert "x" or "o" into GameResultArray when player plays.
             GameResultArray[row, column] = (Is_X_turn()) ? "x" : "o";
-            _switchTurn();
+            TurnCount++;
         }
 
-        public Boolean IsPlayed(int row, int column)
+        public Boolean IsAlreadyPlayed(int row, int column)
         {
+            // Return ture if that row and column is already played.
             return !String.IsNullOrWhiteSpace(GameResultArray[row, column]);
         }
 
@@ -79,7 +82,7 @@ namespace WPF_first_touch.MVC.Model
                     return true;
                 }
             }
-            // Check win for diaganal.
+            // Check win for diagonal 1.
             if (row == column)
             {
                 for (int i = 1; i < n; i++)
@@ -94,7 +97,7 @@ namespace WPF_first_touch.MVC.Model
                     }
                 }
             }
-
+            // Check win for diagonal 2.
             if (row + column == n-1)
             {
                 for (int i = 1; i < n; i++)
@@ -112,7 +115,11 @@ namespace WPF_first_touch.MVC.Model
             return false;
         }
 
-
+        public Boolean IsDraw()
+        {
+            // Return true if TurnCount equal to n*n. That means all grid have played.
+            return (TurnCount == n * n) ? true : false;
+        }
 
 
 
