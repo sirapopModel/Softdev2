@@ -27,6 +27,7 @@ namespace WPF_first_touch.MVC.Model
             n = size;
             ClearAllArray();
             GameResultArray = new string[size, size];
+            TurnCount = 0;
         }
         public Boolean Is_X_turn()
         { 
