@@ -79,16 +79,20 @@ namespace WPF_first_touch.MVC.Controller
             //Grid.SetColumn(temp, col);
             //grid_field.Children.Add(temp);
 
-            if (data.Is_X_turn())
+            if (data.GameResultArray[row,col] == null)
             {
-                view.X_model(row, col);
-            }
-            else
-            {
-                view.O_model(row,col);
-            }
+                if (data.Is_X_turn())
+                {
+                    view.X_model(row, col);
+                }
+                else
+                {
+                    view.O_model(row, col);
+                }
 
-            data.PlayerPlay(row, col);
+                data.PlayerPlay(row, col);
+            }
+            
 
 
 
