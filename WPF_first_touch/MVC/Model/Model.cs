@@ -34,7 +34,8 @@ namespace WPF_first_touch.MVC.Model
             return _turnCheck; 
         }
 
-        public void SwitchTurn()
+        
+        public void switchTurn()
         {
             // Switch player's turn.
             _turnCheck = !_turnCheck;

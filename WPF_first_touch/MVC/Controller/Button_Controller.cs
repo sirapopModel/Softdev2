@@ -79,16 +79,33 @@ namespace WPF_first_touch.MVC.Controller
             //Grid.SetColumn(temp, col);
             //grid_field.Children.Add(temp);
 
-            if (data.Is_X_turn())
+            if (data.GameResultArray[row,col] == null)
             {
-                view.X_model(row, col);
+                data.PlayerPlay(row, col);
+                bool winner_found = data.CheckForWinner(row, col);
+                if (data.Is_X_turn())
+                {
+                    view.X_model(row, col);
+                    if (winner_found == true)
+                    {
+                        MessageBox.Show("winner is X", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                        data.ClearAllArray();
+                    }
+                    
+                }
+                else
+                {
+                    view.O_model(row, col);
+                    if (winner_found == true)
+                    {
+                        MessageBox.Show("winner is O", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                        data.ClearAllArray();
+                    }
+                }
+                data.switchTurn();
+                
             }
-            else
-            {
-                view.O_model(row,col);
-            }
-
-            data.PlayerPlay(row, col);
+            
 
 
 
