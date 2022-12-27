@@ -81,16 +81,20 @@ namespace WPF_first_touch.MVC.Controller
 
             if (data.GameResultArray[row,col] == null)
             {
+                data.PlayerPlay(row, col);
+                data.CheckForWinner(row, col);
                 if (data.Is_X_turn())
                 {
                     view.X_model(row, col);
+                    
                 }
                 else
                 {
                     view.O_model(row, col);
+
                 }
 
-                data.PlayerPlay(row, col);
+                
             }
             
 
