@@ -40,10 +40,17 @@ namespace WPF_first_touch.MVC.Model
         
         public void PlayerPlay(int row, int column)
         {
-            // Insert "x" or "o" into GameResultArray when player plays something.
+            // If already played, return
+            if (IsPlayed(row, column)) { return; }
+
+            // Insert "x" or "o" into GameResultArray when player plays.
             GameResultArray[row, column] = (Is_X_turn()) ? "x" : "o";
-            //CheckForWinner(row, column);
             _switchTurn();
+        }
+
+        public Boolean IsPlayed(int row, int column)
+        {
+            return !String.IsNullOrWhiteSpace(GameResultArray[row, column]);
         }
 
         public Boolean CheckForWinner(int row, int column)
@@ -60,7 +67,6 @@ namespace WPF_first_touch.MVC.Model
                     return true;
                 }
             }
-
             // Check win for vertical.
             for (int i = 1; i < n; i++)
             {
@@ -73,7 +79,6 @@ namespace WPF_first_touch.MVC.Model
                     return true;
                 }
             }
-
             // Check win for diaganal.
             if (row == column)
             {
@@ -104,10 +109,8 @@ namespace WPF_first_touch.MVC.Model
                     }
                 }
             }
-            
             return false;
         }
-
 
 
 
