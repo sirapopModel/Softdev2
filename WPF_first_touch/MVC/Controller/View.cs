@@ -22,25 +22,70 @@ namespace WPF_first_touch.MVC.Controller
 
         public int o_size = 0 ;
         public int o_position = 0 ;
+        public Point[] o_cooardinate_list = new Point[721] ;
+        public double one_radian = 3.14 / 360 ;
         public Storyboard o_Story = new Storyboard();
         
         public void O_model(int row, int col)
         {
-            Ellipse O_la = new Ellipse();
-            O_la.StrokeThickness = 4;
-            O_la.Stroke = Brushes.Red;
-            O_la.Height = o_size ;
-            O_la.Width = o_size ;
-            Canvas.SetTop(O_la,o_position);
-            Canvas.SetLeft(O_la, o_position);
-            (sheet_2d_array[row,col]).Children.Add(O_la);
+            for (int i = 0; i< 720; i++)
+            {
+                Line my_line = new Line();
+                my_line.StrokeThickness = 4;
+                my_line.Stroke = Brushes.Red;
+
+                double start_point_X = o_cooardinate_list[i].X;
+                double start_point_Y = o_cooardinate_list[i].Y;
+                double end_point_X = o_cooardinate_list[i+1].X;
+                double end_point_Y = o_cooardinate_list[i+1].Y;
+
+                my_line.X1 = start_point_X;
+                my_line.Y1 = start_point_Y;
+                my_line.X2 = start_point_X;
+                my_line.Y2 = start_point_Y;
+
+                sheet_2d_array[row, col].Children.Add(my_line);
+                DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(1)));
+                varX.BeginTime = TimeSpan.FromMilliseconds(3*i);
+                DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(1)));
+                varY.BeginTime = TimeSpan.FromMilliseconds(3*i);
+
+                o_Story.Children.Add(varX);
+                o_Story.Children.Add(varY);
+                Storyboard.SetTarget(varX, my_line);
+                Storyboard.SetTarget(varY, my_line);
+                Storyboard.SetTargetProperty(varX, new PropertyPath(Line.X2Property));
+                Storyboard.SetTargetProperty(varY, new PropertyPath(Line.Y2Property));
+                
+            }
+            o_Story.Begin();
+
+
+
+
+
+
+
+
 
         }
 
         public void O_size_config(int n)
         {
-            o_size = 210/n ;
-            o_position = 43 / n;
+            o_size = 210/(2*n) ;
+            o_position = 45 / n;
+            
+            for (int i = 0; i < 720; i++)
+            {
+                Double x_point = Math.Round( ((o_size)*Math.Cos(i*one_radian)+ (o_size)) + o_position ,5);
+                Double y_point = Math.Round(((o_size) * Math.Sin(i*one_radian)+ (o_size)) + o_position ,5);
+                o_cooardinate_list[i] = new Point( x_point, y_point);
+                o_cooardinate_list[720] = o_cooardinate_list[719];
+            }
+            
+
+
+            //o_cooardinate_list[360] = o_cooardinate_list[359];
         }
         public void X_size_config(int n)
         {
