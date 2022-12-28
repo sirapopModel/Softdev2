@@ -115,7 +115,7 @@ namespace WPF_first_touch.MVC.Controller
                 }
 
                 
-                data.switchTurn();
+                data.SwitchTurn();
                 view.XO_turn_update(data.Is_X_turn());
             }
             
