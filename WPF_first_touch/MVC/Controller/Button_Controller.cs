@@ -23,7 +23,7 @@ namespace WPF_first_touch.MVC.Controller
             view.grid_size = 300/n ;
 
             view.sheet_2d_array = new Canvas[n, n];
-            view.grid_size = 300 / n;
+            view.grid_size =  300/ n;
 
             data.CreateArray(n);
             //data.checked_array = new Button[n][];
@@ -31,6 +31,7 @@ namespace WPF_first_touch.MVC.Controller
             view.grid_field = new Grid();
             view.grid_field.Background = new SolidColorBrush(Colors.Cornsilk);
             view.grid_field.ShowGridLines = true;
+            Canvas.SetLeft(view.grid_field , 125 );
 
 
             view.sheet_2d_array = new Canvas[n, n];

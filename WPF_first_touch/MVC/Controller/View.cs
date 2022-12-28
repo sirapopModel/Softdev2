@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 
 namespace WPF_first_touch.MVC.Controller
 {
@@ -18,7 +19,7 @@ namespace WPF_first_touch.MVC.Controller
         public Point[] x_array = new Point[4] ;
         public Canvas[,] sheet_2d_array;
 
-        public Grid grid_field ;
+        public Grid grid_field = new Grid() ;
         public Grid grid_field_old_one ;
         public int grid_size;
 
@@ -38,6 +39,8 @@ namespace WPF_first_touch.MVC.Controller
         public Label label_num_count ;
         public Label label_OX_turn;
 
+        //public
+        
         public void num_turn_update(int turn_count) 
         {
             label_num_count.Content =turn_count.ToString();
@@ -112,7 +115,7 @@ namespace WPF_first_touch.MVC.Controller
                 
             }
             o_Story.Begin();
-
+            o_Story.Children.Clear();
 
 
 
@@ -209,6 +212,9 @@ namespace WPF_first_touch.MVC.Controller
             Storyboard.SetTargetProperty(varX1, new PropertyPath(Line.X2Property));
             Storyboard.SetTargetProperty(varY1, new PropertyPath(Line.Y2Property));
             x_Story1.Begin();
+
+            x_Story.Children.Clear();
+            x_Story1.Children.Clear();
 
         }
     }

@@ -35,9 +35,13 @@ namespace WPF_first_touch
 
         public void Play_Pressed(object sender, EventArgs e)
         {
+           
             try
             {
+                //button_Controller.view.grid_field.Children.Clear();
                 button_Controller.Play_Setup(Int32.Parse(Size_Text.Text));
+                
+                
             }
             
             catch(System.Exception)
@@ -47,7 +51,11 @@ namespace WPF_first_touch
             }
             //int n = button_Controller.data.n;
             my_Canvas.Children.Remove(button_Controller.view.grid_field_old_one);
+            //my_Canvas.Children.Clear(); clear
             button_Controller.view.grid_field_old_one = button_Controller.view.grid_field;
+            
+
+
             my_Canvas.Children.Add(button_Controller.view.grid_field);
 
             button_Controller.view.label_num_count = Count_Move_UI ;
