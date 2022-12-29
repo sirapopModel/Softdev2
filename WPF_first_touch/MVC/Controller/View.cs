@@ -43,11 +43,11 @@ namespace WPF_first_touch.MVC.Controller
         
         public void num_turn_update(int turn_count) 
         {
-            label_num_count.Content =turn_count.ToString();
+            label_num_count.Content = turn_count.ToString();
             
         }
 
-        public void XO_turn_update(bool is_X_turn)
+        public void XO_turn_update(bool is_X_turn )
         {
             if (is_X_turn) 
             {
@@ -58,6 +58,8 @@ namespace WPF_first_touch.MVC.Controller
                 label_OX_turn.Content = "O";
             }
         }
+
+
 
         public void Save_window_call()
         {
@@ -116,14 +118,6 @@ namespace WPF_first_touch.MVC.Controller
             }
             o_Story.Begin();
             o_Story.Children.Clear();
-
-
-
-
-
-
-
-
         }
 
         public void O_size_config(int n)

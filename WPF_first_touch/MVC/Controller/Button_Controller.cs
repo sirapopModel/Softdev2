@@ -32,6 +32,7 @@ namespace WPF_first_touch.MVC.Controller
             view.grid_field.Background = new SolidColorBrush(Colors.Cornsilk);
             view.grid_field.ShowGridLines = true;
             Canvas.SetLeft(view.grid_field , 125 );
+            
 
 
             view.sheet_2d_array = new Canvas[n, n];
@@ -68,6 +69,16 @@ namespace WPF_first_touch.MVC.Controller
             view.grid_field.MouseDown += new MouseButtonEventHandler(grid_click);
         }
 
+        public void serve_component_to_view(Label Count_Label , Label OX_turn_label)
+        {
+            view.label_num_count = Count_Label;
+            view.label_OX_turn = OX_turn_label;
+        }
+
+        public void reset_label()
+        {
+
+        }
         public void grid_click(object sender, MouseButtonEventArgs e)
         {
             Point my_point = e.GetPosition(view.grid_field);

@@ -30,6 +30,8 @@ namespace WPF_first_touch
         public MainWindow()
         {
             InitializeComponent();
+            button_Controller.serve_component_to_view(Count_Move_UI,Turn_UI);
+
 
         }
 
@@ -58,10 +60,10 @@ namespace WPF_first_touch
 
             my_Canvas.Children.Add(button_Controller.view.grid_field);
 
-            button_Controller.view.label_num_count = Count_Move_UI ;
+            //button_Controller.view.label_num_count = Count_Move_UI ;
             button_Controller.view.num_turn_update(0);
 
-            button_Controller.view.label_OX_turn = Turn_UI;
+            //button_Controller.view.label_OX_turn = Turn_UI;
         }
         
         public void Change_Colour()
