@@ -66,6 +66,8 @@ namespace WPF_first_touch
 
             //button_Controller.view.label_OX_turn = Turn_UI;
         }
+        
+        
 
         public void Save_Pressed(object sender, EventArgs e)
         {

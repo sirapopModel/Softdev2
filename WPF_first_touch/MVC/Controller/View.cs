@@ -63,14 +63,9 @@ namespace WPF_first_touch.MVC.Controller
                 label_OX_turn.Content = "O";
             }
         }
-
-<<<<<<< HEAD
+]
         public Stream Save_window_call()
-=======
 
-
-        public void Save_window_call()
->>>>>>> aa3f8686215a3d1d5897ffbb3b4df1deb293a876
         {
             MessageBoxResult confirm_result = MessageBox.Show("Do you want to save file?","Alert!!",MessageBoxButton.YesNo,MessageBoxImage.Warning);
             if ( confirm_result == MessageBoxResult.Yes)
