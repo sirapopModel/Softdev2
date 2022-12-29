@@ -1,4 +1,6 @@
+using Microsoft.Win32;
 using System;
+using WPF_first_touch.MVC.Controller;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -16,6 +18,8 @@ namespace WPF_first_touch.MVC.Model
 {
     public class game_data
     {
+        public SaveFileDialog my_save_window = new SaveFileDialog();
+        string save_path = Directory.GetCurrentDirectory() + "\\Save";
 
         public int n ;
         private Boolean _turnCheck = true ;
@@ -133,6 +137,7 @@ namespace WPF_first_touch.MVC.Model
             streamWriter.WriteLine(GetCurrentTurn());
             streamWriter.Write(TurnCount);
             streamWriter.Close();
+
         }
 
         public string GetArrayToString()
@@ -162,6 +167,7 @@ namespace WPF_first_touch.MVC.Model
         }
 
         public Boolean LoadGame(Stream FileStream)
+
         {
             // if return is true = not error
             try

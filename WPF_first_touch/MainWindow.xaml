@@ -52,7 +52,7 @@
             <Border Padding="10"/>
             <Button Name="Save_button" Content="Save" Click="Save_Pressed" Margin="3,3,3,3" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="OrangeRed" />
             <Border Padding="5"/>
-            <Button Name="Load_button" Content="Load" Margin="3,3,3,3" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="Yellow" />
+            <Button Name="Load_button" Content="Load" Margin="3,3,3,3" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="Yellow" Click="Load_button_Click" />
         </StackPanel>
         
     </Grid>

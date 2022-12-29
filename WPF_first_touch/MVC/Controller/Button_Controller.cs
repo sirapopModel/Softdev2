@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using WPF_first_touch;
+using System.IO;
 
 namespace WPF_first_touch.MVC.Controller
 
@@ -32,6 +33,7 @@ namespace WPF_first_touch.MVC.Controller
             view.grid_field.Background = new SolidColorBrush(Colors.Cornsilk);
             view.grid_field.ShowGridLines = true;
             Canvas.SetLeft(view.grid_field , 125 );
+            
 
 
             view.sheet_2d_array = new Canvas[n, n];
@@ -68,6 +70,16 @@ namespace WPF_first_touch.MVC.Controller
             view.grid_field.MouseDown += new MouseButtonEventHandler(grid_click);
         }
 
+        public void serve_component_to_view(Label Count_Label , Label OX_turn_label)
+        {
+            view.label_num_count = Count_Label;
+            view.label_OX_turn = OX_turn_label;
+        }
+
+        public void reset_label()
+        {
+
+        }
         public void grid_click(object sender, MouseButtonEventArgs e)
         {
             Point my_point = e.GetPosition(view.grid_field);
@@ -118,13 +130,51 @@ namespace WPF_first_touch.MVC.Controller
                 data.SwitchTurn();
                 view.XO_turn_update(data.Is_X_turn());
             }
+        }
+
+        public void Do_save()
+        {
             
+            Stream Savefile = view.Save_window_call();
 
+            if (Savefile != null)
+            {
+                data.SaveGame(Savefile);
 
-
-
+            }
 
         }
+
+        public void Do_load()
+        {
+            Stream Loadfile = view.Load_window_call();
+
+            if (Loadfile != null)
+            {
+                data.LoadGame(Loadfile);
+
+                Play_Setup(data.n);
+
+                for (int row = 0; row < data.n; row++)
+                {
+                    for (int col = 0; col < data.n; col++)
+                    {
+                        if (data.GameResultArray[row,col] == "x")
+                        {
+                            view.X_model(row , col);
+
+                        }    
+
+                    }
+                    
+                }
+                
+            }
+
+            
+        }
+
+        
 
 
 

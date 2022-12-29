@@ -8,8 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Theme\**" />
+    <EmbeddedResource Remove="Theme\**" />
+    <None Remove="Theme\**" />
+    <Page Remove="Theme\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="MVC\View\" />
-    <Folder Include="Theme\" />
     <Folder Include="Assets\" />
     <Folder Include="Save\" />
   </ItemGroup>

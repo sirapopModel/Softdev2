@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPF_first_touch.MVC.Model;
 using System.Windows.Media.Animation;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -16,6 +17,8 @@ namespace WPF_first_touch.MVC.Controller
 {
     public class View
     {
+        public game_data data = new game_data(); //model
+
         public Point[] x_array = new Point[4] ;
         public Canvas[,] sheet_2d_array;
 
@@ -35,6 +38,8 @@ namespace WPF_first_touch.MVC.Controller
         public SaveFileDialog my_save_window = new SaveFileDialog();
         string save_path = Directory.GetCurrentDirectory() + "\\Save";
 
+        public OpenFileDialog my_open_window = new OpenFileDialog();
+
         
         public Label label_num_count ;
         public Label label_OX_turn;
@@ -43,11 +48,11 @@ namespace WPF_first_touch.MVC.Controller
         
         public void num_turn_update(int turn_count) 
         {
-            label_num_count.Content =turn_count.ToString();
+            label_num_count.Content = turn_count.ToString();
             
         }
 
-        public void XO_turn_update(bool is_X_turn)
+        public void XO_turn_update(bool is_X_turn )
         {
             if (is_X_turn) 
             {
@@ -59,12 +64,21 @@ namespace WPF_first_touch.MVC.Controller
             }
         }
 
+<<<<<<< HEAD
+        public Stream Save_window_call()
+=======
+
+
         public void Save_window_call()
+>>>>>>> aa3f8686215a3d1d5897ffbb3b4df1deb293a876
         {
-            MessageBoxResult confirm_result = MessageBox.Show("Do you want to save find?","Alert!!",MessageBoxButton.YesNo,MessageBoxImage.Warning);
+            MessageBoxResult confirm_result = MessageBox.Show("Do you want to save file?","Alert!!",MessageBoxButton.YesNo,MessageBoxImage.Warning);
             if ( confirm_result == MessageBoxResult.Yes)
             {
                 my_save_window.InitialDirectory = save_path;
+                my_save_window.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                my_save_window.FilterIndex = 1;
+
                 if (!Directory.Exists(save_path))
                 {
                     Directory.CreateDirectory(save_path);
@@ -72,15 +86,42 @@ namespace WPF_first_touch.MVC.Controller
                 
                 if (my_save_window.ShowDialog() == true) // press save the saveFileDialog.show will return true
                 {
+
+                    return my_save_window.OpenFile();
                     
+
+                }
+            }
+            return null;
+        }
+
+        public Stream Load_window_call()
+        {
+            MessageBoxResult confirm_result = MessageBox.Show("Do you want to Load save?", "Alert!!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (confirm_result == MessageBoxResult.Yes)
+            {
+                my_open_window.InitialDirectory = save_path;
+                my_open_window.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                my_open_window.FilterIndex = 1;
+
+                if (!Directory.Exists(save_path))
+                {
+                    Directory.CreateDirectory(save_path);
                 }
 
+                if (my_open_window.ShowDialog() == true) // press save the saveFileDialog.show will return true
+                {
 
+                    return my_open_window.OpenFile();
 
-
+                }
             }
+            return null;
+
+
         }
-        
+
+
         public void O_model(int row, int col)
         {
             for (int i = 0; i< 720; i++)
@@ -116,14 +157,6 @@ namespace WPF_first_touch.MVC.Controller
             }
             o_Story.Begin();
             o_Story.Children.Clear();
-
-
-
-
-
-
-
-
         }
 
         public void O_size_config(int n)

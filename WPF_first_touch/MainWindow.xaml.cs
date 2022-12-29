@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Windows.Media.Media3D;
 
 namespace WPF_first_touch
 {
@@ -30,6 +31,8 @@ namespace WPF_first_touch
         public MainWindow()
         {
             InitializeComponent();
+            button_Controller.serve_component_to_view(Count_Move_UI,Turn_UI);
+
 
         }
 
@@ -58,23 +61,36 @@ namespace WPF_first_touch
 
             my_Canvas.Children.Add(button_Controller.view.grid_field);
 
-            button_Controller.view.label_num_count = Count_Move_UI ;
+            //button_Controller.view.label_num_count = Count_Move_UI ;
             button_Controller.view.num_turn_update(0);
 
-            button_Controller.view.label_OX_turn = Turn_UI;
-        }
-        
-        public void Change_Colour()
-        {
-            
+            //button_Controller.view.label_OX_turn = Turn_UI;
         }
 
         public void Save_Pressed(object sender, EventArgs e)
         {
-            button_Controller.view.Save_window_call();
+            button_Controller.Do_save();
 
         }
 
-       
+        public void Load_button_Click(object sender, RoutedEventArgs e)
+        {
+            button_Controller.Do_load();
+
+            //int n = button_Controller.data.n;
+            my_Canvas.Children.Remove(button_Controller.view.grid_field_old_one);
+            //my_Canvas.Children.Clear(); clear
+            button_Controller.view.grid_field_old_one = button_Controller.view.grid_field;
+
+
+
+            my_Canvas.Children.Add(button_Controller.view.grid_field);
+
+            button_Controller.view.label_num_count = Count_Move_UI;
+            button_Controller.view.num_turn_update(0);
+
+            button_Controller.view.label_OX_turn = Turn_UI;
+
+        }
     }
 }
