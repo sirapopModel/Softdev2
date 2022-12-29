@@ -53,6 +53,7 @@ namespace WPF_first_touch
                 return;
             }
             //int n = button_Controller.data.n;
+            button_Controller.Made_empty_Array(Int32.Parse(Size_Text.Text));
             my_Canvas.Children.Remove(button_Controller.view.grid_field_old_one);
             //my_Canvas.Children.Clear(); clear
             button_Controller.view.grid_field_old_one = button_Controller.view.grid_field;
@@ -77,21 +78,29 @@ namespace WPF_first_touch
 
         public void Load_button_Click(object sender, RoutedEventArgs e)
         {
-            button_Controller.Do_load();
+            
 
             //int n = button_Controller.data.n;
             my_Canvas.Children.Remove(button_Controller.view.grid_field_old_one);
+
             //my_Canvas.Children.Clear(); clear
             button_Controller.view.grid_field_old_one = button_Controller.view.grid_field;
-
-
-
-            my_Canvas.Children.Add(button_Controller.view.grid_field);
-
             button_Controller.view.label_num_count = Count_Move_UI;
-            button_Controller.view.num_turn_update(0);
+            
 
             button_Controller.view.label_OX_turn = Turn_UI;
+
+
+
+
+            
+            if (button_Controller.Do_load())
+            {
+                my_Canvas.Children.Add(button_Controller.view.grid_field);
+            }
+            
+
+            
 
         }
     }

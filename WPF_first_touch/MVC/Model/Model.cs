@@ -64,7 +64,7 @@ namespace WPF_first_touch.MVC.Model
             return !String.IsNullOrWhiteSpace(GameResultArray[row, column]);
         }
 
-        public Boolean CheckForWinner(int row, int column)
+        public int CheckForWinner(int row, int column)
         {
             // Check win for horizontal.
             for (int i = 1; i < n; i++)
@@ -75,7 +75,7 @@ namespace WPF_first_touch.MVC.Model
                 }
                 if (i == n-1)
                 {
-                    return true;
+                    return 1;
                 }
             }
             // Check win for vertical.
@@ -87,7 +87,7 @@ namespace WPF_first_touch.MVC.Model
                 }
                 if (i == n - 1)
                 {
-                    return true;
+                    return 2;
                 }
             }
             // Check win for diagonal 1.
@@ -101,7 +101,7 @@ namespace WPF_first_touch.MVC.Model
                     }
                     if (i == n - 1)
                     {
-                        return true;
+                        return 3;
                     }
                 }
             }
@@ -116,11 +116,11 @@ namespace WPF_first_touch.MVC.Model
                     }
                     if (i == n - 1)
                     {
-                        return true;
+                        return 4;
                     }
                 }
             }
-            return false;
+            return 0;
         }
 
         public Boolean IsDraw()
@@ -176,8 +176,8 @@ namespace WPF_first_touch.MVC.Model
                 n = Int32.Parse(streamReader.ReadLine());
                 string ResultText = streamReader.ReadLine();
                 string NowTurn = streamReader.ReadLine();
-                TurnCount = Int32.Parse(streamReader.ReadLine());
                 CreateArray(n);
+                TurnCount = Int32.Parse(streamReader.ReadLine());
                 UpdateArray(ResultText);
                 SetTurn(NowTurn);
                 streamReader.Close();

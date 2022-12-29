@@ -17,7 +17,7 @@ namespace WPF_first_touch.MVC.Controller
 {
     public class View
     {
-        public game_data data = new game_data(); //model
+        //public game_data data = new game_data(); //model
 
         public Point[] x_array = new Point[4] ;
         public Canvas[,] sheet_2d_array;
@@ -46,6 +46,38 @@ namespace WPF_first_touch.MVC.Controller
 
         //public
         
+        public void Hight_light_winner(int row , int col , int winner_found , int n)
+        {
+            if(winner_found == 1)
+            {
+                for (int run_col = 0; run_col < n; run_col++)
+                {
+                    sheet_2d_array[row, run_col].Background = new SolidColorBrush(Colors.GreenYellow);
+                }
+            }
+            else if (winner_found == 2)
+            {
+                for (int run_row = 0; run_row < n ; run_row++)
+                {
+                    sheet_2d_array[run_row, col].Background = new SolidColorBrush(Colors.GreenYellow);
+                }
+            }
+            else if (winner_found==3)
+            {
+                for (int cell_count = 0; cell_count < n; cell_count++)
+                {
+                    sheet_2d_array[(n-1)-cell_count, (n - 1) - cell_count].Background = new SolidColorBrush(Colors.GreenYellow);
+                }
+            }
+            else
+            {
+                for (int cell_count = 0; cell_count < n; cell_count++)
+                {
+                    sheet_2d_array[cell_count, (n-1)-cell_count].Background = new SolidColorBrush(Colors.GreenYellow);
+                }
+            }
+        }
+
         public void num_turn_update(int turn_count) 
         {
             label_num_count.Content = turn_count.ToString();
@@ -63,7 +95,7 @@ namespace WPF_first_touch.MVC.Controller
                 label_OX_turn.Content = "O";
             }
         }
-]
+
         public Stream Save_window_call()
 
         {

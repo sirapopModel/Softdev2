@@ -17,6 +17,11 @@ namespace WPF_first_touch.MVC.Controller
     {
         public game_data data = new game_data();
         public View view = new View();
+
+        public void Made_empty_Array(int n)
+        {
+            data.CreateArray(n);
+        }
         public void Play_Setup(int n)
         {
             data.n = n;
@@ -26,7 +31,7 @@ namespace WPF_first_touch.MVC.Controller
             view.sheet_2d_array = new Canvas[n, n];
             view.grid_size =  300/ n;
 
-            data.CreateArray(n);
+            
             //data.checked_array = new Button[n][];
             //set grid property
             view.grid_field = new Grid();
@@ -89,18 +94,20 @@ namespace WPF_first_touch.MVC.Controller
             if ( !data.IsAlreadyPlayed(row,col) )
             {
                 data.PlayerPlay(row, col);
-                bool winner_found = data.CheckForWinner(row, col);
+                int winner_found = data.CheckForWinner(row, col);
                 view.num_turn_update(data.TurnCount);
                 
 
                 if (data.Is_X_turn())
                 {
                     view.X_model(row, col);
-                    if (winner_found == true)
+                    if (winner_found >0)
                     {
                         view.num_turn_update(data.TurnCount);
+                        view.Hight_light_winner(row, col,winner_found,data.n);
                         MessageBox.Show("winner is X", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                        data.ClearAllArray();
+                        view.grid_field.IsEnabled = false;
+                        //data.ClearAllArray();
                         return;
 
                     }
@@ -109,11 +116,13 @@ namespace WPF_first_touch.MVC.Controller
                 else
                 {
                     view.O_model(row, col);
-                    if (winner_found == true)
+                    if (winner_found >0)
                     {
                         view.num_turn_update(data.TurnCount);
+                        view.Hight_light_winner(row, col, winner_found, data.n);
                         MessageBox.Show("winner is O", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                        data.ClearAllArray();
+                        view.grid_field.IsEnabled = false;
+
                         return;
 
                     }
@@ -122,7 +131,7 @@ namespace WPF_first_touch.MVC.Controller
                 {
                     view.num_turn_update(data.TurnCount);
                     MessageBox.Show("Draw", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                    data.ClearAllArray();
+                    
                     return;
                 }
 
@@ -145,7 +154,7 @@ namespace WPF_first_touch.MVC.Controller
 
         }
 
-        public void Do_load()
+        public Boolean Do_load()
         {
             Stream Loadfile = view.Load_window_call();
 
@@ -159,18 +168,24 @@ namespace WPF_first_touch.MVC.Controller
                 {
                     for (int col = 0; col < data.n; col++)
                     {
+                        Console.Write(data.GameResultArray[row,col]);
                         if (data.GameResultArray[row,col] == "x")
                         {
                             view.X_model(row , col);
-
-                        }    
-
+                        }
+                        else if (data.GameResultArray[row, col] == "o")
+                        {
+                            view.O_model(row, col);
+                        }
                     }
                     
                 }
-                
+                view.XO_turn_update(data.Is_X_turn());
+                view.num_turn_update(data.TurnCount);
+                Loadfile = null;
+                return true;
             }
-
+            return false;
             
         }
 
