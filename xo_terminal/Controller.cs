@@ -5,20 +5,24 @@ public class my_control
     public int n;
     public View terminal_call;
     public game_data data;
-    public my_control(int k)
+    public my_control()
     {
-        n = k;
-        terminal_call = new View(k);
+        //n = k;
+        terminal_call = new View(n);
 
         // Model
         data = new game_data();
-        data.CreateArray(k);
+        data.CreateArray(n);
     }
 
-    public void launch_menu()
+    public void save_slot_show()
     {
-
-
+        Console.WriteLine(data.save_path);
+        if (!Directory.Exists(data.save_path))
+        {
+            Directory.CreateDirectory(data.save_path);
+        }
+        terminal_call.save_file_write(data.save_path);
     }
 
     public void play_game()
@@ -28,14 +32,14 @@ public class my_control
         {
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("Current Turn : " + get_turn_string().ToUpper());
+            Console.WriteLine("Current Turn : " + data.GetCurrentTurn().ToUpper());
             Console.Write("ENTER ROW AND COLUMN like rol,col: ");
             var result = Console.ReadLine();
-            if (result == "SAVE")
+            if (result == "1")
             {
 
             }
-            else if (result == "LOAD")
+            else if (result == "2")
             {
 
             }
@@ -51,16 +55,7 @@ public class my_control
             }
             catch (System.Exception)
             {
-                Console.WriteLine("");
-                Console.WriteLine("");
-                Console.WriteLine("    !!SOMETHING WRONG ABOUT YOU INPUT TRY AGAIN LIKE!!");
-                Console.WriteLine("");
-                Console.WriteLine("      1. row num , col num to fill in field");
-                Console.WriteLine("      2. type SAVE for save game");
-                Console.WriteLine("      3. type LOAD for LOAD game");
-                Console.WriteLine("");
-                Console.WriteLine("Your current board:");
-                Console.WriteLine("");
+                terminal_call.detail_input();
                 terminal_call.field_write(data.GameResultArray);
             }
         }
@@ -95,9 +90,6 @@ public class my_control
     {
         terminal_call.winner_field_write(winner_found, data.GetCurrentTurn(), data.GameResultArray);
     }
-    public string get_turn_string()
-    {
-        return data.GetCurrentTurn();
-    }
+
 
 }

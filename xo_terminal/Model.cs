@@ -3,7 +3,7 @@ using System;
 
 public class game_data
 {
-    string save_path = Directory.GetCurrentDirectory() + "\\Save";
+    public string save_path = Directory.GetCurrentDirectory() + "/Save";
 
     public int n;
     private int _turnCheck = 0;
