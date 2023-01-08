@@ -86,8 +86,8 @@ public class View
         Console.WriteLine("    !!SOMETHING WRONG ABOUT YOU INPUT TRY AGAIN LIKE!!");
         Console.WriteLine("");
         Console.WriteLine("      1. row num , col num to fill in field");
-        Console.WriteLine("      2. type 1 for save game");
-        Console.WriteLine("      3. type 2 for LOAD game");
+        Console.WriteLine("      2. type SAVE for save game");
+        Console.WriteLine("      3. type LOAD for LOAD game");
         Console.WriteLine("");
         Console.WriteLine("Your current board:");
         Console.WriteLine("");
