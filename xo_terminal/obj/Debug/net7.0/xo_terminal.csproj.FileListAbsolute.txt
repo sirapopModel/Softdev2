@@ -28,3 +28,18 @@
 /Users/sirapophuangwilai/Desktop/GitHub/Softdev2/xo_terminal/obj/Debug/net7.0/xo_terminal.pdb
 /Users/sirapophuangwilai/Desktop/GitHub/Softdev2/xo_terminal/obj/Debug/net7.0/xo_terminal.genruntimeconfig.cache
 /Users/sirapophuangwilai/Desktop/GitHub/Softdev2/xo_terminal/obj/Debug/net7.0/ref/xo_terminal.dll
+E:\Softdeev 2\Softdev2\xo_terminal\bin\Debug\net7.0\xo_terminal.exe
+E:\Softdeev 2\Softdev2\xo_terminal\bin\Debug\net7.0\xo_terminal.deps.json
+E:\Softdeev 2\Softdev2\xo_terminal\bin\Debug\net7.0\xo_terminal.runtimeconfig.json
+E:\Softdeev 2\Softdev2\xo_terminal\bin\Debug\net7.0\xo_terminal.dll
+E:\Softdeev 2\Softdev2\xo_terminal\bin\Debug\net7.0\xo_terminal.pdb
+E:\Softdeev 2\Softdev2\xo_terminal\obj\Debug\net7.0\xo_terminal.csproj.AssemblyReference.cache
+E:\Softdeev 2\Softdev2\xo_terminal\obj\Debug\net7.0\xo_terminal.GeneratedMSBuildEditorConfig.editorconfig
+E:\Softdeev 2\Softdev2\xo_terminal\obj\Debug\net7.0\xo_terminal.AssemblyInfoInputs.cache
+E:\Softdeev 2\Softdev2\xo_terminal\obj\Debug\net7.0\xo_terminal.AssemblyInfo.cs
+E:\Softdeev 2\Softdev2\xo_terminal\obj\Debug\net7.0\xo_terminal.csproj.CoreCompileInputs.cache
+E:\Softdeev 2\Softdev2\xo_terminal\obj\Debug\net7.0\xo_terminal.dll
+E:\Softdeev 2\Softdev2\xo_terminal\obj\Debug\net7.0\refint\xo_terminal.dll
+E:\Softdeev 2\Softdev2\xo_terminal\obj\Debug\net7.0\xo_terminal.pdb
+E:\Softdeev 2\Softdev2\xo_terminal\obj\Debug\net7.0\xo_terminal.genruntimeconfig.cache
+E:\Softdeev 2\Softdev2\xo_terminal\obj\Debug\net7.0\ref\xo_terminal.dll

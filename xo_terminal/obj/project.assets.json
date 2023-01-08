@@ -8,25 +8,26 @@
     "net7.0": []
   },
   "packageFolders": {
-    "/Users/sirapophuangwilai/.nuget/packages/": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/sirapophuangwilai/Desktop/GitHub/Softdev2/xo_terminal/xo_terminal.csproj",
+      "projectUniqueName": "E:\\Softdeev 2\\Softdev2\\xo_terminal\\xo_terminal.csproj",
       "projectName": "xo_terminal",
-      "projectPath": "/Users/sirapophuangwilai/Desktop/GitHub/Softdev2/xo_terminal/xo_terminal.csproj",
-      "packagesPath": "/Users/sirapophuangwilai/.nuget/packages/",
-      "outputPath": "/Users/sirapophuangwilai/Desktop/GitHub/Softdev2/xo_terminal/obj/",
+      "projectPath": "E:\\Softdeev 2\\Softdev2\\xo_terminal\\xo_terminal.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "E:\\Softdeev 2\\Softdev2\\xo_terminal\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/sirapophuangwilai/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "/usr/local/share/dotnet/library-packs": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -60,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

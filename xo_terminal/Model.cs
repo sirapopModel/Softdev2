@@ -4,6 +4,7 @@ using System;
 public class game_data
 {
     public string save_path = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
+
     public int n;
     private int _turnCheck = 0;
     public string[,] GameResultArray = new string[3, 3];
@@ -185,7 +186,7 @@ public class game_data
             CreateArray(n);
             TurnCount = Int32.Parse(streamReader.ReadLine());
             UpdateArray(ResultText);
-            //SetTurn(NowTurn);
+            SetTurn(NowTurn);
             streamReader.Close();
         }
         catch (System.Exception e)
@@ -219,7 +220,18 @@ public class game_data
     public void SetTurn(string Turn)
     {
         //_turnCheck = (Turn == "x") ? true : false;
-
+        if (Turn == "x")
+        {
+            _turnCheck = 0;
+        }
+        else if (Turn == "o")
+        {
+            _turnCheck = 1;
+        }
+        else
+        {
+            _turnCheck = 2;
+        }
     }
 
 

@@ -18,6 +18,7 @@ class Program
         else if (ANS == "LOAD")
         {
             controller_call.launch_load();
+            controller_call.play_game();
         }
         else
         {
