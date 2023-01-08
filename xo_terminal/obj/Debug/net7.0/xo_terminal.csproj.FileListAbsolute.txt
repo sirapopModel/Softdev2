@@ -1,0 +1,15 @@
+/Users/sirapophuangwilai/Desktop/xo_terminal/bin/Debug/net7.0/xo_terminal
+/Users/sirapophuangwilai/Desktop/xo_terminal/bin/Debug/net7.0/xo_terminal.deps.json
+/Users/sirapophuangwilai/Desktop/xo_terminal/bin/Debug/net7.0/xo_terminal.runtimeconfig.json
+/Users/sirapophuangwilai/Desktop/xo_terminal/bin/Debug/net7.0/xo_terminal.dll
+/Users/sirapophuangwilai/Desktop/xo_terminal/bin/Debug/net7.0/xo_terminal.pdb
+/Users/sirapophuangwilai/Desktop/xo_terminal/obj/Debug/net7.0/xo_terminal.csproj.AssemblyReference.cache
+/Users/sirapophuangwilai/Desktop/xo_terminal/obj/Debug/net7.0/xo_terminal.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sirapophuangwilai/Desktop/xo_terminal/obj/Debug/net7.0/xo_terminal.AssemblyInfoInputs.cache
+/Users/sirapophuangwilai/Desktop/xo_terminal/obj/Debug/net7.0/xo_terminal.AssemblyInfo.cs
+/Users/sirapophuangwilai/Desktop/xo_terminal/obj/Debug/net7.0/xo_terminal.csproj.CoreCompileInputs.cache
+/Users/sirapophuangwilai/Desktop/xo_terminal/obj/Debug/net7.0/xo_terminal.dll
+/Users/sirapophuangwilai/Desktop/xo_terminal/obj/Debug/net7.0/refint/xo_terminal.dll
+/Users/sirapophuangwilai/Desktop/xo_terminal/obj/Debug/net7.0/xo_terminal.pdb
+/Users/sirapophuangwilai/Desktop/xo_terminal/obj/Debug/net7.0/xo_terminal.genruntimeconfig.cache
+/Users/sirapophuangwilai/Desktop/xo_terminal/obj/Debug/net7.0/ref/xo_terminal.dll
