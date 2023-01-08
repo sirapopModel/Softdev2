@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/sirapophuangwilai/Desktop/xo_terminal/xo_terminal.csproj": {}
+    "/Users/sirapophuangwilai/Desktop/GitHub/Softdev2/xo_terminal/xo_terminal.csproj": {}
   },
   "projects": {
-    "/Users/sirapophuangwilai/Desktop/xo_terminal/xo_terminal.csproj": {
+    "/Users/sirapophuangwilai/Desktop/GitHub/Softdev2/xo_terminal/xo_terminal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/sirapophuangwilai/Desktop/xo_terminal/xo_terminal.csproj",
+        "projectUniqueName": "/Users/sirapophuangwilai/Desktop/GitHub/Softdev2/xo_terminal/xo_terminal.csproj",
         "projectName": "xo_terminal",
-        "projectPath": "/Users/sirapophuangwilai/Desktop/xo_terminal/xo_terminal.csproj",
+        "projectPath": "/Users/sirapophuangwilai/Desktop/GitHub/Softdev2/xo_terminal/xo_terminal.csproj",
         "packagesPath": "/Users/sirapophuangwilai/.nuget/packages/",
-        "outputPath": "/Users/sirapophuangwilai/Desktop/xo_terminal/obj/",
+        "outputPath": "/Users/sirapophuangwilai/Desktop/GitHub/Softdev2/xo_terminal/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/sirapophuangwilai/.nuget/NuGet/NuGet.Config"

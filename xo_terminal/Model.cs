@@ -3,8 +3,7 @@ using System;
 
 public class game_data
 {
-    public string save_path = Directory.GetCurrentDirectory() + "/Save";
-
+    public string save_path = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
     public int n;
     private int _turnCheck = 0;
     public string[,] GameResultArray = new string[3, 3];

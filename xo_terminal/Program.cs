@@ -19,6 +19,10 @@ class Program
         {
             Console.WriteLine("SELECT SAVE FILE : ");
             controller_call.save_slot_show();
+            Console.WriteLine("");
+            Console.Write("TYPE YOUR SAVE NAME : ");
+            string save_name = Console.ReadLine();
+            controller_call.launch_load(save_name);
         }
         else
         {

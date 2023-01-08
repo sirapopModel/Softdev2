@@ -25,6 +25,10 @@ public class my_control
         terminal_call.save_file_write(data.save_path);
     }
 
+    public void launch_load(string file_name)
+    {
+
+    }
     public void play_game()
     {
 
