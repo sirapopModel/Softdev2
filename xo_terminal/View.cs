@@ -1,11 +1,8 @@
 public class View
 {
-    int n;
-    public View(int k)
-    {
-        n = k;
-    }
-    public void first_board_view()
+    //public int n;
+
+    public void first_board_view(int n)
     {
         for (int i = 0; i < n; i++)
         {
@@ -23,22 +20,22 @@ public class View
     public void save_file_write(string folder_path)
     {
         DirectoryInfo save_folder = new DirectoryInfo(folder_path);
-        FileInfo[] save_name_list = save_folder.GetFiles("*.txt");
+        FileInfo[] Files_in_Folder = save_folder.GetFiles("*.txt");
 
-        foreach (FileInfo file in save_name_list)
+        foreach (FileInfo file in Files_in_Folder)
         {
             Console.WriteLine(file.Name);
         }
     }
 
-    public void field_write(string[,] field_array)
+    public void field_write(string[,] field_array, int n)
     {
         Console.WriteLine("");
         for (int i = 0; i < n; i++)
         {
             for (int j = 0; j < n; j++)
             {
-                if (field_array[i, j] == "n" || field_array[i, j] == null)
+                if (field_array[i, j] == "n" || field_array[i, j] == null || field_array[i, j] == "")
                 {
                     Console.Write(" _ ");
                 }
@@ -64,9 +61,9 @@ public class View
 
     }
 
-    public void winner_field_write(int winner_found, string winner_turn, string[,] field_array)
+    public void winner_field_write(int winner_found, string winner_turn, string[,] field_array, int n)
     {
-        field_write(field_array);
+        field_write(field_array, n);
         if (winner_found == 1)
         {
             Console.WriteLine("winner is " + winner_turn.ToUpper() + " (horizontal line)");

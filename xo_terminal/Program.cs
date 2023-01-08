@@ -9,20 +9,15 @@ class Program
         var ANS = Console.ReadLine();
         if (ANS == "PLAY")
         {
-            Console.WriteLine("ENTER SIZE ");
+            Console.Write("ENTER SIZE : ");
             int n = Convert.ToInt32(Console.ReadLine());
-            controller_call.n = n;
+            controller_call.set_up(n);
             controller_call.call_first_board(n);
             controller_call.play_game();
         }
         else if (ANS == "LOAD")
         {
-            Console.WriteLine("SELECT SAVE FILE : ");
-            controller_call.save_slot_show();
-            Console.WriteLine("");
-            Console.Write("TYPE YOUR SAVE NAME : ");
-            string save_name = Console.ReadLine();
-            controller_call.launch_load(save_name);
+            controller_call.launch_load();
         }
         else
         {
