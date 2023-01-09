@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {}
+    "C:\\Users\\mercuone\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Softdeev 2\\Softdev2\\xo_terminal\\xo_terminal.csproj",
+      "projectUniqueName": "\\\\Mac\\Home\\Desktop\\Project\\Softdev2\\xo_terminal\\xo_terminal.csproj",
       "projectName": "xo_terminal",
-      "projectPath": "E:\\Softdeev 2\\Softdev2\\xo_terminal\\xo_terminal.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "E:\\Softdeev 2\\Softdev2\\xo_terminal\\obj\\",
+      "projectPath": "\\\\Mac\\Home\\Desktop\\Project\\Softdev2\\xo_terminal\\xo_terminal.csproj",
+      "packagesPath": "C:\\Users\\mercuone\\.nuget\\packages\\",
+      "outputPath": "\\\\Mac\\Home\\Desktop\\Project\\Softdev2\\xo_terminal\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mercuone\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

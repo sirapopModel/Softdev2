@@ -47,10 +47,7 @@ public class View
                 {
                     Console.Write(" O ");
                 }
-                else if (field_array[i, j] == "l")
-                {
-                    Console.Write(" l ");
-                }
+                
             }
             Console.WriteLine("");
         }

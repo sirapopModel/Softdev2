@@ -1,4 +1,6 @@
 using System;
+using System.Numerics;
+using System.Threading.Channels;
 
 
 public class game_data
@@ -29,7 +31,10 @@ public class game_data
     public void SwitchTurn()
     {
         // Switch player's turn.
-        if (_turnCheck == 2)
+
+        // change _turnCheck to 2 for play with 3 player
+
+        if (_turnCheck == 1)
         {
             _turnCheck = 0;
         }
@@ -50,14 +55,17 @@ public class game_data
         {
             GameResultArray[row, column] = "x";
         }
-        else if (_turnCheck == 1)
+        else 
         {
             GameResultArray[row, column] = "o";
         }
-        else if (_turnCheck == 2)
-        {
-            GameResultArray[row, column] = "l";
-        }
+
+        // if you want 3player open this
+
+        //else if (_turnCheck == 2)
+        //{
+        //    GameResultArray[row, column] = "l";
+        //}
         TurnCount++;
     }
 
@@ -166,11 +174,13 @@ public class game_data
         {
             return "x";
         }
-        else if (_turnCheck == 1)
-        {
-            return "o";
-        }
-        return "l";
+        //else if (_turnCheck == 1)
+        //{
+        //    return "o";
+        //}
+        return "o";
+
+        // if you want to play 3-player change return to "l"
     }
 
     public Boolean LoadGame(Stream FileStream)
@@ -228,10 +238,12 @@ public class game_data
         {
             _turnCheck = 1;
         }
-        else
-        {
-            _turnCheck = 2;
-        }
+        //remove // for play with 3 player
+
+        //else
+        //{
+        //    _turnCheck = 2;
+        //}
     }
 
 
