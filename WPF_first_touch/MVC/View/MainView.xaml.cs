@@ -34,7 +34,7 @@ namespace WPF_first_touch.MVC.View
             button_Controller.serve_component_to_view(Count_Move_UI, Turn_UI);
         }
 
-        public void Play_Pressed(object sender, EventArgs e)
+        private void Play_Pressed(object sender, EventArgs e)
         {
 
             try
@@ -67,13 +67,13 @@ namespace WPF_first_touch.MVC.View
         }
 
 
-        public void Save_Pressed(object sender, EventArgs e)
+        private void Save_Pressed(object sender, EventArgs e)
         {
             button_Controller.Do_save();
 
         }
 
-        public void Load_button_Click(object sender, RoutedEventArgs e)
+        private void Load_button_Click(object sender, RoutedEventArgs e)
         {
 
 
