@@ -81,10 +81,6 @@ namespace WPF_first_touch.MVC.Controller
             view.label_OX_turn = OX_turn_label;
         }
 
-        public void reset_label()
-        {
-
-        }
         public void grid_click(object sender, MouseButtonEventArgs e)
         {
             Point my_point = e.GetPosition(view.grid_field);
@@ -98,7 +94,7 @@ namespace WPF_first_touch.MVC.Controller
                 view.num_turn_update(data.TurnCount);
                 
 
-                if (data.Is_X_turn())
+                if (data.check_turn() == 0)
                 {
                     view.X_model(row, col);
                     if (winner_found >0)
@@ -137,7 +133,7 @@ namespace WPF_first_touch.MVC.Controller
 
                 
                 data.SwitchTurn();
-                view.XO_turn_update(data.Is_X_turn());
+                view.XO_turn_update(data.check_turn());
             }
         }
 
@@ -180,7 +176,7 @@ namespace WPF_first_touch.MVC.Controller
                     }
                     
                 }
-                view.XO_turn_update(data.Is_X_turn());
+                view.XO_turn_update(data.check_turn());
                 view.num_turn_update(data.TurnCount);
                 Loadfile = null;
                 return true;

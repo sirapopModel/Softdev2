@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = xo_terminal
-build_property.ProjectDir = \\Mac\Home\Desktop\Project\Softdev2\xo_terminal\
+build_property.ProjectDir = /Users/mercuone/Desktop/Project/Softdev2/xo_terminal/

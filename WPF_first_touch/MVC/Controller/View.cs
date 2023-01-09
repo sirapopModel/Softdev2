@@ -84,9 +84,9 @@ namespace WPF_first_touch.MVC.Controller
             
         }
 
-        public void XO_turn_update(bool is_X_turn )
+        public void XO_turn_update(int check_turn)
         {
-            if (is_X_turn) 
+            if (check_turn == 0) 
             {
                 label_OX_turn.Content = "X";
             }

@@ -13,18 +13,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace WPF_first_touch.MVC.Model
 {
     public class game_data
     {
-        public SaveFileDialog my_save_window = new SaveFileDialog();
-        string save_path = Directory.GetCurrentDirectory() + "\\Save";
+        public string save_path = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
 
-        public int n ;
-        private Boolean _turnCheck = true ;
+        public int n;
+        private int _turnCheck = 0;
         public string[,] GameResultArray = new string[3, 3];
-        public int TurnCount = 0 ;
+        public int TurnCount = 0;
 
         public void ClearAllArray() => Array.Clear(GameResultArray, 0, GameResultArray.Length);
         public void CreateArray(int size)
@@ -35,26 +35,51 @@ namespace WPF_first_touch.MVC.Model
             GameResultArray = new string[size, size];
             TurnCount = 0;
         }
-        public Boolean Is_X_turn()
-        { 
+        public int check_turn()
+        {
             // Return true if it's Player_x's turn, otherwise false.
-            return _turnCheck; 
+            return _turnCheck;
         }
 
-        
+
         public void SwitchTurn()
         {
             // Switch player's turn.
-            _turnCheck = !_turnCheck;
+
+            // change _turnCheck to 2 for play with 3 player
+
+            if (_turnCheck == 1)
+            {
+                _turnCheck = 0;
+            }
+            else
+            {
+                _turnCheck++;
+            }
         }
-        
+
         public void PlayerPlay(int row, int column)
         {
             // If already played, return
             if (IsAlreadyPlayed(row, column)) { return; }
 
             // Insert "x" or "o" into GameResultArray when player plays.
-            GameResultArray[row, column] = (Is_X_turn()) ? "x" : "o";
+            //GameResultArray[row, column] = (Is_X_turn()) ? "x" : "o";
+            if (_turnCheck == 0)
+            {
+                GameResultArray[row, column] = "x";
+            }
+            else
+            {
+                GameResultArray[row, column] = "o";
+            }
+
+            // if you want 3player open this
+
+            //else if (_turnCheck == 2)
+            //{
+            //    GameResultArray[row, column] = "l";
+            //}
             TurnCount++;
         }
 
@@ -69,11 +94,11 @@ namespace WPF_first_touch.MVC.Model
             // Check win for horizontal.
             for (int i = 1; i < n; i++)
             {
-                if (GameResultArray[row,0] != GameResultArray[row,i] || String.IsNullOrEmpty(GameResultArray[row, i]))
+                if (GameResultArray[row, 0] != GameResultArray[row, i] || String.IsNullOrEmpty(GameResultArray[row, i]))
                 {
                     break;
                 }
-                if (i == n-1)
+                if (i == n - 1)
                 {
                     return 1;
                 }
@@ -106,11 +131,11 @@ namespace WPF_first_touch.MVC.Model
                 }
             }
             // Check win for diagonal 2.
-            if (row + column == n-1)
+            if (row + column == n - 1)
             {
                 for (int i = 1; i < n; i++)
                 {
-                    if (GameResultArray[0, n-1] != GameResultArray[i, n-1-i] || String.IsNullOrEmpty(GameResultArray[i, n - 1 - i]))
+                    if (GameResultArray[0, n - 1] != GameResultArray[i, n - 1 - i] || String.IsNullOrEmpty(GameResultArray[i, n - 1 - i]))
                     {
                         break;
                     }
@@ -159,11 +184,17 @@ namespace WPF_first_touch.MVC.Model
 
         public string GetCurrentTurn()
         {
-            if (Is_X_turn())
+            if (_turnCheck == 0)
             {
                 return "x";
             }
+            //else if (_turnCheck == 1)
+            //{
+            //    return "o";
+            //}
             return "o";
+
+            // if you want to play 3-player change return to "l"
         }
 
         public Boolean LoadGame(Stream FileStream)
@@ -183,7 +214,7 @@ namespace WPF_first_touch.MVC.Model
                 streamReader.Close();
             }
             catch (System.Exception e)
-            { 
+            {
                 Console.WriteLine(e.Message);
                 return false;
             }
@@ -193,9 +224,9 @@ namespace WPF_first_touch.MVC.Model
         public void UpdateArray(string ResultText)
         {
             int IndexText = 0;
-            for (int row = 0;row<n;row++)
+            for (int row = 0; row < n; row++)
             {
-                for (int col = 0;col<n;col++)
+                for (int col = 0; col < n; col++)
                 {
                     if (ResultText[IndexText] == 'n')
                     {
@@ -212,7 +243,21 @@ namespace WPF_first_touch.MVC.Model
 
         public void SetTurn(string Turn)
         {
-            _turnCheck = (Turn == "x") ? true : false;
+            //_turnCheck = (Turn == "x") ? true : false;
+            if (Turn == "x")
+            {
+                _turnCheck = 0;
+            }
+            else if (Turn == "o")
+            {
+                _turnCheck = 1;
+            }
+            //remove // for play with 3 player
+
+            //else
+            //{
+            //    _turnCheck = 2;
+            //}
         }
 
 
