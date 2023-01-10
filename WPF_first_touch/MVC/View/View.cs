@@ -13,26 +13,26 @@ using Microsoft.Win32;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 
-namespace WPF_first_touch.MVC.Controller
+namespace WPF_first_touch.MVC.View
 {
     public class View
     {
         //public game_data data = new game_data(); //model
 
-        public Point[] x_array = new Point[4] ;
+        public Point[] x_array = new Point[4];
         public Canvas[,] sheet_2d_array;
 
-        public Grid grid_field = new Grid() ;
-        public Grid grid_field_old_one ;
+        public Grid grid_field = new Grid();
+        public Grid grid_field_old_one;
         public int grid_size;
 
         public Storyboard x_Story = new Storyboard();
         public Storyboard x_Story1 = new Storyboard();
 
-        public int o_size = 0 ;
-        public int o_position = 0 ;
-        public Point[] o_cooardinate_list = new Point[721] ;
-        public double one_radian = 3.14 / 360 ;
+        public int o_size = 0;
+        public int o_position = 0;
+        public Point[] o_cooardinate_list = new Point[721];
+        public double one_radian = 3.14 / 360;
         public Storyboard o_Story = new Storyboard();
 
         public SaveFileDialog my_save_window = new SaveFileDialog();
@@ -40,15 +40,15 @@ namespace WPF_first_touch.MVC.Controller
 
         public OpenFileDialog my_open_window = new OpenFileDialog();
 
-        
-        public Label label_num_count ;
+
+        public Label label_num_count;
         public Label label_OX_turn;
 
         //public
-        
-        public void Hight_light_winner(int row , int col , int winner_found , int n)
+
+        public void Hight_light_winner(int row, int col, int winner_found, int n)
         {
-            if(winner_found == 1)
+            if (winner_found == 1)
             {
                 for (int run_col = 0; run_col < n; run_col++)
                 {
@@ -57,36 +57,36 @@ namespace WPF_first_touch.MVC.Controller
             }
             else if (winner_found == 2)
             {
-                for (int run_row = 0; run_row < n ; run_row++)
+                for (int run_row = 0; run_row < n; run_row++)
                 {
                     sheet_2d_array[run_row, col].Background = new SolidColorBrush(Colors.GreenYellow);
                 }
             }
-            else if (winner_found==3)
+            else if (winner_found == 3)
             {
                 for (int cell_count = 0; cell_count < n; cell_count++)
                 {
-                    sheet_2d_array[(n-1)-cell_count, (n - 1) - cell_count].Background = new SolidColorBrush(Colors.GreenYellow);
+                    sheet_2d_array[n - 1 - cell_count, n - 1 - cell_count].Background = new SolidColorBrush(Colors.GreenYellow);
                 }
             }
             else
             {
                 for (int cell_count = 0; cell_count < n; cell_count++)
                 {
-                    sheet_2d_array[cell_count, (n-1)-cell_count].Background = new SolidColorBrush(Colors.GreenYellow);
+                    sheet_2d_array[cell_count, n - 1 - cell_count].Background = new SolidColorBrush(Colors.GreenYellow);
                 }
             }
         }
 
-        public void num_turn_update(int turn_count) 
+        public void num_turn_update(int turn_count)
         {
             label_num_count.Content = turn_count.ToString();
-            
+
         }
 
         public void XO_turn_update(int check_turn)
         {
-            if (check_turn == 0) 
+            if (check_turn == 0)
             {
                 label_OX_turn.Content = "X";
             }
@@ -99,8 +99,8 @@ namespace WPF_first_touch.MVC.Controller
         public Stream Save_window_call()
 
         {
-            MessageBoxResult confirm_result = MessageBox.Show("Do you want to save file?","Alert!!",MessageBoxButton.YesNo,MessageBoxImage.Warning);
-            if ( confirm_result == MessageBoxResult.Yes)
+            MessageBoxResult confirm_result = MessageBox.Show("Do you want to save file?", "Alert!!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (confirm_result == MessageBoxResult.Yes)
             {
                 my_save_window.InitialDirectory = save_path;
                 my_save_window.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
@@ -110,12 +110,12 @@ namespace WPF_first_touch.MVC.Controller
                 {
                     Directory.CreateDirectory(save_path);
                 }
-                
+
                 if (my_save_window.ShowDialog() == true) // press save the saveFileDialog.show will return true
                 {
 
                     return my_save_window.OpenFile();
-                    
+
 
                 }
             }
@@ -151,7 +151,7 @@ namespace WPF_first_touch.MVC.Controller
 
         public void O_model(int row, int col)
         {
-            for (int i = 0; i< 720; i++)
+            for (int i = 0; i < 720; i++)
             {
 
                 Line my_line = new Line();
@@ -160,8 +160,8 @@ namespace WPF_first_touch.MVC.Controller
 
                 double start_point_X = o_cooardinate_list[i].X;
                 double start_point_Y = o_cooardinate_list[i].Y;
-                double end_point_X = o_cooardinate_list[i+1].X;
-                double end_point_Y = o_cooardinate_list[i+1].Y;
+                double end_point_X = o_cooardinate_list[i + 1].X;
+                double end_point_Y = o_cooardinate_list[i + 1].Y;
 
                 my_line.X1 = start_point_X;
                 my_line.Y1 = start_point_Y;
@@ -180,7 +180,7 @@ namespace WPF_first_touch.MVC.Controller
                 Storyboard.SetTarget(varY, my_line);
                 Storyboard.SetTargetProperty(varX, new PropertyPath(Line.X2Property));
                 Storyboard.SetTargetProperty(varY, new PropertyPath(Line.Y2Property));
-                
+
             }
             o_Story.Begin();
             o_Story.Children.Clear();
@@ -188,28 +188,30 @@ namespace WPF_first_touch.MVC.Controller
 
         public void O_size_config(int n)
         {
-            o_size = 210/(2*n) ;
+            o_size = 210 / (2 * n);
             o_position = 45 / n;
-            
+
             for (int i = 0; i < 720; i++)
             {
-                Double x_point = Math.Round( ((o_size)*Math.Cos(i*one_radian)+ (o_size)) + o_position ,5);
-                Double y_point = Math.Round(((o_size) * Math.Sin(i*one_radian)+ (o_size)) + o_position ,5);
-                o_cooardinate_list[i] = new Point( x_point, y_point);
+                double x_point = Math.Round(o_size * Math.Cos(i * one_radian) + o_size + o_position, 5);
+                double y_point = Math.Round(o_size * Math.Sin(i * one_radian) + o_size + o_position, 5);
+                o_cooardinate_list[i] = new Point(x_point, y_point);
                 o_cooardinate_list[720] = o_cooardinate_list[1];
             }
-            
+
 
 
             //o_cooardinate_list[360] = o_cooardinate_list[359];
         }
+
         public void X_size_config(int n)
         {
-            x_array[0] = new Point(60/n,60/n);
+            x_array[0] = new Point(60 / n, 60 / n);
             x_array[1] = new Point(240 / n, 240 / n);
             x_array[2] = new Point(60 / n, 240 / n);
             x_array[3] = new Point(240 / n, 60 / n);
         }
+
         public void X_model(int row, int col)
         {
             // line property

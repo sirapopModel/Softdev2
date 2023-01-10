@@ -1,4 +1,3 @@
-using WPF_first_touch.MVC.Model;
 using System;
 using System.Data.Common;
 using System.Windows;
@@ -9,6 +8,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using WPF_first_touch;
 using System.IO;
+using WPF_first_touch.MVC.Model;
+using WPF_first_touch.MVC.View;
 
 namespace WPF_first_touch.MVC.Controller
 
@@ -16,7 +17,7 @@ namespace WPF_first_touch.MVC.Controller
     public class Button_Controller
     {
         public game_data data = new game_data();
-        public View view = new View();
+        public View.View view = new View.View();
 
         public void Made_empty_Array(int n)
         {
