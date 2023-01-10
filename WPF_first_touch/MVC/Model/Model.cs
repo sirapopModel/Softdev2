@@ -83,10 +83,10 @@ namespace WPF_first_touch.MVC.Model
             TurnCount++;
         }
 
-        public Boolean IsAlreadyPlayed(int row, int column)
+        public bool IsAlreadyPlayed(int row, int column)
         {
             // Return ture if that row and column is already played.
-            return !String.IsNullOrWhiteSpace(GameResultArray[row, column]);
+            return !string.IsNullOrWhiteSpace(GameResultArray[row, column]);
         }
 
         public int CheckForWinner(int row, int column)
@@ -94,7 +94,7 @@ namespace WPF_first_touch.MVC.Model
             // Check win for horizontal.
             for (int i = 1; i < n; i++)
             {
-                if (GameResultArray[row, 0] != GameResultArray[row, i] || String.IsNullOrEmpty(GameResultArray[row, i]))
+                if (GameResultArray[row, 0] != GameResultArray[row, i] || string.IsNullOrEmpty(GameResultArray[row, i]))
                 {
                     break;
                 }
@@ -106,7 +106,7 @@ namespace WPF_first_touch.MVC.Model
             // Check win for vertical.
             for (int i = 1; i < n; i++)
             {
-                if (GameResultArray[0, column] != GameResultArray[i, column] || String.IsNullOrEmpty(GameResultArray[i, column]))
+                if (GameResultArray[0, column] != GameResultArray[i, column] || string.IsNullOrEmpty(GameResultArray[i, column]))
                 {
                     break;
                 }
@@ -120,7 +120,7 @@ namespace WPF_first_touch.MVC.Model
             {
                 for (int i = 1; i < n; i++)
                 {
-                    if (GameResultArray[0, 0] != GameResultArray[i, i] || String.IsNullOrEmpty(GameResultArray[i, i]))
+                    if (GameResultArray[0, 0] != GameResultArray[i, i] || string.IsNullOrEmpty(GameResultArray[i, i]))
                     {
                         break;
                     }
@@ -135,7 +135,7 @@ namespace WPF_first_touch.MVC.Model
             {
                 for (int i = 1; i < n; i++)
                 {
-                    if (GameResultArray[0, n - 1] != GameResultArray[i, n - 1 - i] || String.IsNullOrEmpty(GameResultArray[i, n - 1 - i]))
+                    if (GameResultArray[0, n - 1] != GameResultArray[i, n - 1 - i] || string.IsNullOrEmpty(GameResultArray[i, n - 1 - i]))
                     {
                         break;
                     }
@@ -148,10 +148,10 @@ namespace WPF_first_touch.MVC.Model
             return 0;
         }
 
-        public Boolean IsDraw()
+        public bool IsDraw()
         {
             // Return true if TurnCount equal to n*n. That means all grid have played.
-            return (TurnCount == n * n) ? true : false;
+            return TurnCount == n * n ? true : false;
         }
 
         public void SaveGame(Stream FileStream)
@@ -170,7 +170,7 @@ namespace WPF_first_touch.MVC.Model
             string Result = "";
             foreach (string Text in GameResultArray)
             {
-                if (String.IsNullOrEmpty(Text))
+                if (string.IsNullOrEmpty(Text))
                 {
                     Result += "n";
                 }
@@ -197,23 +197,23 @@ namespace WPF_first_touch.MVC.Model
             // if you want to play 3-player change return to "l"
         }
 
-        public Boolean LoadGame(Stream FileStream)
+        public bool LoadGame(Stream FileStream)
 
         {
             // if return is true = not error
             try
             {
                 StreamReader streamReader = new StreamReader(FileStream);
-                n = Int32.Parse(streamReader.ReadLine());
+                n = int.Parse(streamReader.ReadLine());
                 string ResultText = streamReader.ReadLine();
                 string NowTurn = streamReader.ReadLine();
                 CreateArray(n);
-                TurnCount = Int32.Parse(streamReader.ReadLine());
+                TurnCount = int.Parse(streamReader.ReadLine());
                 UpdateArray(ResultText);
                 SetTurn(NowTurn);
                 streamReader.Close();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return false;

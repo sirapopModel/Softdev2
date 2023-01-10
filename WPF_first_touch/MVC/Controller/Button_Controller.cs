@@ -1,4 +1,3 @@
-using WPF_first_touch.MVC.Model;
 using System;
 using System.Data.Common;
 using System.Windows;

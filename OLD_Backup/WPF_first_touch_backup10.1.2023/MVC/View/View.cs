@@ -15,27 +15,24 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace WPF_first_touch.MVC.View
 {
-    public class my_View
+    public class View
     {
         //public game_data data = new game_data(); //model
 
-        public Point[] x_array = new Point[4] ;
-       
-        //public Canvas[,] sheet_2d_array;
+        public Point[] x_array = new Point[4];
+        public Canvas[,] sheet_2d_array;
 
-        //public Grid grid_field = new Grid() ;
-        public Canvas grid_field_old_one ;
+        public Grid grid_field = new Grid();
+        public Grid grid_field_old_one;
         public int grid_size;
 
         public Storyboard x_Story = new Storyboard();
         public Storyboard x_Story1 = new Storyboard();
 
-        public int o_size = 0 ;
-        public int o_position_x = 0 ;
-        public int o_position_y = 0;
-
-        public Point[] o_cooardinate_list = new Point[721] ;
-        public double one_radian = 3.14 / 360 ;
+        public int o_size = 0;
+        public int o_position = 0;
+        public Point[] o_cooardinate_list = new Point[721];
+        public double one_radian = 3.14 / 360;
         public Storyboard o_Story = new Storyboard();
 
         public SaveFileDialog my_save_window = new SaveFileDialog();
@@ -47,14 +44,39 @@ namespace WPF_first_touch.MVC.View
         public Label label_num_count;
         public Label label_OX_turn;
 
-        public Canvas Canvas_field;
+        //public
 
-        Line my_line = new Line();
-        Line my_line1 = new Line();
-
-        //public void 
-
-
+        public void Hight_light_winner(int row, int col, int winner_found, int n)
+        {
+            if (winner_found == 1)
+            {
+                for (int run_col = 0; run_col < n; run_col++)
+                {
+                    sheet_2d_array[row, run_col].Background = new SolidColorBrush(Colors.GreenYellow);
+                }
+            }
+            else if (winner_found == 2)
+            {
+                for (int run_row = 0; run_row < n; run_row++)
+                {
+                    sheet_2d_array[run_row, col].Background = new SolidColorBrush(Colors.GreenYellow);
+                }
+            }
+            else if (winner_found == 3)
+            {
+                for (int cell_count = 0; cell_count < n; cell_count++)
+                {
+                    sheet_2d_array[n - 1 - cell_count, n - 1 - cell_count].Background = new SolidColorBrush(Colors.GreenYellow);
+                }
+            }
+            else
+            {
+                for (int cell_count = 0; cell_count < n; cell_count++)
+                {
+                    sheet_2d_array[cell_count, n - 1 - cell_count].Background = new SolidColorBrush(Colors.GreenYellow);
+                }
+            }
+        }
 
         public void num_turn_update(int turn_count)
         {
@@ -132,7 +154,7 @@ namespace WPF_first_touch.MVC.View
             for (int i = 0; i < 720; i++)
             {
 
-                my_line = new Line();
+                Line my_line = new Line();
                 my_line.StrokeThickness = 4;
                 my_line.Stroke = Brushes.Red;
 
@@ -146,8 +168,7 @@ namespace WPF_first_touch.MVC.View
                 my_line.X2 = start_point_X;
                 my_line.Y2 = start_point_Y;
 
-                Canvas_field.Children.Add(my_line);
-                //sheet_2d_array[row, col].Children.Add(my_line);
+                sheet_2d_array[row, col].Children.Add(my_line);
                 DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(0.2)));
                 varX.BeginTime = TimeSpan.FromMilliseconds(i);
                 DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(0.2)));
@@ -165,36 +186,39 @@ namespace WPF_first_touch.MVC.View
             o_Story.Children.Clear();
         }
 
-        public void O_size_config(int n , int row , int col)
+        public void O_size_config(int n)
         {
-            o_size = 210/(2*n) ;
-            o_position_x = (45 / n) + (col* grid_size ) ;
-            o_position_y = (45 / n) + (row * grid_size);
-            
+            o_size = 210 / (2 * n);
+            o_position = 45 / n;
+
             for (int i = 0; i < 720; i++)
             {
-                Double x_point = Math.Round( ((o_size)*Math.Cos(i*one_radian)+ (o_size)) + o_position_x ,5);
-                Double y_point = Math.Round(((o_size) * Math.Sin(i*one_radian)+ (o_size)) + o_position_y ,5);
-                o_cooardinate_list[i] = new Point( x_point, y_point);
+                double x_point = Math.Round(o_size * Math.Cos(i * one_radian) + o_size + o_position, 5);
+                double y_point = Math.Round(o_size * Math.Sin(i * one_radian) + o_size + o_position, 5);
+                o_cooardinate_list[i] = new Point(x_point, y_point);
                 o_cooardinate_list[720] = o_cooardinate_list[1];
             }
+
+
+
             //o_cooardinate_list[360] = o_cooardinate_list[359];
         }
-        public void X_size_config(int n , int row , int col)
+
+        public void X_size_config(int n)
         {
-            x_array[0] = new Point( (60/n)+col*grid_size ,(60/n)+row*grid_size);
-            x_array[1] = new Point((240 / n) + col * grid_size, (240 / n) + row * grid_size );
-            x_array[2] = new Point( (60 / n) + col * grid_size, (240 / n) +row * grid_size );
-            x_array[3] = new Point( (240 / n) + col * grid_size, (60 / n) + row * grid_size);
+            x_array[0] = new Point(60 / n, 60 / n);
+            x_array[1] = new Point(240 / n, 240 / n);
+            x_array[2] = new Point(60 / n, 240 / n);
+            x_array[3] = new Point(240 / n, 60 / n);
         }
 
         public void X_model(int row, int col)
         {
             // line property
-            my_line = new Line();
+            var my_line = new Line();
             my_line.StrokeThickness = 4;
             my_line.Stroke = Brushes.Blue;
-            my_line1 = new Line();
+            var my_line1 = new Line();
             my_line1.StrokeThickness = 4;
             my_line1.Stroke = Brushes.Blue;
 
@@ -217,16 +241,10 @@ namespace WPF_first_touch.MVC.View
             my_line1.X2 = start_point1_X;
             my_line1.Y2 = start_point1_Y;
 
-            //Canvas.SetLeft(my_line, x_array[0].X);
-           // Canvas.SetTop(my_line, x_array[0].Y);
-            //Canvas.SetLeft(my_line1, x_array[2].X);
-            //Canvas.SetTop(my_line1, x_array[2].Y);
-            Canvas_field.Children.Add(my_line);
-            Canvas_field.Children.Add(my_line1);
             //Grid.SetRow(my_line, row);
             //Grid.SetColumn(my_line, col);
-            //sheet_2d_array[row, col].Children.Add(my_line);
-            //sheet_2d_array[row, col].Children.Add(my_line1);
+            sheet_2d_array[row, col].Children.Add(my_line);
+            sheet_2d_array[row, col].Children.Add(my_line1);
             //create animation
             DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(300)));
             DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(300)));
