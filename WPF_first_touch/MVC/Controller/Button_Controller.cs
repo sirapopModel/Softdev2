@@ -9,6 +9,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using WPF_first_touch;
 using System.IO;
+using WPF_first_touch.MVC.View;
 
 namespace WPF_first_touch.MVC.Controller
 
@@ -16,7 +17,7 @@ namespace WPF_first_touch.MVC.Controller
     public class Button_Controller
     {
         public game_data data = new game_data();
-        public View view = new View();
+        public View.my_View view = new View.my_View();
 
         public void Made_empty_Array(int n)
         {
@@ -25,54 +26,46 @@ namespace WPF_first_touch.MVC.Controller
         public void Play_Setup(int n)
         {
             data.n = n;
-            
-            view.grid_size = 300/n ;
-
-            view.sheet_2d_array = new Canvas[n, n];
+            //view.sheet_2d_array = new Canvas[n, n];
             view.grid_size =  300/ n;
+            //1
+            view.Canvas_field = new Canvas();
+            view.Canvas_field.Height = 300;
+            view.Canvas_field.Width = 300;
+            view.Canvas_field.Background = new SolidColorBrush(Colors.LemonChiffon);
+            Canvas.SetLeft(view.Canvas_field, 125);
+            view.Canvas_field.MouseDown += new MouseButtonEventHandler(Canvas_field_click);
+
+            //view.sheet_2d_array = new Canvas[n, n];
 
             
-            //data.checked_array = new Button[n][];
-            //set grid property
-            view.grid_field = new Grid();
-            view.grid_field.Background = new SolidColorBrush(Colors.Cornsilk);
-            view.grid_field.ShowGridLines = true;
-            Canvas.SetLeft(view.grid_field , 125 );
-            
 
+            //for (int Row = 0; Row < n; Row++)
 
-            view.sheet_2d_array = new Canvas[n, n];
-            view.X_size_config(n);
+            //{
+                //RowDefinition R = new RowDefinition();
+               // R.Height = new GridLength(view.grid_size);
+              //  view.grid_field.RowDefinitions.Add(R);
+            //}
+            //for (int Col = 0; Col < n; Col++)
+            //{
+                //ColumnDefinition C = new ColumnDefinition();
+                //C.Width = new GridLength(view.grid_size);
+               // view.grid_field.ColumnDefinitions.Add(C);
+            //}
 
-            view.O_size_config(n);
-
-           
-            for (int Row = 0; Row < n; Row++)
-
-            {
-                RowDefinition R = new RowDefinition();
-                R.Height = new GridLength(view.grid_size);
-                view.grid_field.RowDefinitions.Add(R);
-            }
-            for (int Col = 0; Col < n; Col++)
-            {
-                ColumnDefinition C = new ColumnDefinition();
-                C.Width = new GridLength(view.grid_size);
-                view.grid_field.ColumnDefinitions.Add(C);
-            }
-
-            for (int Row = 0; Row < n; Row++)
-            {
-                for (int Col = 0; Col < n; Col++)
-                {
-                    Canvas temp = new Canvas();
-                    view.sheet_2d_array[Row, Col] = temp;
-                    Grid.SetRow(temp, Row);
-                    Grid.SetColumn(temp, Col);
-                    view.grid_field.Children.Add(temp);
-                }
-            }
-            view.grid_field.MouseDown += new MouseButtonEventHandler(grid_click);
+            //for (int Row = 0; Row < n; Row++)
+            //{
+                //for (int Col = 0; Col < n; Col++)
+                //{
+                    //Canvas temp = new Canvas();
+                    //view.sheet_2d_array[Row, Col] = temp;
+                    //Grid.SetRow(temp, Row);
+                    //Grid.SetColumn(temp, Col);
+                    //view.grid_field.Children.Add(temp);
+                //}
+            //}
+            //view.grid_field.MouseDown += new MouseButtonEventHandler(grid_click);
         }
 
         public void serve_component_to_view(Label Count_Label , Label OX_turn_label)
@@ -81,11 +74,14 @@ namespace WPF_first_touch.MVC.Controller
             view.label_OX_turn = OX_turn_label;
         }
 
-        public void grid_click(object sender, MouseButtonEventArgs e)
+
+        public void Canvas_field_click(object sender, MouseButtonEventArgs e)
         {
-            Point my_point = e.GetPosition(view.grid_field);
+            Point my_point = e.GetPosition(view.Canvas_field);
             int row = (int)(my_point.Y / view.grid_size);
             int col = (int)(my_point.X / view.grid_size);
+            view.X_size_config(data.n , row , col);
+            view.O_size_config(data.n , row , col );
 
             if ( !data.IsAlreadyPlayed(row,col) )
             {
@@ -100,9 +96,9 @@ namespace WPF_first_touch.MVC.Controller
                     if (winner_found >0)
                     {
                         view.num_turn_update(data.TurnCount);
-                        view.Hight_light_winner(row, col,winner_found,data.n);
+                        //view.Hight_light_winner(row, col,winner_found,data.n);
                         MessageBox.Show("winner is X", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                        view.grid_field.IsEnabled = false;
+                        view.Canvas_field.IsEnabled = false;
                         //data.ClearAllArray();
                         return;
 
@@ -115,9 +111,9 @@ namespace WPF_first_touch.MVC.Controller
                     if (winner_found >0)
                     {
                         view.num_turn_update(data.TurnCount);
-                        view.Hight_light_winner(row, col, winner_found, data.n);
+                        //view.Hight_light_winner(row, col, winner_found, data.n);
                         MessageBox.Show("winner is O", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                        view.grid_field.IsEnabled = false;
+                        view.Canvas_field.IsEnabled = false;
 
                         return;
 

@@ -52,14 +52,16 @@ namespace WPF_first_touch.MVC.View
             }
             //int n = button_Controller.data.n;
             button_Controller.Made_empty_Array(Int32.Parse(Size_Text.Text));
-            my_Canvas.Children.Remove(button_Controller.view.grid_field_old_one);
+            //button_Controller.view.Canvas_field.Children.Clear();
+            my_Canvas.Children.Remove(button_Controller.view.Canvas_field);
             //my_Canvas.Children.Clear(); clear
-            button_Controller.view.grid_field_old_one = button_Controller.view.grid_field;
+            button_Controller.view.grid_field_old_one = button_Controller.view.Canvas_field;
 
 
 
-            my_Canvas.Children.Add(button_Controller.view.grid_field);
+            //my_Canvas.Children.Add(button_Controller.view.grid_field);
 
+            my_Canvas.Children.Add(button_Controller.view.Canvas_field);
             //button_Controller.view.label_num_count = Count_Move_UI ;
             button_Controller.view.num_turn_update(0);
 
@@ -81,7 +83,7 @@ namespace WPF_first_touch.MVC.View
             my_Canvas.Children.Remove(button_Controller.view.grid_field_old_one);
 
             //my_Canvas.Children.Clear(); clear
-            button_Controller.view.grid_field_old_one = button_Controller.view.grid_field;
+            button_Controller.view.grid_field_old_one = button_Controller.view.Canvas_field;
             button_Controller.view.label_num_count = Count_Move_UI;
 
 
@@ -93,7 +95,7 @@ namespace WPF_first_touch.MVC.View
 
             if (button_Controller.Do_load())
             {
-                my_Canvas.Children.Add(button_Controller.view.grid_field);
+                my_Canvas.Children.Add(button_Controller.view.Canvas_field);
             }
 
         }
