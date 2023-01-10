@@ -12,13 +12,14 @@ using System.Windows.Controls;
 using Microsoft.Win32;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using System.Windows.Input;
 
 namespace WPF_first_touch.MVC.View
 {
     public class my_View
     {
         //public game_data data = new game_data(); //model
-
+        public int field_size ;
         public Point[] x_array = new Point[4] ;
        
         //public Canvas[,] sheet_2d_array;
@@ -55,7 +56,13 @@ namespace WPF_first_touch.MVC.View
         //public void 
 
 
+        public void Canvas_field_Enter(object sender , MouseEventArgs e)
+        {
+            Canvas Canvas_field = (Canvas)sender;
+            Canvas_field.Height = field_size * 1.25 ;
+            Canvas_field.Width = field_size * 1.25;
 
+        }
         public void num_turn_update(int turn_count)
         {
             label_num_count.Content = turn_count.ToString();
@@ -126,6 +133,8 @@ namespace WPF_first_touch.MVC.View
 
         }
 
+    
+
 
         public void O_model(int row, int col)
         {
@@ -159,6 +168,8 @@ namespace WPF_first_touch.MVC.View
                 Storyboard.SetTarget(varY, my_line);
                 Storyboard.SetTargetProperty(varX, new PropertyPath(Line.X2Property));
                 Storyboard.SetTargetProperty(varY, new PropertyPath(Line.Y2Property));
+                varX = null;
+                varY = null;
 
             }
             o_Story.Begin();

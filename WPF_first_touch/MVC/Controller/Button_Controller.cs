@@ -11,10 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using WPF_first_touch;
 using System.IO;
-
-
 using WPF_first_touch.MVC.Model;
-
 using WPF_first_touch.MVC.View;
 
 namespace WPF_first_touch.MVC.Controller
@@ -38,28 +35,42 @@ namespace WPF_first_touch.MVC.Controller
             data.n = n;
 
             view.grid_size =  300/ n;
+            view.field_size = view.grid_size * n;
             //1
             view.Canvas_field = new Canvas();
-            view.Canvas_field.Height = 300;
-            view.Canvas_field.Width = 300;
+        
+            view.Canvas_field.Height = view.field_size;
+            view.Canvas_field.Width = view.field_size ;
             view.Canvas_field.Background = new SolidColorBrush(Colors.LemonChiffon);
             Canvas.SetLeft(view.Canvas_field, 125);
             view.Canvas_field.MouseDown += new MouseButtonEventHandler(Canvas_field_click);
-
+            view.Canvas_field.MouseEnter += new MouseEventHandler(Canvas_field_Enter);
         }
+
 
         public void serve_component_to_view(Label Count_Label , Label OX_turn_label)
         {
             view.label_num_count = Count_Label;
             view.label_OX_turn = OX_turn_label;
         }
+        public void Canvas_field_Enter(object sender, MouseEventArgs e)
+        {
+            Canvas Canvas_field = (Canvas)sender;
+            Point my_point = e.GetPosition(Canvas_field);
+            int row = Convert.ToInt32(Math.Floor(my_point.Y / view.grid_size));
+            int col = Convert.ToInt32(Math.Floor(my_point.X / view.grid_size));
+            
+            Canvas_field.Height = view.field_size * 1.25;
+            Canvas_field.Width = view.field_size * 1.25;
 
+        }
 
         public void Canvas_field_click(object sender, MouseButtonEventArgs e)
         {
             Point my_point = e.GetPosition(view.Canvas_field);
-            int row = (int)(my_point.Y / view.grid_size);
-            int col = (int)(my_point.X / view.grid_size);
+            
+            int row = Convert.ToInt32(Math.Floor(my_point.Y/view.grid_size));
+            int col = Convert.ToInt32(Math.Floor(my_point.X / view.grid_size));
             view.X_size_config(data.n , row , col);
             view.O_size_config(data.n, row, col);
 
@@ -81,7 +92,7 @@ namespace WPF_first_touch.MVC.Controller
                         MessageBox.Show("winner is X", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                         view.Canvas_field.IsEnabled = false;
                         //view.Hight_light_winner(row, col,winner_found,data.n);
-                        MessageBox.Show("winner is X", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                        
                         
 
                         //data.ClearAllArray();
@@ -100,7 +111,7 @@ namespace WPF_first_touch.MVC.Controller
                         MessageBox.Show("winner is O", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                         view.Canvas_field.IsEnabled = false;
                         //view.Hight_light_winner(row, col, winner_found, data.n);
-                        MessageBox.Show("winner is O", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                       
                         return;
 
                     }
@@ -116,6 +127,9 @@ namespace WPF_first_touch.MVC.Controller
                 
                 data.SwitchTurn();
                 view.XO_turn_update(data.check_turn());
+                Array.Clear(view.x_array,0,view.x_array.Length);
+                Array.Clear(view.o_cooardinate_list, 0, view.o_cooardinate_list.Length);
+
             }
         }
 

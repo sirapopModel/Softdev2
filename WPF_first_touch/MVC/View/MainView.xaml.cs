@@ -40,9 +40,9 @@ namespace WPF_first_touch.MVC.View
             try
             {
                 //button_Controller.view.grid_field.Children.Clear();
+                my_Canvas.Children.Remove(button_Controller.view.Canvas_field);
                 button_Controller.Play_Setup(Int32.Parse(Size_Text.Text));
-
-
+                
             }
 
             catch (System.Exception)
@@ -53,9 +53,9 @@ namespace WPF_first_touch.MVC.View
             //int n = button_Controller.data.n;
             button_Controller.Made_empty_Array(Int32.Parse(Size_Text.Text));
             //button_Controller.view.Canvas_field.Children.Clear();
-            my_Canvas.Children.Remove(button_Controller.view.Canvas_field);
+           
             //my_Canvas.Children.Clear(); clear
-            button_Controller.view.grid_field_old_one = button_Controller.view.Canvas_field;
+            //button_Controller.view.grid_field_old_one = button_Controller.view.Canvas_field;
 
 
 
