@@ -1,3 +1,6 @@
+
+using WPF_first_touch.MVC.Model;
+
 using System;
 using System.Data.Common;
 using System.Windows;
@@ -8,6 +11,10 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using WPF_first_touch;
 using System.IO;
+
+
+using WPF_first_touch.MVC.Model;
+
 using WPF_first_touch.MVC.View;
 
 namespace WPF_first_touch.MVC.Controller
@@ -16,7 +23,11 @@ namespace WPF_first_touch.MVC.Controller
     public class Button_Controller
     {
         public game_data data = new game_data();
+
         public View.my_View view = new View.my_View();
+
+       
+
 
         public void Made_empty_Array(int n)
         {
@@ -25,7 +36,7 @@ namespace WPF_first_touch.MVC.Controller
         public void Play_Setup(int n)
         {
             data.n = n;
-            //view.sheet_2d_array = new Canvas[n, n];
+
             view.grid_size =  300/ n;
             //1
             view.Canvas_field = new Canvas();
@@ -35,36 +46,6 @@ namespace WPF_first_touch.MVC.Controller
             Canvas.SetLeft(view.Canvas_field, 125);
             view.Canvas_field.MouseDown += new MouseButtonEventHandler(Canvas_field_click);
 
-            //view.sheet_2d_array = new Canvas[n, n];
-
-            
-
-            //for (int Row = 0; Row < n; Row++)
-
-            //{
-                //RowDefinition R = new RowDefinition();
-               // R.Height = new GridLength(view.grid_size);
-              //  view.grid_field.RowDefinitions.Add(R);
-            //}
-            //for (int Col = 0; Col < n; Col++)
-            //{
-                //ColumnDefinition C = new ColumnDefinition();
-                //C.Width = new GridLength(view.grid_size);
-               // view.grid_field.ColumnDefinitions.Add(C);
-            //}
-
-            //for (int Row = 0; Row < n; Row++)
-            //{
-                //for (int Col = 0; Col < n; Col++)
-                //{
-                    //Canvas temp = new Canvas();
-                    //view.sheet_2d_array[Row, Col] = temp;
-                    //Grid.SetRow(temp, Row);
-                    //Grid.SetColumn(temp, Col);
-                    //view.grid_field.Children.Add(temp);
-                //}
-            //}
-            //view.grid_field.MouseDown += new MouseButtonEventHandler(grid_click);
         }
 
         public void serve_component_to_view(Label Count_Label , Label OX_turn_label)
@@ -80,7 +61,7 @@ namespace WPF_first_touch.MVC.Controller
             int row = (int)(my_point.Y / view.grid_size);
             int col = (int)(my_point.X / view.grid_size);
             view.X_size_config(data.n , row , col);
-            view.O_size_config(data.n , row , col );
+            view.O_size_config(data.n, row, col);
 
             if ( !data.IsAlreadyPlayed(row,col) )
             {
@@ -95,9 +76,14 @@ namespace WPF_first_touch.MVC.Controller
                     if (winner_found >0)
                     {
                         view.num_turn_update(data.TurnCount);
+
                         //view.Hight_light_winner(row, col,winner_found,data.n);
                         MessageBox.Show("winner is X", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                         view.Canvas_field.IsEnabled = false;
+                        //view.Hight_light_winner(row, col,winner_found,data.n);
+                        MessageBox.Show("winner is X", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                        
+
                         //data.ClearAllArray();
                         return;
 
@@ -113,7 +99,8 @@ namespace WPF_first_touch.MVC.Controller
                         //view.Hight_light_winner(row, col, winner_found, data.n);
                         MessageBox.Show("winner is O", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                         view.Canvas_field.IsEnabled = false;
-
+                        //view.Hight_light_winner(row, col, winner_found, data.n);
+                        MessageBox.Show("winner is O", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
 
                     }
