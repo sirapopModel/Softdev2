@@ -60,7 +60,7 @@ namespace WPF_first_touch.MVC.View
             }
         }
 
-        public void draw_grid_line(int i, string type_line) 
+        private void draw_grid_line(int i, string type_line) 
         {
             my_line = new Line();
             my_line.StrokeThickness = 4;

@@ -54,7 +54,7 @@ namespace WPF_first_touch.MVC.Controller
             view.label_OX_turn = OX_turn_label;
         }
        
-        public void Canvas_field_click(object sender, MouseButtonEventArgs e)
+        private void Canvas_field_click(object sender, MouseButtonEventArgs e)
         {
             Point my_point = e.GetPosition(view.Canvas_field);
             

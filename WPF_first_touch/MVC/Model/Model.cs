@@ -26,7 +26,7 @@ namespace WPF_first_touch.MVC.Model
         public string[,] GameResultArray = new string[3, 3];
         public int TurnCount = 0;
 
-        public void ClearAllArray() => Array.Clear(GameResultArray, 0, GameResultArray.Length);
+        private void ClearAllArray() => Array.Clear(GameResultArray, 0, GameResultArray.Length);
         public void CreateArray(int size)
         {
             // Set n = size. Clear all array and create new string.
@@ -45,9 +45,6 @@ namespace WPF_first_touch.MVC.Model
         public void SwitchTurn()
         {
             // Switch player's turn.
-
-            // change _turnCheck to 2 for play with 3 player
-
             if (_turnCheck == 1)
             {
                 _turnCheck = 0;
@@ -72,13 +69,6 @@ namespace WPF_first_touch.MVC.Model
             {
                 GameResultArray[row, column] = "o";
             }
-
-            // if you want 3player open this
-
-            //else if (_turnCheck == 2)
-            //{
-            //    GameResultArray[row, column] = "l";
-            //}
             TurnCount++;
         }
 
@@ -163,7 +153,7 @@ namespace WPF_first_touch.MVC.Model
             streamWriter.Close();
         }
 
-        public string GetArrayToString()
+        private string GetArrayToString()
         {
             string Result = "";
             foreach (string Text in GameResultArray)
@@ -180,19 +170,13 @@ namespace WPF_first_touch.MVC.Model
             return Result;
         }
 
-        public string GetCurrentTurn()
+        private string GetCurrentTurn()
         {
             if (_turnCheck == 0)
             {
                 return "x";
             }
-            //else if (_turnCheck == 1)
-            //{
-            //    return "o";
-            //}
             return "o";
-
-            // if you want to play 3-player change return to "l"
         }
 
         public bool LoadGame(Stream FileStream)
@@ -219,7 +203,7 @@ namespace WPF_first_touch.MVC.Model
             return true;
         }
 
-        public void UpdateArray(string ResultText)
+        private void UpdateArray(string ResultText)
         {
             int IndexText = 0;
             for (int row = 0; row < n; row++)
@@ -239,7 +223,7 @@ namespace WPF_first_touch.MVC.Model
             }
         }
 
-        public void SetTurn(string Turn)
+        private void SetTurn(string Turn)
         {
             if (Turn == "x")
             {
@@ -249,12 +233,6 @@ namespace WPF_first_touch.MVC.Model
             {
                 _turnCheck = 1;
             }
-            //remove // for play with 3 player
-
-            //else
-            //{
-            //    _turnCheck = 2;
-            //}
         }
     }
 }
