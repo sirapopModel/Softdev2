@@ -24,10 +24,7 @@ namespace WPF_first_touch.MVC.Controller
 
         public View.my_View view = new View.my_View();
 
-        public void Made_empty_Array(int n)
-        {
-            data.CreateArray(n);
-        }
+        
         public void Play_Setup(int n)
         {
             data.n = n;

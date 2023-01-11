@@ -47,7 +47,7 @@ namespace WPF_first_touch.MVC.View
                 MessageBox.Show("Integer_Only", "Alert!!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            button_Controller.Made_empty_Array(Int32.Parse(Size_Text.Text));
+            
             my_Canvas.Children.Add(button_Controller.view.Canvas_field);
         }
 
