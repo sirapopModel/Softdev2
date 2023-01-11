@@ -136,7 +136,8 @@ public class my_control
 
     public void show_winner(int winner_found)
     {
-        terminal_call.winner_field_write(winner_found, data.GetCurrentTurn(), data.GameResultArray, data.n);
+        terminal_call.field_write(data.GameResultArray, data.n);
+        terminal_call.winner_field_write(winner_found, data.GetCurrentTurn())
     }
 
 

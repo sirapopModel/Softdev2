@@ -59,9 +59,8 @@ public class View
 
     }
 
-    public void winner_field_write(int winner_found, string winner_turn, string[,] field_array, int n)
+    public void winner_field_write(int winner_found, string winner_turn)
     {
-        field_write(field_array, n);
         if (winner_found == 1)
         {
             Console.WriteLine("winner is " + winner_turn.ToUpper() + " (horizontal line)");
