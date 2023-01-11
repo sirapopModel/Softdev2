@@ -64,7 +64,6 @@ namespace WPF_first_touch.MVC.Model
             if (IsAlreadyPlayed(row, column)) { return; }
 
             // Insert "x" or "o" into GameResultArray when player plays.
-            //GameResultArray[row, column] = (Is_X_turn()) ? "x" : "o";
             if (_turnCheck == 0)
             {
                 GameResultArray[row, column] = "x";
@@ -162,7 +161,6 @@ namespace WPF_first_touch.MVC.Model
             streamWriter.WriteLine(GetCurrentTurn());
             streamWriter.Write(TurnCount);
             streamWriter.Close();
-
         }
 
         public string GetArrayToString()
@@ -243,7 +241,6 @@ namespace WPF_first_touch.MVC.Model
 
         public void SetTurn(string Turn)
         {
-            //_turnCheck = (Turn == "x") ? true : false;
             if (Turn == "x")
             {
                 _turnCheck = 0;
@@ -259,10 +256,5 @@ namespace WPF_first_touch.MVC.Model
             //    _turnCheck = 2;
             //}
         }
-
-
-
-
     }
-
 }

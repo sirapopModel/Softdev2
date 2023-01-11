@@ -18,14 +18,9 @@ namespace WPF_first_touch.MVC.View
 {
     public class my_View
     {
-        //public game_data data = new game_data(); //model
         public int field_size;
         public Point[] x_array = new Point[4];
 
-        //public Canvas[,] sheet_2d_array;
-
-        //public Grid grid_field = new Grid() ;
-        //public Canvas grid_field_old_one;
         public int grid_size;
 
         public Storyboard x_Story = new Storyboard();
@@ -53,13 +48,6 @@ namespace WPF_first_touch.MVC.View
         Line my_line = new Line();
         Line my_line1 = new Line();
 
-        private int temp_row;
-        private int temp_col;
-
-        private Canvas old_highlight;
-        private bool is_add_already = false;
-
-        //public void 
         public void Grid_line_gen(int n) 
         {
             for (int i = 1; i<n; i++) 
@@ -103,7 +91,6 @@ namespace WPF_first_touch.MVC.View
             my_line.Y2 = start_point_Y;
 
             Canvas_field.Children.Add(my_line);
-            //sheet_2d_array[row, col].Children.Add(my_line);
             DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(1000)));
             varX.BeginTime = TimeSpan.FromMilliseconds(0);
             DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(1000)));
@@ -119,7 +106,6 @@ namespace WPF_first_touch.MVC.View
             varY = null;
             o_Story.Begin();
             o_Story.Children.Clear();
-
         }
         
         public void Canvas_field_Enter(object sender , MouseEventArgs e) 
@@ -131,7 +117,6 @@ namespace WPF_first_touch.MVC.View
         public void num_turn_update(int turn_count)
         {
             label_num_count.Content = turn_count.ToString();
-
         }
 
         public void XO_turn_update(int check_turn)
@@ -163,10 +148,7 @@ namespace WPF_first_touch.MVC.View
 
                 if (my_save_window.ShowDialog() == true) // press save the saveFileDialog.show will return true
                 {
-
                     return my_save_window.OpenFile();
-
-
                 }
             }
             return null;
@@ -194,12 +176,7 @@ namespace WPF_first_touch.MVC.View
                 }
             }
             return null;
-
-
         }
-
-    
-
 
         public void O_draw(int n ,int row, int col)
         {
@@ -232,7 +209,6 @@ namespace WPF_first_touch.MVC.View
                 my_line.Y2 = start_point_Y;
 
                 Canvas_field.Children.Add(my_line);
-                //sheet_2d_array[row, col].Children.Add(my_line);
                 DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(0.2)));
                 varX.BeginTime = TimeSpan.FromMilliseconds(i);
                 DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(0.2)));
@@ -252,15 +228,13 @@ namespace WPF_first_touch.MVC.View
             o_Story.Children.Clear();
         }
 
-       
-        
-
         public void X_draw(int n ,int row, int col)
         {
             x_array[0] = new Point((60 / n) + col * grid_size, (60 / n) + row * grid_size);
             x_array[1] = new Point((240 / n) + col * grid_size, (240 / n) + row * grid_size);
             x_array[2] = new Point((60 / n) + col * grid_size, (240 / n) + row * grid_size);
             x_array[3] = new Point((240 / n) + col * grid_size, (60 / n) + row * grid_size);
+
             // line property
             my_line = new Line();
             my_line.StrokeThickness = 4;
@@ -278,6 +252,7 @@ namespace WPF_first_touch.MVC.View
             double start_point1_Y = x_array[2].Y;
             double end_point1_X = x_array[3].X; ;
             double end_point1_Y = x_array[3].Y; ;
+
             //set initial state of line and that to UI
             my_line.X1 = start_point_X;
             my_line.Y1 = start_point_Y;
@@ -288,16 +263,9 @@ namespace WPF_first_touch.MVC.View
             my_line1.X2 = start_point1_X;
             my_line1.Y2 = start_point1_Y;
 
-            //Canvas.SetLeft(my_line, x_array[0].X);
-           // Canvas.SetTop(my_line, x_array[0].Y);
-            //Canvas.SetLeft(my_line1, x_array[2].X);
-            //Canvas.SetTop(my_line1, x_array[2].Y);
             Canvas_field.Children.Add(my_line);
             Canvas_field.Children.Add(my_line1);
-            //Grid.SetRow(my_line, row);
-            //Grid.SetColumn(my_line, col);
-            //sheet_2d_array[row, col].Children.Add(my_line);
-            //sheet_2d_array[row, col].Children.Add(my_line1);
+
             //create animation
             DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(300)));
             DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(300)));
