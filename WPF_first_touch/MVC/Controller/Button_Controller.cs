@@ -116,7 +116,7 @@ namespace WPF_first_touch.MVC.Controller
             }
         }
 
-        public Stream LoadFileSeleted()
+        public Stream LoadFileSelected()
         {
             Stream LoadFileSeleted = view.Load_window_call();
             return LoadFileSeleted;

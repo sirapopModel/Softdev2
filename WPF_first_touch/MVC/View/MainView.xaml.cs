@@ -59,7 +59,7 @@ namespace WPF_first_touch.MVC.View
 
         private void Load_button_Click(object sender, RoutedEventArgs e)
         {
-            Stream Load_file = button_Controller.LoadFileSeleted();
+            Stream Load_file = button_Controller.LoadFileSelected();
 
             if (Load_file != null)
             {
