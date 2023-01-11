@@ -4,7 +4,7 @@ class Program
     public static void Main(string[] args)
     {
         my_control controller_call = new my_control();
-
+        
         Console.WriteLine("PLAY or LOAD");
         var ANS = Console.ReadLine();
         if (ANS == "PLAY")
@@ -24,9 +24,5 @@ class Program
         {
             Console.WriteLine("     !!JUST TYPE PLAY OR LOAD!!      ");
         }
-
-
     }
-
-
 }

@@ -35,7 +35,8 @@ public class View
         {
             for (int j = 0; j < n; j++)
             {
-                if (field_array[i, j] == "n" || field_array[i, j] == null || field_array[i, j] == "")
+
+                if (field_array[i, j] == "n" || string.IsNullOrEmpty(field_array[i,j]))
                 {
                     Console.Write(" _ ");
                 }
