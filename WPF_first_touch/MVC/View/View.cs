@@ -53,16 +53,45 @@ namespace WPF_first_touch.MVC.View
         Line my_line = new Line();
         Line my_line1 = new Line();
 
+        private int temp_row;
+        private int temp_col;
+        private Canvas high_light_area = new Canvas();
+        private Canvas old_highlight;
+        private bool is_add_already = false;
+
         //public void 
-
-
-        public void Canvas_field_Enter(object sender , MouseEventArgs e)
+        public void Canvas_field_Enter(object sender, MouseEventArgs e)
         {
             Canvas Canvas_field = (Canvas)sender;
-            Canvas_field.Height = field_size * 1.25 ;
-            Canvas_field.Width = field_size * 1.25;
 
+            
+            Point my_point = e.GetPosition(Canvas_field);
+            int row = Convert.ToInt32(Math.Floor(my_point.Y / grid_size));
+            int col = Convert.ToInt32(Math.Floor(my_point.X / grid_size));
+            
+           
+            if ( (row == temp_row || col == temp_col) && !is_add_already ) 
+            {
+                old_highlight = high_light_area;
+                high_light_area.Height = grid_size;
+                high_light_area.Width = grid_size;
+                high_light_area.Background = Brushes.LightGray;
+                Canvas.SetLeft(high_light_area, grid_size * col);
+                Canvas.SetTop(high_light_area, grid_size * row);
+                Canvas_field.Children.Add(high_light_area);
+                is_add_already = true;
+
+            }
+            else if (row != temp_row || col != temp_col) 
+            {
+                Canvas_field.Children.Remove(old_highlight);
+                is_add_already = false;
+            }
+            temp_row = row;
+            temp_col = col;
         }
+
+
         public void num_turn_update(int turn_count)
         {
             label_num_count.Content = turn_count.ToString();

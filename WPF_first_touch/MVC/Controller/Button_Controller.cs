@@ -44,7 +44,9 @@ namespace WPF_first_touch.MVC.Controller
             view.Canvas_field.Background = new SolidColorBrush(Colors.LemonChiffon);
             Canvas.SetLeft(view.Canvas_field, 125);
             view.Canvas_field.MouseDown += new MouseButtonEventHandler(Canvas_field_click);
-            view.Canvas_field.MouseEnter += new MouseEventHandler(Canvas_field_Enter);
+            view.Canvas_field.MouseMove += new MouseEventHandler(view.Canvas_field_Enter);
+            
+
         }
 
 
@@ -53,17 +55,7 @@ namespace WPF_first_touch.MVC.Controller
             view.label_num_count = Count_Label;
             view.label_OX_turn = OX_turn_label;
         }
-        public void Canvas_field_Enter(object sender, MouseEventArgs e)
-        {
-            Canvas Canvas_field = (Canvas)sender;
-            Point my_point = e.GetPosition(Canvas_field);
-            int row = Convert.ToInt32(Math.Floor(my_point.Y / view.grid_size));
-            int col = Convert.ToInt32(Math.Floor(my_point.X / view.grid_size));
-            
-            Canvas_field.Height = view.field_size * 1.25;
-            Canvas_field.Width = view.field_size * 1.25;
-
-        }
+       
 
         public void Canvas_field_click(object sender, MouseButtonEventArgs e)
         {
