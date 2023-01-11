@@ -80,10 +80,10 @@ namespace WPF_first_touch.MVC.View
 
 
             //int n = button_Controller.data.n;
-            my_Canvas.Children.Remove(button_Controller.view.grid_field_old_one);
+            my_Canvas.Children.Remove(button_Controller.view.Canvas_field);
 
             //my_Canvas.Children.Clear(); clear
-            button_Controller.view.grid_field_old_one = button_Controller.view.Canvas_field;
+            //button_Controller.view.Canvas_field = button_Controller.view.Canvas_field;
             button_Controller.view.label_num_count = Count_Move_UI;
 
 
@@ -98,6 +98,23 @@ namespace WPF_first_touch.MVC.View
                 my_Canvas.Children.Add(button_Controller.view.Canvas_field);
             }
 
+        }
+
+        private void Cursor_Enter(object sender, MouseEventArgs e)
+        {
+            Button my_button = (Button)sender;
+            my_button.Width = 120;
+            my_button.Height = 35;
+            //Play_button.Background = new SolidColorBrush(Colors.Yellow);
+            
+            Play_button.Cursor = Cursors.Hand;
+        }
+
+        private void Cursor_Leave(object sender, MouseEventArgs e)
+        {
+            Button my_button = (Button)sender;
+            my_button.Width = 100;
+            my_button.Height = 30;
         }
     }
 }

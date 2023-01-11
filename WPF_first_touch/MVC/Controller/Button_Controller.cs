@@ -24,7 +24,7 @@ namespace WPF_first_touch.MVC.Controller
         public View.my_View view = new View.my_View();
 
        
-
+        
 
         public void Made_empty_Array(int n)
         {
@@ -41,10 +41,12 @@ namespace WPF_first_touch.MVC.Controller
         
             view.Canvas_field.Height = view.field_size;
             view.Canvas_field.Width = view.field_size ;
-            view.Canvas_field.Background = new SolidColorBrush(Colors.LemonChiffon);
+            view.Canvas_field.Background = new SolidColorBrush(Colors.White);
             Canvas.SetLeft(view.Canvas_field, 125);
             view.Canvas_field.MouseDown += new MouseButtonEventHandler(Canvas_field_click);
             view.Canvas_field.MouseMove += new MouseEventHandler(view.Canvas_field_Enter);
+
+            view.Grid_line_gen(data.n);
             
 
         }
@@ -63,8 +65,7 @@ namespace WPF_first_touch.MVC.Controller
             
             int row = Convert.ToInt32(Math.Floor(my_point.Y/view.grid_size));
             int col = Convert.ToInt32(Math.Floor(my_point.X / view.grid_size));
-            view.X_size_config(data.n , row , col);
-            view.O_size_config(data.n, row, col);
+            
 
             if ( !data.IsAlreadyPlayed(row,col) )
             {
@@ -75,7 +76,7 @@ namespace WPF_first_touch.MVC.Controller
 
                 if (data.check_turn() == 0)
                 {
-                    view.X_model(row, col);
+                    view.X_draw(data.n,row, col);
                     if (winner_found >0)
                     {
                         view.num_turn_update(data.TurnCount);
@@ -95,7 +96,7 @@ namespace WPF_first_touch.MVC.Controller
                 }
                 else
                 {
-                    view.O_model(row, col);
+                    view.O_draw(data.n,row, col);
                     if (winner_found >0)
                     {
                         view.num_turn_update(data.TurnCount);
@@ -145,7 +146,7 @@ namespace WPF_first_touch.MVC.Controller
             if (Loadfile != null)
             {
                 data.LoadGame(Loadfile);
-
+                
                 Play_Setup(data.n);
 
                 for (int row = 0; row < data.n; row++)
@@ -155,11 +156,13 @@ namespace WPF_first_touch.MVC.Controller
                         Console.Write(data.GameResultArray[row,col]);
                         if (data.GameResultArray[row,col] == "x")
                         {
-                            view.X_model(row , col);
+                          
+                            view.X_draw(data.n ,row , col);
                         }
                         else if (data.GameResultArray[row, col] == "o")
                         {
-                            view.O_model(row, col);
+                           
+                            view.O_draw(data.n,row, col);
                         }
                     }
                     

@@ -27,7 +27,7 @@
             <Border Padding="5"/>
             <TextBox  Name="Size_Text" Text="3" Width="100" TextAlignment="Center" HorizontalAlignment="Center" TextElement.FontSize="17" />
             <Border Padding="5"/>
-            <Button Name="Play_button" Content="Play" Margin="3,3,3,3" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="GreenYellow" Click="Play_Pressed" />
+            <Button Name="Play_button" Content="Play" Width="100" Height="30" Margin="3,3,3,3" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="GreenYellow" Click="Play_Pressed" MouseEnter="Cursor_Enter" MouseLeave = "Cursor_Leave" />
             <Border Padding="10"/>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -48,9 +48,9 @@
             </Grid>
 
             <Border Padding="10"/>
-            <Button Name="Save_button" Content="Save" Click="Save_Pressed" Margin="3,3,3,3" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="LightGray" />
+            <Button Name="Save_button" Content="Save" Click="Save_Pressed" Width="100" Height="30" Margin="3,3,3,3" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="LightGray"  MouseEnter="Cursor_Enter" MouseLeave = "Cursor_Leave" />
             <Border Padding="5"/>
-            <Button Name="Load_button" Content="Load" Margin="3,3,3,3" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="BurlyWood" Click="Load_button_Click" />
+            <Button Name="Load_button" Content="Load" Margin="3,3,3,3" Width="100" Height="30" TextElement.FontSize="20" TextElement.FontWeight="Bold" Background="BurlyWood" Click="Load_button_Click"  MouseEnter="Cursor_Enter" MouseLeave = "Cursor_Leave" />
         </StackPanel>
 
     </Grid>

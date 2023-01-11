@@ -19,24 +19,24 @@ namespace WPF_first_touch.MVC.View
     public class my_View
     {
         //public game_data data = new game_data(); //model
-        public int field_size ;
-        public Point[] x_array = new Point[4] ;
-       
+        public int field_size;
+        public Point[] x_array = new Point[4];
+
         //public Canvas[,] sheet_2d_array;
 
         //public Grid grid_field = new Grid() ;
-        public Canvas grid_field_old_one ;
+        //public Canvas grid_field_old_one;
         public int grid_size;
 
         public Storyboard x_Story = new Storyboard();
         public Storyboard x_Story1 = new Storyboard();
 
-        public int o_size = 0 ;
-        public int o_position_x = 0 ;
+        public int o_size = 0;
+        public int o_position_x = 0;
         public int o_position_y = 0;
 
-        public Point[] o_cooardinate_list = new Point[721] ;
-        public double one_radian = 3.14 / 360 ;
+        public Point[] o_cooardinate_list = new Point[721];
+        public double one_radian = 3.14 / 360;
         public Storyboard o_Story = new Storyboard();
 
         public SaveFileDialog my_save_window = new SaveFileDialog();
@@ -55,40 +55,76 @@ namespace WPF_first_touch.MVC.View
 
         private int temp_row;
         private int temp_col;
-        private Canvas high_light_area = new Canvas();
+
         private Canvas old_highlight;
         private bool is_add_already = false;
 
         //public void 
-        public void Canvas_field_Enter(object sender, MouseEventArgs e)
+        public void Grid_line_gen(int n) 
         {
-            Canvas Canvas_field = (Canvas)sender;
-
-            
-            Point my_point = e.GetPosition(Canvas_field);
-            int row = Convert.ToInt32(Math.Floor(my_point.Y / grid_size));
-            int col = Convert.ToInt32(Math.Floor(my_point.X / grid_size));
-            
-           
-            if ( (row == temp_row || col == temp_col) && !is_add_already ) 
+            for (int i = 1; i<n; i++) 
             {
-                old_highlight = high_light_area;
-                high_light_area.Height = grid_size;
-                high_light_area.Width = grid_size;
-                high_light_area.Background = Brushes.LightGray;
-                Canvas.SetLeft(high_light_area, grid_size * col);
-                Canvas.SetTop(high_light_area, grid_size * row);
-                Canvas_field.Children.Add(high_light_area);
-                is_add_already = true;
+                draw_grid_line(i, "horizontal");
+            }
+            for (int j = 1; j <n; j++)
+            {
+                draw_grid_line(j, "vertical");
+            }
+        }
+
+        public void draw_grid_line(int i, string type_line) 
+        {
+            my_line = new Line();
+            my_line.StrokeThickness = 4;
+            my_line.Stroke = Brushes.Black;
+            double start_point_X;
+            double start_point_Y;
+            double end_point_X;
+            double end_point_Y;
+            if (type_line == "vertical") 
+            {
+                start_point_X = i*grid_size ;
+                start_point_Y = 0;
+                end_point_X = i*grid_size;
+                end_point_Y = field_size;
 
             }
-            else if (row != temp_row || col != temp_col) 
+            else 
             {
-                Canvas_field.Children.Remove(old_highlight);
-                is_add_already = false;
+                start_point_X = 0;
+                start_point_Y = i * grid_size;
+                end_point_X = field_size;
+                end_point_Y = i * grid_size;
             }
-            temp_row = row;
-            temp_col = col;
+
+            my_line.X1 = start_point_X;
+            my_line.Y1 = start_point_Y;
+            my_line.X2 = start_point_X;
+            my_line.Y2 = start_point_Y;
+
+            Canvas_field.Children.Add(my_line);
+            //sheet_2d_array[row, col].Children.Add(my_line);
+            DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(1000)));
+            varX.BeginTime = TimeSpan.FromMilliseconds(0);
+            DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(1000)));
+            varY.BeginTime = TimeSpan.FromMilliseconds(0);
+
+            o_Story.Children.Add(varX);
+            o_Story.Children.Add(varY);
+            Storyboard.SetTarget(varX, my_line);
+            Storyboard.SetTarget(varY, my_line);
+            Storyboard.SetTargetProperty(varX, new PropertyPath(Line.X2Property));
+            Storyboard.SetTargetProperty(varY, new PropertyPath(Line.Y2Property));
+            varX = null;
+            varY = null;
+            o_Story.Begin();
+            o_Story.Children.Clear();
+
+        }
+        
+        public void Canvas_field_Enter(object sender , MouseEventArgs e) 
+        {
+            Canvas_field.Cursor = Cursors.Hand;
         }
 
 
@@ -165,8 +201,19 @@ namespace WPF_first_touch.MVC.View
     
 
 
-        public void O_model(int row, int col)
+        public void O_draw(int n ,int row, int col)
         {
+            o_size = 210 / (2 * n);
+            o_position_x = (45 / n) + (col * grid_size);
+            o_position_y = (45 / n) + (row * grid_size);
+
+            for (int i = 0; i < 720; i++)
+            {
+                Double x_point = Math.Round(((o_size) * Math.Cos(i * one_radian) + (o_size)) + o_position_x, 5);
+                Double y_point = Math.Round(((o_size) * Math.Sin(i * one_radian) + (o_size)) + o_position_y, 5);
+                o_cooardinate_list[i] = new Point(x_point, y_point);
+                o_cooardinate_list[720] = o_cooardinate_list[1];
+            }
             for (int i = 0; i < 720; i++)
             {
 
@@ -205,31 +252,15 @@ namespace WPF_first_touch.MVC.View
             o_Story.Children.Clear();
         }
 
-        public void O_size_config(int n , int row , int col)
-        {
-            o_size = 210/(2*n) ;
-            o_position_x = (45 / n) + (col* grid_size ) ;
-            o_position_y = (45 / n) + (row * grid_size);
-            
-            for (int i = 0; i < 720; i++)
-            {
-                Double x_point = Math.Round( ((o_size)*Math.Cos(i*one_radian)+ (o_size)) + o_position_x ,5);
-                Double y_point = Math.Round(((o_size) * Math.Sin(i*one_radian)+ (o_size)) + o_position_y ,5);
-                o_cooardinate_list[i] = new Point( x_point, y_point);
-                o_cooardinate_list[720] = o_cooardinate_list[1];
-            }
-            //o_cooardinate_list[360] = o_cooardinate_list[359];
-        }
-        public void X_size_config(int n , int row , int col)
-        {
-            x_array[0] = new Point( (60/n)+col*grid_size ,(60/n)+row*grid_size);
-            x_array[1] = new Point((240 / n) + col * grid_size, (240 / n) + row * grid_size );
-            x_array[2] = new Point( (60 / n) + col * grid_size, (240 / n) +row * grid_size );
-            x_array[3] = new Point( (240 / n) + col * grid_size, (60 / n) + row * grid_size);
-        }
+       
+        
 
-        public void X_model(int row, int col)
+        public void X_draw(int n ,int row, int col)
         {
+            x_array[0] = new Point((60 / n) + col * grid_size, (60 / n) + row * grid_size);
+            x_array[1] = new Point((240 / n) + col * grid_size, (240 / n) + row * grid_size);
+            x_array[2] = new Point((60 / n) + col * grid_size, (240 / n) + row * grid_size);
+            x_array[3] = new Point((240 / n) + col * grid_size, (60 / n) + row * grid_size);
             // line property
             my_line = new Line();
             my_line.StrokeThickness = 4;
