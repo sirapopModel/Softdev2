@@ -13,6 +13,7 @@ using WPF_first_touch;
 using System.IO;
 using WPF_first_touch.MVC.Model;
 using WPF_first_touch.MVC.View;
+using System.Windows.Xps.Serialization;
 
 namespace WPF_first_touch.MVC.Controller
 
@@ -138,11 +139,14 @@ namespace WPF_first_touch.MVC.Controller
             }
 
         }
-
-        public Boolean Do_load()
+        public Stream LoadFileSeleted()
         {
-            Stream Loadfile = view.Load_window_call();
+            Stream LoadFileSeleted = view.Load_window_call();
+            return LoadFileSeleted;
+        }
 
+        public void Do_load(Stream Loadfile)
+        {
             if (Loadfile != null)
             {
                 data.LoadGame(Loadfile);
@@ -165,21 +169,11 @@ namespace WPF_first_touch.MVC.Controller
                             view.O_draw(data.n,row, col);
                         }
                     }
-                    
                 }
+
                 view.XO_turn_update(data.check_turn());
                 view.num_turn_update(data.TurnCount);
-                Loadfile = null;
-                return true;
             }
-            return false;
-            
         }
-
-        
-
-
-
     }
-
 }
