@@ -48,19 +48,20 @@ namespace WPF_first_touch.MVC.View
         Line my_line = new Line();
         Line my_line1 = new Line();
 
-        public void Grid_line_gen(int n) 
+        public void Board_line_show(int n) 
         {
-            for (int i = 1; i<n; i++) 
+            for (int row = 1; row<n; row++) 
             {
-                draw_grid_line(i, "horizontal");
+                draw_line(row,0, "board_horizontal");
             }
-            for (int j = 1; j <n; j++)
+            for (int col = 1; col <n; col++)
             {
-                draw_grid_line(j, "vertical");
+                draw_line(0, col, "board_vertical");
             }
         }
+        
 
-        private void draw_grid_line(int i, string type_line) 
+        private void draw_line(int row , int col, string type_line) 
         {
             my_line = new Line();
             my_line.StrokeThickness = 4;
@@ -69,22 +70,57 @@ namespace WPF_first_touch.MVC.View
             double start_point_Y;
             double end_point_X;
             double end_point_Y;
-            if (type_line == "vertical") 
+            if (type_line == "board_vertical") 
             {
-                start_point_X = i*grid_size ;
+                start_point_X = col*grid_size ;
                 start_point_Y = 0;
-                end_point_X = i*grid_size;
+                end_point_X = col*grid_size;
                 end_point_Y = field_size;
 
             }
-            else 
+            else if(type_line == "board_horizontal")
             {
                 start_point_X = 0;
-                start_point_Y = i * grid_size;
+                start_point_Y = row * grid_size;
                 end_point_X = field_size;
-                end_point_Y = i * grid_size;
+                end_point_Y = row * grid_size;
             }
-
+            else if(type_line == "horizontal_winner")
+            {
+                my_line.StrokeThickness = 10;
+                my_line.Stroke = Brushes.LimeGreen;
+                start_point_X = 0;
+                start_point_Y = ((row + row + 1) * grid_size) / 2;
+                end_point_X = field_size;
+                end_point_Y = ((row + row + 1) * grid_size) / 2;
+            }
+            else if (type_line == "vertical_winner") 
+            {
+                my_line.StrokeThickness = 10;
+                my_line.Stroke = Brushes.LimeGreen; 
+                start_point_X = ((col + col + 1) * grid_size) / 2;
+                start_point_Y = 0;
+                end_point_X =  ((col + col + 1) * grid_size) / 2;
+                end_point_Y = field_size;
+            }
+            else if (type_line == "diagonal_up_winner")
+            {
+                my_line.StrokeThickness = 10;
+                my_line.Stroke = Brushes.LimeGreen;
+                start_point_X = 0;
+                start_point_Y = field_size;
+                end_point_X = field_size;
+                end_point_Y = 0;
+            }
+            else 
+            {
+                my_line.StrokeThickness = 10;
+                my_line.Stroke = Brushes.LimeGreen; 
+                start_point_X = 0;
+                start_point_Y =0;
+                end_point_X = field_size;
+                end_point_Y = field_size;
+            }
             my_line.X1 = start_point_X;
             my_line.Y1 = start_point_Y;
             my_line.X2 = start_point_X;
@@ -107,6 +143,27 @@ namespace WPF_first_touch.MVC.View
             o_Story.Begin();
             o_Story.Children.Clear();
         }
+
+        public void  winner_show(int winner_found , int row , int col) 
+        {
+            if (winner_found == 1) 
+            {
+                draw_line(row, col, "horizontal_winner");
+            }
+            else if (winner_found == 2) 
+            {
+                draw_line(row, col, "vertical_winner");
+            }
+            else if (winner_found == 3) 
+            {
+                draw_line(row, col, "diagonal_down_winner");
+            }
+            else
+            {
+                draw_line(row, col, "diagonal_up_winner");
+            }
+        }
+       
         
         public void Canvas_field_Enter(object sender , MouseEventArgs e) 
         {
@@ -114,12 +171,7 @@ namespace WPF_first_touch.MVC.View
         }
 
 
-        public void num_turn_update(int turn_count)
-        {
-            label_num_count.Content = turn_count.ToString();
-        }
-
-        public void XO_turn_update(int check_turn)
+       public void label_update(int check_turn , int turn_count)
         {
             if (check_turn == 0)
             {
@@ -129,6 +181,7 @@ namespace WPF_first_touch.MVC.View
             {
                 label_OX_turn.Content = "O";
             }
+            label_num_count.Content = turn_count.ToString();
         }
 
         public Stream Save_window_call()

@@ -41,8 +41,14 @@ namespace WPF_first_touch.MVC.Controller
             view.Canvas_field.MouseDown += new MouseButtonEventHandler(Canvas_field_click);
             view.Canvas_field.MouseMove += new MouseEventHandler(view.Canvas_field_Enter);
 
-            view.Grid_line_gen(data.n);
-            view.num_turn_update(0);
+            view.Board_line_show(data.n);
+
+            view.label_update(0, 0);
+        }
+
+        public void Made_empty_Array(int n)
+        {
+            data.CreateArray(n);
         }
 
         public void serve_component_to_view(Label Count_Label , Label OX_turn_label)
@@ -63,15 +69,15 @@ namespace WPF_first_touch.MVC.Controller
             {
                 data.PlayerPlay(row, col);
                 int winner_found = data.CheckForWinner(row, col);
-                view.num_turn_update(data.TurnCount);
-                
+                view.label_update(data.check_turn(), data.TurnCount);
 
                 if (data.check_turn() == 0)
                 {
                     view.X_draw(data.n,row, col);
                     if (winner_found >0)
                     {
-                        view.num_turn_update(data.TurnCount);
+                        view.label_update(data.check_turn(), data.TurnCount);
+                        view.winner_show(winner_found, row, col);
                         MessageBox.Show("winner is X", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                         view.Canvas_field.IsEnabled = false;
                         return;
@@ -82,7 +88,8 @@ namespace WPF_first_touch.MVC.Controller
                     view.O_draw(data.n,row, col);
                     if (winner_found >0)
                     {
-                        view.num_turn_update(data.TurnCount);
+                        view.label_update(data.check_turn(), data.TurnCount);
+                        view.winner_show(winner_found, row, col);
                         MessageBox.Show("winner is O", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                         view.Canvas_field.IsEnabled = false;
                         return;
@@ -91,13 +98,13 @@ namespace WPF_first_touch.MVC.Controller
 
                 if (data.IsDraw())
                 {
-                    view.num_turn_update(data.TurnCount);
+                    view.label_update(data.check_turn(), data.TurnCount);
                     MessageBox.Show("Draw", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
 
                 data.SwitchTurn();
-                view.XO_turn_update(data.check_turn());
+                view.label_update(data.check_turn(), data.TurnCount);
                 Array.Clear(view.x_array,0,view.x_array.Length);
                 Array.Clear(view.o_cooardinate_list, 0, view.o_cooardinate_list.Length);
 
@@ -143,8 +150,7 @@ namespace WPF_first_touch.MVC.Controller
                     }
                 }
 
-                view.XO_turn_update(data.check_turn());
-                view.num_turn_update(data.TurnCount);
+                view.label_update(data.check_turn(), data.TurnCount);
             }
         }
     }
