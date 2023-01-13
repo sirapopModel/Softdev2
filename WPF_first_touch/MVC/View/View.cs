@@ -30,8 +30,8 @@ namespace WPF_first_touch.MVC.View
         public int o_position_x = 0;
         public int o_position_y = 0;
 
-        public Point[] o_cooardinate_list = new Point[721];
-        public double one_radian = 3.14 / 360;
+        public Point[] o_cooardinate_list = new Point[361];
+        public double one_radian = 6.28 / 360;
         public Storyboard o_Story = new Storyboard();
 
         public SaveFileDialog my_save_window = new SaveFileDialog();
@@ -237,14 +237,14 @@ namespace WPF_first_touch.MVC.View
             o_position_x = (45 / n) + (col * grid_size);
             o_position_y = (45 / n) + (row * grid_size);
 
-            for (int i = 0; i < 720; i++)
+            for (int i = 0; i < 361; i++)
             {
                 Double x_point = Math.Round(((o_size) * Math.Cos(i * one_radian) + (o_size)) + o_position_x, 5);
                 Double y_point = Math.Round(((o_size) * Math.Sin(i * one_radian) + (o_size)) + o_position_y, 5);
                 o_cooardinate_list[i] = new Point(x_point, y_point);
-                o_cooardinate_list[720] = o_cooardinate_list[1];
+                //o_cooardinate_list[720] = o_cooardinate_list[1];
             }
-            for (int i = 0; i < 720; i++)
+            for (int i = 0; i < 360; i++)
             {
 
                 my_line = new Line();
@@ -262,10 +262,10 @@ namespace WPF_first_touch.MVC.View
                 my_line.Y2 = start_point_Y;
 
                 Canvas_field.Children.Add(my_line);
-                DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(0.2)));
-                varX.BeginTime = TimeSpan.FromMilliseconds(i);
-                DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(0.2)));
-                varY.BeginTime = TimeSpan.FromMilliseconds(i);
+                DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(2)));
+                varX.BeginTime = TimeSpan.FromMilliseconds(2*i);
+                DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(2)));
+                varY.BeginTime = TimeSpan.FromMilliseconds(2*i);
 
                 o_Story.Children.Add(varX);
                 o_Story.Children.Add(varY);
