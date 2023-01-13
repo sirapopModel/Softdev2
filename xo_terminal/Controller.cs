@@ -7,6 +7,29 @@ public class my_control
     public game_data data = new game_data();
     private FileInfo fileInfo;
     private string result_input;
+
+    public void StartUp()
+    {
+        Console.WriteLine("PLAY or LOAD");
+        var ANS = Console.ReadLine();
+        if (ANS == "PLAY")
+        {
+            Console.Write("ENTER SIZE : ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            set_up(n);
+            call_first_board(n);
+            play_game();
+        }
+        else if (ANS == "LOAD")
+        {
+            launch_load();
+            play_game();
+        }
+        else
+        {
+            Console.WriteLine("     !!JUST TYPE PLAY OR LOAD!!      ");
+        }
+    }
     public void set_up(int k)
     {
         //n = k;
@@ -137,7 +160,7 @@ public class my_control
     public void show_winner(int winner_found)
     {
         terminal_call.field_write(data.GameResultArray, data.n);
-        terminal_call.winner_field_write(winner_found, data.GetCurrentTurn())
+        terminal_call.winner_field_write(winner_found, data.GetCurrentTurn());
     }
 
 
