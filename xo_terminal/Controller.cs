@@ -1,13 +1,17 @@
 using System;
-public class my_control
+public class Controller
 {
     public string[] index_row_col = new string[3];
-    //public int n;
-    public View terminal_call = new View();
-    public game_data data = new game_data();
+    public View View;
+    public Model Model;
     private FileInfo fileInfo;
     private string result_input;
 
+    public Controller(Model Model,View View) 
+    {
+        this.Model = Model;
+        this.View = View;
+    }
     public void StartUp()
     {
         Console.WriteLine("PLAY or LOAD");
@@ -36,23 +40,23 @@ public class my_control
         //terminal_call.n = k;
 
         // Model
-        data.n = k;
-        data.CreateArray(data.n);
+        Model.n = k;
+        Model.CreateArray(Model.n);
     }
 
     public void save_slot_show()
     {
         Save_Folder_Check();
-        terminal_call.save_file_write(data.save_path);
+        View.save_file_write(Model.save_path);
         Console.WriteLine("");
-        Console.WriteLine("Path From:" + data.save_path);
+        Console.WriteLine("Path From:" + Model.save_path);
     }
 
     public void Save_Folder_Check()
     {
-        if (!Directory.Exists(data.save_path))
+        if (!Directory.Exists(Model.save_path))
         {
-            Directory.CreateDirectory(data.save_path);
+            Directory.CreateDirectory(Model.save_path);
         }
     }
 
@@ -65,11 +69,11 @@ public class my_control
         string save_name = Console.ReadLine();
 
 
-        string save_play_path = Path.GetFullPath(Path.Join(data.save_path, save_name));
+        string save_play_path = Path.GetFullPath(Path.Join(Model.save_path, save_name));
         fileInfo = new FileInfo(save_play_path);
         FileStream save_file = fileInfo.OpenRead();
-        data.LoadGame(save_file);
-        terminal_call.field_write(data.GameResultArray, data.n);
+        Model.LoadGame(save_file);
+        View.field_write(Model.GameResultArray, Model.n);
         //play_game();
     }
 
@@ -79,15 +83,15 @@ public class my_control
         Console.Write("ENTER FILENAME : ");
         string name = Console.ReadLine();
 
-        string save_play_path = Path.GetFullPath(Path.Join(data.save_path, name));
+        string save_play_path = Path.GetFullPath(Path.Join(Model.save_path, name));
         fileInfo = new FileInfo(save_play_path);
         if (fileInfo.Exists)
         {
             fileInfo.Delete();
         }
         FileStream fileStream = File.Create(save_play_path);
-        data.SaveGame(fileStream);
-        terminal_call.save_file_write(data.save_path);
+        Model.SaveGame(fileStream);
+        View.save_file_write(Model.save_path);
     } 
     public void Ask_Input()
     {
@@ -101,7 +105,7 @@ public class my_control
     {
         while (true)
         {
-            Console.WriteLine("Current Turn : " + data.GetCurrentTurn().ToUpper());
+            Console.WriteLine("Current Turn : " + Model.GetCurrentTurn().ToUpper());
             Ask_Input();
             if (result_input == "SAVE")
             {
@@ -111,7 +115,7 @@ public class my_control
             if (result_input == "LOAD")
             {
                 launch_load();
-                Console.WriteLine("Current Turn : " + data.GetCurrentTurn().ToUpper());
+                Console.WriteLine("Current Turn : " + Model.GetCurrentTurn().ToUpper());
                 Ask_Input();
             }
             try
@@ -126,31 +130,31 @@ public class my_control
             }
             catch (System.Exception)
             {
-                terminal_call.detail_input();
-                terminal_call.field_write(data.GameResultArray, data.n);
+                View.detail_input();
+                View.field_write(Model.GameResultArray, Model.n);
             }
         }
     }
 
     public void call_first_board(int n)
     {
-        terminal_call.first_board_view(data.n);
+        View.first_board_view(Model.n);
     }
 
     public bool move_call(int row, int col)
     {
-        if (data.IsAlreadyPlayed(row, col))
+        if (Model.IsAlreadyPlayed(row, col))
         {
             Console.WriteLine("ALREADY FILLED!!");
             return false;
         }
 
-        data.PlayerPlay(row, col);
-        int winner_found = data.CheckForWinner(row, col);
+        Model.PlayerPlay(row, col);
+        int winner_found = Model.CheckForWinner(row, col);
         if (winner_found == 0)
         {
-            terminal_call.field_write(data.GameResultArray, data.n);
-            data.SwitchTurn();
+            View.field_write(Model.GameResultArray, Model.n);
+            Model.SwitchTurn();
             return false;
         }
         show_winner(winner_found);
@@ -159,8 +163,8 @@ public class my_control
 
     public void show_winner(int winner_found)
     {
-        terminal_call.field_write(data.GameResultArray, data.n);
-        terminal_call.winner_field_write(winner_found, data.GetCurrentTurn());
+        View.field_write(Model.GameResultArray, Model.n);
+        View.winner_field_write(winner_found, Model.GetCurrentTurn());
     }
 
 

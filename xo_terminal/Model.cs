@@ -3,7 +3,7 @@ using System.Numerics;
 using System.Threading.Channels;
 
 
-public class game_data
+public class Model
 {
     public string save_path = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
 
