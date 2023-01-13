@@ -1,53 +1,46 @@
 public class View
 {
     //public int n;
-
-    public void first_board_view(int n)
+    public void ShowMenuInput()
     {
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                Console.Write(" _ ");
-            }
-            Console.WriteLine("");
-        }
         Console.WriteLine("");
+        Console.WriteLine("============== Main Menu ==============");
+        Console.WriteLine("Type \"1\" to start a new game.");
+        Console.WriteLine("Type \"2\" to load game from save folder.");
         Console.WriteLine("");
-        Console.WriteLine("---------------------------------");
+    }
+    public void ShowInput()
+    {
+        Console.WriteLine("");
+        Console.WriteLine("===========================================");
+        Console.WriteLine(" -> Type \"exit\" to go back to main menu.");
+        Console.WriteLine(" -> Type \"save\" to save game (Only while playing the game).");
+        Console.WriteLine(" -> Type \"(row),(column)\" to play in the board (For example \"0,0\").");
     }
 
-    public void save_file_write(string folder_path)
+    public void ShowBoard(string board)
     {
-        DirectoryInfo save_folder = new DirectoryInfo(folder_path);
-        FileInfo[] Files_in_Folder = save_folder.GetFiles("*.txt");
-
-        foreach (FileInfo file in Files_in_Folder)
-        {
-            Console.WriteLine(file.Name);
-        }
-    }
-
-    public void field_write(string[,] field_array, int n)
-    {
+        int n = Convert.ToInt32(Math.Sqrt(board.Length));
+        int pointer = 0;
         Console.WriteLine("");
         for (int i = 0; i < n; i++)
         {
             for (int j = 0; j < n; j++)
             {
 
-                if (field_array[i, j] == "n" || string.IsNullOrEmpty(field_array[i,j]))
+                if (board[pointer] == 'n')
                 {
                     Console.Write(" _ ");
                 }
-                else if (field_array[i, j] == "x")
+                else if (board[pointer] == 'x')
                 {
                     Console.Write(" X ");
                 }
-                else if (field_array[i, j] == "o")
+                else if (board[pointer] == 'o')
                 {
                     Console.Write(" O ");
                 }
+                pointer++;
                 
             }
             Console.WriteLine("");
@@ -55,8 +48,6 @@ public class View
         Console.WriteLine("");
         Console.WriteLine("");
         Console.WriteLine("---------------------------------");
-
-
     }
 
     public void winner_field_write(int winner_found, string winner_turn)

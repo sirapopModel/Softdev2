@@ -3,10 +3,10 @@ class Program
 {
     public static void Main(string[] args)
     {
-        Model Model = new Model();
-        View View = new View();
-        Controller Controller = new Controller(Model, View);
-        Controller.StartUp();
+        Model model = new Model();
+        View view = new View();
+        Controller controller = new Controller(model, view);
+        controller.StartUp();
         
     }
 }

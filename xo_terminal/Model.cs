@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Channels;
 
 public class Model
@@ -60,18 +61,19 @@ public class Model
         return "o";
     }
 
-    public void PlayerPlay(int row, int column)
+    public bool PlayerPlay(int row, int column)
     {
         // If that row,column was played already, then return.
         if (!String.IsNullOrWhiteSpace(boardArray[row, column]))
         { 
-            return; 
+            return false; 
         }
 
         // Insert "x" or "o" into boardArray and switch turn.
         boardArray[row, column] = GetCurrentTurn();
         TurnCount++;
         SwitchTurn();
+        return true;
     }
 
     public int CheckEndGame(int row, int column)
@@ -156,9 +158,9 @@ public class Model
 
         // Replace file if saveName exist.
         string fullPath = Path.Join(SavePath, saveName);
-        if (Directory.Exists(fullPath))
+        if (File.Exists(fullPath))
         {
-            Directory.Delete(fullPath);
+            File.Delete(fullPath);
         }
 
         StreamWriter streamWriter = new StreamWriter(fullPath);
@@ -175,8 +177,8 @@ public class Model
         // Return false if the loading not complete.
         // Return true if the loading is complete.
 
-        string fullPath = String.Join(SavePath, saveName);
-        if (!Directory.Exists(fullPath)) 
+        string fullPath = Path.Join(SavePath, saveName);
+        if (!File.Exists(fullPath)) 
         {
             return false;
         }

@@ -1,171 +1,244 @@
 using System;
+using System.Drawing;
+
 public class Controller
 {
     public string[] index_row_col = new string[3];
-    public View View;
-    public Model Model;
-    private FileInfo fileInfo;
+    private View view;
+    private Model model;
     private string result_input;
 
     public Controller(Model Model,View View) 
     {
-        this.Model = Model;
-        this.View = View;
+        this.model = Model;
+        this.view = View;
+        this.result_input = "";
     }
+
     public void StartUp()
     {
-        Console.WriteLine("PLAY or LOAD");
-        var ANS = Console.ReadLine();
-        if (ANS == "PLAY")
-        {
-            Console.Write("ENTER SIZE : ");
-            int n = Convert.ToInt32(Console.ReadLine());
-            set_up(n);
-            call_first_board(n);
-            play_game();
-        }
-        else if (ANS == "LOAD")
-        {
-            launch_load();
-            play_game();
-        }
-        else
-        {
-            Console.WriteLine("     !!JUST TYPE PLAY OR LOAD!!      ");
-        }
-    }
-    public void set_up(int k)
-    {
-        //n = k;
-        //terminal_call.n = k;
+        Console.WriteLine("Welcome to Group 1's TicTacToe Game! Please select your input.");
 
-        // Model
-        Model.n = k;
-        Model.CreateArray(Model.n);
-    }
-
-    public void save_slot_show()
-    {
-        Save_Folder_Check();
-        View.save_file_write(Model.save_path);
-        Console.WriteLine("");
-        Console.WriteLine("Path From:" + Model.save_path);
-    }
-
-    public void Save_Folder_Check()
-    {
-        if (!Directory.Exists(Model.save_path))
-        {
-            Directory.CreateDirectory(Model.save_path);
-        }
-    }
-
-    public void launch_load()
-    {
-        Console.WriteLine("SELECT SAVE FILE : ");
-        save_slot_show();
-        Console.WriteLine("");
-        Console.Write("TYPE YOUR SAVE NAME : ");
-        string save_name = Console.ReadLine();
-
-
-        string save_play_path = Path.GetFullPath(Path.Join(Model.save_path, save_name));
-        fileInfo = new FileInfo(save_play_path);
-        FileStream save_file = fileInfo.OpenRead();
-        Model.LoadGame(save_file);
-        View.field_write(Model.GameResultArray, Model.n);
-        //play_game();
-    }
-
-    private void launch_save()
-    {
-        Save_Folder_Check();
-        Console.Write("ENTER FILENAME : ");
-        string name = Console.ReadLine();
-
-        string save_play_path = Path.GetFullPath(Path.Join(Model.save_path, name));
-        fileInfo = new FileInfo(save_play_path);
-        if (fileInfo.Exists)
-        {
-            fileInfo.Delete();
-        }
-        FileStream fileStream = File.Create(save_play_path);
-        Model.SaveGame(fileStream);
-        View.save_file_write(Model.save_path);
-    } 
-    public void Ask_Input()
-    {
-        Console.WriteLine("");
-        Console.WriteLine("");
-        
-        Console.Write("ENTER INPUT : ");
-        result_input = Console.ReadLine();
-    }
-    public void play_game()
-    {
         while (true)
         {
-            Console.WriteLine("Current Turn : " + Model.GetCurrentTurn().ToUpper());
-            Ask_Input();
-            if (result_input == "SAVE")
+            view.ShowMenuInput();
+            InputDialog("Enter input: ");
+            if (result_input == "1")
             {
-                launch_save();
-                Ask_Input();
+                StartNewGame();
             }
-            if (result_input == "LOAD")
+            else if (result_input == "2")
             {
-                launch_load();
-                Console.WriteLine("Current Turn : " + Model.GetCurrentTurn().ToUpper());
-                Ask_Input();
+                CallLoadGame();
             }
+        }
+    }
+
+    private void InputDialog(string question)
+    {
+        // Ask for input and store it to result_input
+        while (true)
+        {
+            Console.Write(question);
             try
             {
-                index_row_col = result_input.Split(",");
-                string row_string = index_row_col[0];
-                string col_string = index_row_col[1];
-                if (move_call(Convert.ToInt32(row_string), Convert.ToInt32(col_string)))
-                {
-                    break;
-                }
+                result_input = Console.ReadLine();
+                break;
             }
             catch (System.Exception)
             {
-                View.detail_input();
-                View.field_write(Model.GameResultArray, Model.n);
+                Console.Write("Wrong input. Please try again.");
             }
         }
     }
 
-    public void call_first_board(int n)
+    private bool ConfirmInput(string question)
     {
-        View.first_board_view(Model.n);
+        while (true)
+        {
+            Console.Write(question);
+            string input = Console.ReadLine();
+            if (input == "y")
+            {
+                break;
+            }
+            else if (input == "n")
+            {
+                return false;
+            }
+            Console.WriteLine("Wrong input. Please try again.");
+        }
+        return true;
     }
 
-    public bool move_call(int row, int col)
+    private void StartNewGame()
     {
-        if (Model.IsAlreadyPlayed(row, col))
+        // Ask for board size and then play game.
+        int size;
+        while(true)
+        {
+            Console.Write("Please enter board size: ");
+            try
+            { 
+                size = Convert.ToInt32(Console.ReadLine());
+                break;
+            }
+            catch (System.Exception)
+            {
+                Console.Write("Please enter only an integer.");
+            }
+        }
+
+        model.ChangeBoardSize(size);
+        PlayGame();
+    }
+
+    private void CallLoadGame()
+    {
+        // Load game and then play game.
+        if (!ConfirmInput("Do you want to load game? (y/n): "))
+        {
+            return;
+        }
+        FileInfo[] Files_in_Folder = GetAllSaveFile();
+        if (Files_in_Folder.Length == 0)
+        {
+            Console.WriteLine("No save file available.");
+            return;
+        }
+        
+        int saveSlot;
+        string saveName;
+        while (true)
+        {
+            Console.Write("\nPlease select your save file : ");
+            try
+            {
+                saveSlot = Convert.ToInt32(Console.ReadLine());
+                saveName = Files_in_Folder[saveSlot-1].Name;
+                break;
+            }
+            catch (System.Exception)
+            {
+                Console.WriteLine("Wrong input. Please enter number again.");
+            }
+        }
+        model.LoadGame(saveName);
+        PlayGame();
+    }
+
+    private void CallSaveGame()
+    {
+        if (!ConfirmInput("Do you want to save game? (y/n): "))
+        {
+            return;
+        }
+
+        GetAllSaveFile();
+        Console.Write("Please enter your save name: ");
+        string saveName;
+        while (true)
+        {
+            try
+            {
+                saveName = Console.ReadLine();
+                break;
+            }
+            catch (System.Exception)
+            {
+                Console.WriteLine("Wrong input.");
+            }
+        }
+
+        if (saveName.Substring(saveName.Length - 4) != ".txt")
+        {
+            saveName += ".txt";
+        }
+
+        string fullPath = Path.GetFullPath(Path.Join(model.SavePath, saveName));
+        if (File.Exists(fullPath))
+        {
+            if (!ConfirmInput("This save is already exist. Do you want to replace? (y/n): "))
+            {
+                return;
+            }
+        }
+        model.SaveGame(saveName);
+        Console.WriteLine("Your game has been saved.");
+    }
+    private void PlayGame()
+    {
+        while (true)
+        {
+            view.ShowInput();
+            view.ShowBoard(model.GetBoardArrayToString());
+            Console.WriteLine("Current Turn : " + model.GetCurrentTurn().ToUpper());
+            InputDialog("Enter input: ");
+            if (result_input == "exit")
+            {
+                break;
+            }
+            else if (result_input == "save")
+            {
+                CallSaveGame();
+            }
+            else
+            {
+                try
+                {
+                    index_row_col = result_input.Split(",");
+                    string row_string = index_row_col[0];
+                    string col_string = index_row_col[1];
+                    if (PlayMove(Convert.ToInt32(row_string), Convert.ToInt32(col_string)))
+                    {
+                        break;
+                    }
+                }
+                catch (System.Exception)
+                {
+                    view.detail_input();
+                }
+            }
+        }
+    }
+
+    private bool PlayMove(int row, int col)
+    {
+        string currentTurn = model.GetCurrentTurn();
+        if (!model.PlayerPlay(row, col))
         {
             Console.WriteLine("ALREADY FILLED!!");
             return false;
         }
 
-        Model.PlayerPlay(row, col);
-        int winner_found = Model.CheckForWinner(row, col);
+        int winner_found = model.CheckEndGame(row, col);
         if (winner_found == 0)
         {
-            View.field_write(Model.GameResultArray, Model.n);
-            Model.SwitchTurn();
             return false;
         }
-        show_winner(winner_found);
+        view.ShowBoard(model.GetBoardArrayToString());
+        view.winner_field_write(winner_found, currentTurn);
         return true;
     }
 
-    public void show_winner(int winner_found)
+    private FileInfo[] GetAllSaveFile() 
     {
-        View.field_write(Model.GameResultArray, Model.n);
-        View.winner_field_write(winner_found, Model.GetCurrentTurn());
+        if (!Directory.Exists(model.SavePath))
+        {
+            Directory.CreateDirectory(model.SavePath);
+        }
+
+        DirectoryInfo save_folder = new DirectoryInfo(model.SavePath);
+        FileInfo[] Files_in_Folder = save_folder.GetFiles("*.txt");
+
+        Console.WriteLine("\nSave folder contains:");
+        int index = 1;
+        foreach (FileInfo file in Files_in_Folder)
+        {
+            Console.WriteLine(index + ". " + file.Name);
+            index++;
+        }
+
+        return Files_in_Folder;
     }
-
-
 }
