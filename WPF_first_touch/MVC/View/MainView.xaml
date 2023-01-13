@@ -40,7 +40,7 @@
                 </Grid.RowDefinitions>
 
                 <Label Content="TURN:" HorizontalAlignment="Center" TextElement.FontSize="20" TextElement.FontWeight="Bold"/>
-                <Label Content="LEFT:" Grid.Row="1" HorizontalAlignment="Center" TextElement.FontSize="20" TextElement.FontWeight="Bold"/>
+                <Label Content="COUNT:" Grid.Row="1" HorizontalAlignment="Center" TextElement.FontSize="20" TextElement.FontWeight="Bold"/>
 
                 <Label Name="Turn_UI" Grid.Column="1" Content="X" TextElement.FontSize="20" TextElement.FontWeight="Bold" />
                 <Label Name="Count_Move_UI" Grid.Column="1" Grid.Row="1" Content="0" TextElement.FontSize="20" TextElement.FontWeight="Bold" />
