@@ -5,13 +5,18 @@ using System.Threading.Channels;
 
 public class Model
 {
-    public string SavePath = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
-    public int BoardSize = 3;
-    public int TurnCount = 0;
+    public string SavePath { get;}    
+    public int BoardSize { get; protected set; }
+    public int TurnCount { get; protected set; }
 
     private string[,] boardArray = new string[3, 3];
     private int turnCheck = 0;
 
+    public Model()
+    {
+        this.SavePath = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
+        this.TurnCount = 0;
+    }
     public string GetBoardValue(int row,int column)
     {
         return boardArray[row,column];
@@ -24,24 +29,6 @@ public class Model
         BoardSize = size;
         boardArray = new string[size, size];
         TurnCount = 0;
-    }
-
-    public string GetBoardArrayToString()
-    {
-        // Return a string that contains all values in boardArray.
-        string Result = "";
-        foreach (string Text in boardArray)
-        {
-            if (String.IsNullOrEmpty(Text))
-            {
-                Result += "n";
-            }
-            else
-            {
-                Result += Text;
-            }
-        }
-        return Result;
     }
 
     public void SwitchTurn()
@@ -189,11 +176,11 @@ public class Model
             BoardSize = Int32.Parse(allLines[0]);
             ChangeBoardSize(BoardSize);
 
-            string BoardArray = allLines[1];
-            UpdateArray(BoardArray);
+            string boardArray = allLines[1];
+            UpdateArray(boardArray);
 
-            string CurrentTurn = allLines[2];
-            SetTurn(CurrentTurn);
+            string currentTurn = allLines[2];
+            SetTurn(currentTurn);
 
             TurnCount = Int32.Parse(allLines[3]);
         }
@@ -206,30 +193,30 @@ public class Model
         return true;
     }
 
-    private void UpdateArray(string ResultText)
+    private void UpdateArray(string resultText)
     {
-        int IndexText = 0;
+        int indexText = 0;
         for (int row = 0; row < BoardSize; row++)
         {
             for (int col = 0; col < BoardSize; col++)
             {
-                if (ResultText[IndexText] == 'n')
+                if (resultText[indexText] == 'n')
                 {
                     boardArray[row, col] = "";
                 }
                 else
                 {
-                    boardArray[row, col] = ResultText[IndexText].ToString();
+                    boardArray[row, col] = resultText[indexText].ToString();
                 }
-                IndexText++;
+                indexText++;
             }
         }
     }
 
-    private void SetTurn(string Turn)
+    private void SetTurn(string turn)
     {
         // Set current turn from string.
-        if (Turn == "x")
+        if (turn == "x")
         {
             turnCheck = 0;
         }
@@ -237,5 +224,23 @@ public class Model
         {
             turnCheck = 1;
         }
+    }
+
+    private string GetBoardArrayToString()
+    {
+        // Return a string that contains all values in boardArray.
+        string result = "";
+        foreach (string Text in boardArray)
+        {
+            if (String.IsNullOrEmpty(Text))
+            {
+                result += "n";
+            }
+            else
+            {
+                result += Text;
+            }
+        }
+        return result;
     }
 }

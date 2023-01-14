@@ -3,16 +3,15 @@ using System.Drawing;
 
 public class Controller
 {
-    public string[] index_row_col = new string[3];
     private View view;
     private Model model;
-    private string result_input;
+    private string resultInput;
 
-    public Controller(Model Model,View View) 
+    public Controller(Model model,View view) 
     {
-        this.model = Model;
-        this.view = View;
-        this.result_input = "";
+        this.model = model;
+        this.view = view;
+        this.resultInput = "";
     }
 
     public void StartUp()
@@ -23,11 +22,11 @@ public class Controller
         {
             view.ShowMenuInput();
             InputDialog("Enter input: ");
-            if (result_input == "1")
+            if (resultInput == "1")
             {
                 StartNewGame();
             }
-            else if (result_input == "2")
+            else if (resultInput == "2")
             {
                 CallLoadGame();
             }
@@ -42,7 +41,7 @@ public class Controller
             Console.Write(question);
             try
             {
-                result_input = Console.ReadLine();
+                resultInput = Console.ReadLine();
                 break;
             }
             catch (System.Exception)
@@ -54,10 +53,11 @@ public class Controller
 
     private bool ConfirmInput(string question)
     {
+        string input;
         while (true)
         {
             Console.Write(question);
-            string input = Console.ReadLine();
+            input = Console.ReadLine();
             if (input == "y")
             {
                 break;
@@ -146,11 +146,11 @@ public class Controller
             }
             catch (System.Exception)
             {
-                Console.WriteLine("Wrong input.");
+                Console.WriteLine("Wrong input. Please try again.");
             }
         }
 
-        if (saveName.Substring(saveName.Length - 4) != ".txt")
+        if ((saveName.Length <= 4) || (saveName.Substring(saveName.Length - 4) != ".txt"))
         {
             saveName += ".txt";
         }
@@ -171,14 +171,14 @@ public class Controller
         while (true)
         {
             view.ShowInput();
-            view.ShowBoard(model.GetBoardArrayToString());
+            view.ShowBoard();
             Console.WriteLine("Current Turn : " + model.GetCurrentTurn().ToUpper());
             InputDialog("Enter input: ");
-            if (result_input == "exit")
+            if (resultInput == "exit")
             {
                 break;
             }
-            else if (result_input == "save")
+            else if (resultInput == "save")
             {
                 CallSaveGame();
             }
@@ -186,7 +186,7 @@ public class Controller
             {
                 try
                 {
-                    index_row_col = result_input.Split(",");
+                    string[] index_row_col = resultInput.Split(",");
                     string row_string = index_row_col[0];
                     string col_string = index_row_col[1];
                     if (PlayMove(Convert.ToInt32(row_string), Convert.ToInt32(col_string)))
@@ -196,7 +196,7 @@ public class Controller
                 }
                 catch (System.Exception)
                 {
-                    view.detail_input();
+                    Console.WriteLine("Wrong input. Please try again.");
                 }
             }
         }
@@ -216,7 +216,7 @@ public class Controller
         {
             return false;
         }
-        view.ShowBoard(model.GetBoardArrayToString());
+        view.ShowBoard();
         view.winner_field_write(winner_found, currentTurn);
         return true;
     }

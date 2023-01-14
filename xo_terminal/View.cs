@@ -1,6 +1,11 @@
 public class View
 {
-    //public int n;
+    private Model model;
+
+    public View(Model model)
+    {
+        this.model = model;
+    }
     public void ShowMenuInput()
     {
         Console.WriteLine("");
@@ -18,29 +23,27 @@ public class View
         Console.WriteLine(" -> Type \"(row),(column)\" to play in the board (For example \"0,0\").");
     }
 
-    public void ShowBoard(string board)
+    public void ShowBoard()
     {
-        int n = Convert.ToInt32(Math.Sqrt(board.Length));
-        int pointer = 0;
+        string value;
         Console.WriteLine("");
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < model.BoardSize; i++)
         {
-            for (int j = 0; j < n; j++)
+            for (int j = 0; j < model.BoardSize; j++)
             {
-
-                if (board[pointer] == 'n')
+                value = model.GetBoardValue(i, j);
+                if (value == "n" || String.IsNullOrEmpty(value))
                 {
                     Console.Write(" _ ");
                 }
-                else if (board[pointer] == 'x')
+                else if (value == "x")
                 {
                     Console.Write(" X ");
                 }
-                else if (board[pointer] == 'o')
+                else if (value == "o")
                 {
                     Console.Write(" O ");
                 }
-                pointer++;
                 
             }
             Console.WriteLine("");
@@ -65,19 +68,5 @@ public class View
             Console.WriteLine("winner is " + winner_turn.ToUpper() + " (diagonal line)");
         }
 
-    }
-
-    public void detail_input()
-    {
-        Console.WriteLine("");
-        Console.WriteLine("");
-        Console.WriteLine("    !!SOMETHING WRONG ABOUT YOU INPUT TRY AGAIN LIKE!!");
-        Console.WriteLine("");
-        Console.WriteLine("      1. row num , col num to fill in field");
-        Console.WriteLine("      2. type SAVE for save game");
-        Console.WriteLine("      3. type LOAD for LOAD game");
-        Console.WriteLine("");
-        Console.WriteLine("Your current board:");
-        Console.WriteLine("");
     }
 }
