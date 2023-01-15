@@ -31,13 +31,6 @@ public class Model
         TurnCount = 0;
     }
 
-    public void SwitchTurn()
-    {
-        // Switch player's turn.
-        turnCheck++;
-        turnCheck %= 2;
-    }
-
     public string GetCurrentTurn()
     {
         // Return string current turn.
@@ -239,5 +232,11 @@ public class Model
             }
         }
         return result;
+    }
+    private void SwitchTurn()
+    {
+        // Switch player's turn.
+        turnCheck++;
+        turnCheck %= 2;
     }
 }
