@@ -45,7 +45,6 @@ namespace WPF_first_touch.MVC.View
         {
             try
             {
-              
                 button_Controller.Play_Setup(Int32.Parse(Size_Text.Text));
             }
 

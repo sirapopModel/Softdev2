@@ -59,7 +59,7 @@ namespace WPF_first_touch.MVC.Controller
                 view.label_update();
 
                 
-                if (model.GetCurrentTurn() == "x")
+                if (model.GetBoardValue(row,col) == "x")
                 {
                     view.X_draw(row, col);
                     if (winner_found >0)
