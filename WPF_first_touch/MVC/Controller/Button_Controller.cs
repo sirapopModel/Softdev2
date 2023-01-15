@@ -71,6 +71,8 @@ namespace WPF_first_touch.MVC.Controller
                         return;
                     }
                 }
+
+                // Check for tie.
                 if (winner_found == -1 )
                 {
                     MessageBox.Show("Draw", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
