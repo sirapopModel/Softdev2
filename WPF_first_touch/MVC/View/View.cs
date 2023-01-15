@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WPF_first_touch.MVC.Model;
+using WPF_first_touch.MVC;
 using System.Windows.Media.Animation;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -13,10 +13,11 @@ using Microsoft.Win32;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
+using WPF_first_touch.MVC.Controller;
 
 namespace WPF_first_touch.MVC.View
 {
-    public class my_View
+    public class View
     {
         public int field_size;
         public Point[] x_array = new Point[4];
@@ -44,17 +45,48 @@ namespace WPF_first_touch.MVC.View
         public Label label_OX_turn;
 
         public Canvas Canvas_field;
+        public Canvas my_Canvas;
+
+        private Model model;
 
         Line my_line = new Line();
         Line my_line1 = new Line();
 
-        public void Board_line_show(int n) 
+        public View(Model model , Canvas my_Canvas , Label label_num_count , Label label_OX_turn) 
         {
-            for (int row = 1; row<n; row++) 
+            this.model = model;
+            this.my_Canvas = my_Canvas;           
+            this.label_num_count = label_num_count;
+            this.label_OX_turn = label_OX_turn;
+        }
+        public void Create_board(MouseButtonEventHandler Canvas_field_click , MouseEventHandler Canvas_Mouse_Move) 
+        {
+            my_Canvas.Children.Remove(Canvas_field);
+
+            grid_size = 300 / model.BoardSize ;
+            field_size = grid_size * model.BoardSize;
+
+            Canvas_field = new Canvas();
+
+            Canvas_field.Height = field_size;
+            Canvas_field.Width = field_size;
+            Canvas_field.Background = new SolidColorBrush(Colors.White);
+            Canvas.SetLeft(Canvas_field, 125);
+            Canvas_field.MouseDown += new MouseButtonEventHandler(Canvas_field_click);
+            Canvas_field.MouseMove += new MouseEventHandler(Canvas_Mouse_Move);
+            my_Canvas.Children.Add(Canvas_field);
+            Board_line_show();
+            label_update();
+
+        }
+
+        public void Board_line_show() 
+        {
+            for (int row = 1; row< model.BoardSize; row++) 
             {
                 draw_line(row,0, "board_horizontal");
             }
-            for (int col = 1; col <n; col++)
+            for (int col = 1; col < model.BoardSize; col++)
             {
                 draw_line(0, col, "board_vertical");
             }
@@ -165,26 +197,16 @@ namespace WPF_first_touch.MVC.View
         }
        
         
-        public void Canvas_field_Enter(object sender , MouseEventArgs e) 
+       
+
+
+       public void label_update()
         {
-            Canvas_field.Cursor = Cursors.Hand;
+            label_OX_turn.Content = model.GetCurrentTurn().ToUpper() ;         
+            label_num_count.Content = model.TurnCount.ToString();
         }
 
-
-       public void label_update(int check_turn , int turn_count)
-        {
-            if (check_turn == 0)
-            {
-                label_OX_turn.Content = "X";
-            }
-            else
-            {
-                label_OX_turn.Content = "O";
-            }
-            label_num_count.Content = turn_count.ToString();
-        }
-
-        public Stream Save_window_call()
+        public String Save_window_call()
 
         {
             MessageBoxResult confirm_result = MessageBox.Show("Do you want to save file?", "Alert!!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
@@ -201,13 +223,14 @@ namespace WPF_first_touch.MVC.View
 
                 if (my_save_window.ShowDialog() == true) // press save the saveFileDialog.show will return true
                 {
-                    return my_save_window.OpenFile();
+
+                    return my_save_window.FileName ; 
                 }
             }
             return null;
         }
 
-        public Stream Load_window_call()
+        public String Load_window_call()
         {
             MessageBoxResult confirm_result = MessageBox.Show("Do you want to Load save?", "Alert!!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (confirm_result == MessageBoxResult.Yes)
@@ -224,15 +247,16 @@ namespace WPF_first_touch.MVC.View
                 if (my_open_window.ShowDialog() == true) // press save the saveFileDialog.show will return true
                 {
 
-                    return my_open_window.OpenFile();
+                    return my_open_window.FileName;
 
                 }
             }
             return null;
         }
 
-        public void O_draw(int n ,int row, int col)
+        public void O_draw(int row, int col)
         {
+            int n = model.BoardSize;
             o_size = 210 / (2 * n);
             o_position_x = (45 / n) + (col * grid_size);
             o_position_y = (45 / n) + (row * grid_size);
@@ -281,8 +305,9 @@ namespace WPF_first_touch.MVC.View
             o_Story.Children.Clear();
         }
 
-        public void X_draw(int n ,int row, int col)
+        public void X_draw(int row, int col)
         {
+            int n = model.BoardSize;
             x_array[0] = new Point((60 / n) + col * grid_size, (60 / n) + row * grid_size);
             x_array[1] = new Point((240 / n) + col * grid_size, (240 / n) + row * grid_size);
             x_array[2] = new Point((60 / n) + col * grid_size, (240 / n) + row * grid_size);
