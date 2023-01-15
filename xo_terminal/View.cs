@@ -55,7 +55,11 @@ public class View
 
     public void winner_field_write(int winner_found, string winner_turn)
     {
-        if (winner_found == 1)
+        if (winner_found == -1)
+        {
+            Console.WriteLine("That's a tie.");
+        }
+        else if (winner_found == 1)
         {
             Console.WriteLine("winner is " + winner_turn.ToUpper() + " (horizontal line)");
         }

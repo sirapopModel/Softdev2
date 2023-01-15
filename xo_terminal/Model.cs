@@ -70,12 +70,12 @@ public class Model
         // Return 2 if win by vertical.
         // Return 3 if win by diagonal from top left to bottom right \.
         // Return 4 if win by diagonal form top right to bottom left /.
-        // Return 5 if tie.
+        // Return -1 if tie.
 
         // Check for tie.
         if (TurnCount == (BoardSize*BoardSize))
         {
-            return 5;
+            return -1;
         }
 
         // Check win for horizontal.
