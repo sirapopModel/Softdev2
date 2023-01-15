@@ -1,238 +1,250 @@
-using Microsoft.Win32;
 using System;
-using WPF_first_touch.MVC.Controller;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Path = System.IO.Path;
+using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
+using System.Threading.Channels;
 
-namespace WPF_first_touch.MVC.Model
+public class Model
 {
-    public class game_data
+    public string SavePath { get;}    
+    public int BoardSize { get; protected set; }
+    public int TurnCount { get; protected set; }
+
+    private string[,] boardArray = new string[3, 3];
+    private int turnCheck = 0;
+
+    public Model()
     {
-        public string save_path = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
+        
+        this.SavePath = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
+        this.TurnCount = 0;
+    }
+    public string GetBoardValue(int row,int column)
+    {
+        return boardArray[row,column];
+    }
 
-        public int n;
-        private int _turnCheck = 0;
-        public string[,] GameResultArray = new string[3, 3];
-        public int TurnCount = 0;
+    public void ChangeBoardSize(int size)
+    {
+        // Change BoardSize, Create new array,
+        // reset Turncount to 0.
+        BoardSize = size;
+        boardArray = new string[size, size];
+        TurnCount = 0;
+    }
 
-        private void ClearAllArray() => Array.Clear(GameResultArray, 0, GameResultArray.Length);
-        public void CreateArray(int size)
+    public void SwitchTurn()
+    {
+        // Switch player's turn.
+        turnCheck++;
+        turnCheck %= 2;
+    }
+
+    public string GetCurrentTurn()
+    {
+        // Return string current turn.
+        if (turnCheck == 0)
         {
-            // Set n = size. Clear all array and create new string.
-            n = size;
-            ClearAllArray();
-            GameResultArray = new string[size, size];
-            TurnCount = 0;
+            return "x";
         }
-        public int check_turn()
-        {
-            // Return true if it's Player_x's turn, otherwise false.
-            return _turnCheck;
+        return "o";
+    }
+
+    public bool PlayerPlay(int row, int column)
+    {
+        // If that row,column was played already, then return.
+        if (!String.IsNullOrWhiteSpace(boardArray[row, column]))
+        { 
+            return false; 
         }
 
+        // Insert "x" or "o" into boardArray and switch turn.
+        boardArray[row, column] = GetCurrentTurn();
+        TurnCount++;
+        SwitchTurn();
+        return true;
+    }
 
-        public void SwitchTurn()
+    public int CheckEndGame(int row, int column)
+    {
+        // Return 0 if the game not end yet.
+        // Return 1 if win by horizontal.
+        // Return 2 if win by vertical.
+        // Return 3 if win by diagonal from top left to bottom right \.
+        // Return 4 if win by diagonal form top right to bottom left /.
+        // Return -1 if tie.
+
+        
+       
+
+        // Check win for horizontal.
+        for (int i = 1; i < BoardSize; i++)
         {
-            // Switch player's turn.
-            if (_turnCheck == 1)
+            if (boardArray[row, 0] != boardArray[row, i] || String.IsNullOrEmpty(boardArray[row, i]))
             {
-                _turnCheck = 0;
+                break;
             }
-            else
+            if (i == BoardSize - 1)
             {
-                _turnCheck++;
+                return 1;
             }
         }
-
-        public void PlayerPlay(int row, int column)
+        // Check win for vertical.
+        for (int i = 1; i < BoardSize; i++)
         {
-            // If already played, return
-            if (IsAlreadyPlayed(row, column)) { return; }
-
-            // Insert "x" or "o" into GameResultArray when player plays.
-            if (_turnCheck == 0)
+            if (boardArray[0, column] != boardArray[i, column] || String.IsNullOrEmpty(boardArray[i, column]))
             {
-                GameResultArray[row, column] = "x";
+                break;
             }
-            else
+            if (i == BoardSize - 1)
             {
-                GameResultArray[row, column] = "o";
+                return 2;
             }
-            TurnCount++;
         }
-
-        public bool IsAlreadyPlayed(int row, int column)
+        // Check win for diagonal 1.
+        if (row == column)
         {
-            // Return ture if that row and column is already played.
-            return !string.IsNullOrWhiteSpace(GameResultArray[row, column]);
-        }
-
-        public int CheckForWinner(int row, int column)
-        {
-            // Check win for horizontal.
-            for (int i = 1; i < n; i++)
+            for (int i = 1; i < BoardSize; i++)
             {
-                if (GameResultArray[row, 0] != GameResultArray[row, i] || string.IsNullOrEmpty(GameResultArray[row, i]))
+                if (boardArray[0, 0] != boardArray[i, i] || String.IsNullOrEmpty(boardArray[i, i]))
                 {
                     break;
                 }
-                if (i == n - 1)
+                if (i == BoardSize - 1)
                 {
-                    return 1;
+                    return 3;
                 }
             }
-            // Check win for vertical.
-            for (int i = 1; i < n; i++)
+        }
+        // Check win for diagonal 2.
+        if (row + column == BoardSize - 1)
+        {
+            for (int i = 1; i < BoardSize; i++)
             {
-                if (GameResultArray[0, column] != GameResultArray[i, column] || string.IsNullOrEmpty(GameResultArray[i, column]))
+                if (boardArray[0, BoardSize - 1] != boardArray[i, BoardSize - 1 - i] || String.IsNullOrEmpty(boardArray[i, BoardSize - 1 - i]))
                 {
                     break;
                 }
-                if (i == n - 1)
+                if (i == BoardSize - 1)
                 {
-                    return 2;
+                    return 4;
                 }
             }
-            // Check win for diagonal 1.
-            if (row == column)
-            {
-                for (int i = 1; i < n; i++)
-                {
-                    if (GameResultArray[0, 0] != GameResultArray[i, i] || string.IsNullOrEmpty(GameResultArray[i, i]))
-                    {
-                        break;
-                    }
-                    if (i == n - 1)
-                    {
-                        return 3;
-                    }
-                }
-            }
-            // Check win for diagonal 2.
-            if (row + column == n - 1)
-            {
-                for (int i = 1; i < n; i++)
-                {
-                    if (GameResultArray[0, n - 1] != GameResultArray[i, n - 1 - i] || string.IsNullOrEmpty(GameResultArray[i, n - 1 - i]))
-                    {
-                        break;
-                    }
-                    if (i == n - 1)
-                    {
-                        return 4;
-                    }
-                }
-            }
-            return 0;
         }
 
-        public bool IsDraw()
+        // Check for tie.
+        if (TurnCount == (BoardSize * BoardSize))
         {
-            // Return true if TurnCount equal to n*n. That means all grid have played.
-            return TurnCount == n * n ? true : false;
+            return -1;
+        }
+        return 0;
+    }
+
+    public void SaveGame(string saveName)
+        
+    {
+        // Save in .txt file
+        if (saveName.Substring(saveName.Length - 4) != ".txt")
+        {
+            saveName += ".txt";
         }
 
-        public void SaveGame(Stream FileStream)
+        // Replace file if saveName exist.
+       
+        if (File.Exists(saveName))
         {
-            StreamWriter streamWriter = new StreamWriter(FileStream);
-            streamWriter.WriteLine(n);
-            streamWriter.WriteLine(GetArrayToString());
-            streamWriter.WriteLine(GetCurrentTurn());
-            streamWriter.Write(TurnCount);
-            streamWriter.Close();
+            File.Delete(saveName);
+        }
+        StreamWriter streamWriter = new StreamWriter(saveName);
+        streamWriter.WriteLine(BoardSize);
+        streamWriter.WriteLine(GetBoardArrayToString());
+        streamWriter.WriteLine(GetCurrentTurn());
+        streamWriter.Write(TurnCount);
+        streamWriter.Close();
+
+    }
+
+    public bool LoadGame(string saveName)
+    {
+        // Return false if the loading not complete.
+        // Return true if the loading is complete.
+
+        if (!File.Exists(saveName)) 
+        {
+            return false;
         }
 
-        private string GetArrayToString()
+        string[] allLines = File.ReadAllLines(saveName);
+        try
         {
-            string Result = "";
-            foreach (string Text in GameResultArray)
+            BoardSize = Int32.Parse(allLines[0]);
+            ChangeBoardSize(BoardSize);
+
+            string boardArray = allLines[1];
+            UpdateArray(boardArray);
+
+            string currentTurn = allLines[2];
+            SetTurn(currentTurn);
+
+            TurnCount = Int32.Parse(allLines[3]);
+        }
+        catch (System.Exception e)
+        {
+            Console.WriteLine("Wrong save file format.");
+            Console.WriteLine(e.Message);
+            return false;
+        }
+        return true;
+    }
+
+    private void UpdateArray(string resultText)
+    {
+        int indexText = 0;
+        for (int row = 0; row < BoardSize; row++)
+        {
+            for (int col = 0; col < BoardSize; col++)
             {
-                if (string.IsNullOrEmpty(Text))
+                if (resultText[indexText] == 'n')
                 {
-                    Result += "n";
+                    boardArray[row, col] = "";
                 }
                 else
                 {
-                    Result += Text;
+                    boardArray[row, col] = resultText[indexText].ToString();
                 }
+                indexText++;
             }
-            return Result;
         }
+    }
 
-        private string GetCurrentTurn()
+    private void SetTurn(string turn)
+    {
+        // Set current turn from string.
+        if (turn == "x")
         {
-            if (_turnCheck == 0)
-            {
-                return "x";
-            }
-            return "o";
+            turnCheck = 0;
         }
-
-        public bool LoadGame(Stream FileStream)
-
+        else
         {
-            // if return is true = not error
-            try
-            {
-                StreamReader streamReader = new StreamReader(FileStream);
-                n = int.Parse(streamReader.ReadLine());
-                string ResultText = streamReader.ReadLine();
-                string NowTurn = streamReader.ReadLine();
-                CreateArray(n);
-                TurnCount = int.Parse(streamReader.ReadLine());
-                UpdateArray(ResultText);
-                SetTurn(NowTurn);
-                streamReader.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
-            return true;
+            turnCheck = 1;
         }
+    }
 
-        private void UpdateArray(string ResultText)
+    private string GetBoardArrayToString()
+    {
+        // Return a string that contains all values in boardArray.
+        string result = "";
+        foreach (string Text in boardArray)
         {
-            int IndexText = 0;
-            for (int row = 0; row < n; row++)
+            if (String.IsNullOrEmpty(Text))
             {
-                for (int col = 0; col < n; col++)
-                {
-                    if (ResultText[IndexText] == 'n')
-                    {
-                        GameResultArray[row, col] = "";
-                    }
-                    else
-                    {
-                        GameResultArray[row, col] = ResultText[IndexText].ToString();
-                    }
-                    IndexText++;
-                }
+                result += "n";
+            }
+            else
+            {
+                result += Text;
             }
         }
-
-        private void SetTurn(string Turn)
-        {
-            if (Turn == "x")
-            {
-                _turnCheck = 0;
-            }
-            else if (Turn == "o")
-            {
-                _turnCheck = 1;
-            }
-        }
+        return result;
     }
 }

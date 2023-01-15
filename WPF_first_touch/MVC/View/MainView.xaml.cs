@@ -1,5 +1,5 @@
 ﻿using WPF_first_touch.MVC.Controller;
-using WPF_first_touch.MVC.Model;
+using WPF_first_touch.MVC;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -26,19 +26,26 @@ namespace WPF_first_touch.MVC.View
     /// </summary>
     public partial class MainView : Window
     {
-        public Button_Controller button_Controller = new Button_Controller();
+        private View view;
+        private Model model ;
+        private Button_Controller button_Controller;
+
+
 
         public MainView()
         {
             InitializeComponent();
-            button_Controller.serve_component_to_view(Count_Move_UI, Turn_UI);
+            this.model = new Model();
+            this.view = new View(model , my_Canvas, Count_Move_UI, Turn_UI);
+            this.button_Controller = new Button_Controller(model, view);
+           
         }
 
         private void Play_Pressed(object sender, EventArgs e)
         {
             try
             {
-                my_Canvas.Children.Remove(button_Controller.view.Canvas_field);
+              
                 button_Controller.Play_Setup(Int32.Parse(Size_Text.Text));
             }
 
@@ -47,8 +54,6 @@ namespace WPF_first_touch.MVC.View
                 MessageBox.Show("Integer_Only", "Alert!!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            button_Controller.Made_empty_Array(button_Controller.data.n);
-            my_Canvas.Children.Add(button_Controller.view.Canvas_field);
         }
 
 
@@ -59,15 +64,7 @@ namespace WPF_first_touch.MVC.View
 
         private void Load_button_Click(object sender, RoutedEventArgs e)
         {
-            Stream Load_file = button_Controller.LoadFileSelected();
-
-            if (Load_file != null)
-            {
-                my_Canvas.Children.Remove(button_Controller.view.Canvas_field);
-                button_Controller.Do_load(Load_file);
-                my_Canvas.Children.Add(button_Controller.view.Canvas_field);
-            }
-
+            button_Controller.Do_load();
         }
 
         private void Cursor_Enter(object sender, MouseEventArgs e)
