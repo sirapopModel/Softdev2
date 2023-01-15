@@ -72,12 +72,6 @@ public class Model
         // Return 4 if win by diagonal form top right to bottom left /.
         // Return -1 if tie.
 
-        // Check for tie.
-        if (TurnCount == (BoardSize*BoardSize))
-        {
-            return -1;
-        }
-
         // Check win for horizontal.
         for (int i = 1; i < BoardSize; i++)
         {
@@ -131,6 +125,11 @@ public class Model
                     return 4;
                 }
             }
+        }
+        // Check for tie.
+        if (TurnCount == (BoardSize * BoardSize))
+        {
+            return -1;
         }
         return 0;
     }
