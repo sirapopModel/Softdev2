@@ -123,6 +123,7 @@ public class Controller
                 Console.WriteLine("Wrong input. Please enter number again.");
             }
         }
+        saveName = Path.Join(model.SavePath, saveName);
         model.LoadGame(saveName);
         PlayGame();
     }
@@ -163,6 +164,7 @@ public class Controller
                 return;
             }
         }
+        saveName = Path.Join(model.SavePath, saveName);
         model.SaveGame(saveName);
         Console.WriteLine("Your game has been saved.");
     }
