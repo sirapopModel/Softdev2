@@ -30,15 +30,12 @@ namespace WPF_first_touch.MVC.View
         private Model model ;
         private Button_Controller button_Controller;
 
-
-
         public MainView()
         {
             InitializeComponent();
             this.model = new Model();
             this.view = new View(model , my_Canvas, Count_Move_UI, Turn_UI);
             this.button_Controller = new Button_Controller(model, view);
-           
         }
 
         private void Play_Pressed(object sender, EventArgs e)
@@ -54,7 +51,6 @@ namespace WPF_first_touch.MVC.View
                 return;
             }
         }
-
 
         private void Save_Pressed(object sender, EventArgs e)
         {

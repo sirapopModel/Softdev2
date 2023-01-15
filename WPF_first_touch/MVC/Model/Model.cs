@@ -6,7 +6,7 @@ using System.Threading.Channels;
 
 public class Model
 {
-    public string SavePath { get;}    
+    public string SavePath { get; }
     public int BoardSize { get; protected set; }
     public int TurnCount { get; protected set; }
 
@@ -15,13 +15,12 @@ public class Model
 
     public Model()
     {
-        
         this.SavePath = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
         this.TurnCount = 0;
     }
-    public string GetBoardValue(int row,int column)
+    public string GetBoardValue(int row, int column)
     {
-        return boardArray[row,column];
+        return boardArray[row, column];
     }
 
     public void ChangeBoardSize(int size)
@@ -31,13 +30,6 @@ public class Model
         BoardSize = size;
         boardArray = new string[size, size];
         TurnCount = 0;
-    }
-
-    public void SwitchTurn()
-    {
-        // Switch player's turn.
-        turnCheck++;
-        turnCheck %= 2;
     }
 
     public string GetCurrentTurn()
@@ -54,8 +46,8 @@ public class Model
     {
         // If that row,column was played already, then return.
         if (!String.IsNullOrWhiteSpace(boardArray[row, column]))
-        { 
-            return false; 
+        {
+            return false;
         }
 
         // Insert "x" or "o" into boardArray and switch turn.
@@ -73,9 +65,6 @@ public class Model
         // Return 3 if win by diagonal from top left to bottom right \.
         // Return 4 if win by diagonal form top right to bottom left /.
         // Return -1 if tie.
-
-        
-       
 
         // Check win for horizontal.
         for (int i = 1; i < BoardSize; i++)
@@ -131,7 +120,6 @@ public class Model
                 }
             }
         }
-
         // Check for tie.
         if (TurnCount == (BoardSize * BoardSize))
         {
@@ -140,22 +128,21 @@ public class Model
         return 0;
     }
 
-    public void SaveGame(string saveName)
-        
+    public void SaveGame(string fullPath)
     {
         // Save in .txt file
-        if (saveName.Substring(saveName.Length - 4) != ".txt")
+        if (fullPath.Substring(fullPath.Length - 4) != ".txt")
         {
-            saveName += ".txt";
+            fullPath += ".txt";
         }
 
         // Replace file if saveName exist.
-       
-        if (File.Exists(saveName))
+        if (File.Exists(fullPath))
         {
-            File.Delete(saveName);
+            File.Delete(fullPath);
         }
-        StreamWriter streamWriter = new StreamWriter(saveName);
+
+        StreamWriter streamWriter = new StreamWriter(fullPath);
         streamWriter.WriteLine(BoardSize);
         streamWriter.WriteLine(GetBoardArrayToString());
         streamWriter.WriteLine(GetCurrentTurn());
@@ -164,17 +151,17 @@ public class Model
 
     }
 
-    public bool LoadGame(string saveName)
+    public bool LoadGame(string fullPath)
     {
         // Return false if the loading not complete.
         // Return true if the loading is complete.
 
-        if (!File.Exists(saveName)) 
+        if (!File.Exists(fullPath))
         {
             return false;
         }
 
-        string[] allLines = File.ReadAllLines(saveName);
+        string[] allLines = File.ReadAllLines(fullPath);
         try
         {
             BoardSize = Int32.Parse(allLines[0]);
@@ -246,5 +233,11 @@ public class Model
             }
         }
         return result;
+    }
+    private void SwitchTurn()
+    {
+        // Switch player's turn.
+        turnCheck++;
+        turnCheck %= 2;
     }
 }

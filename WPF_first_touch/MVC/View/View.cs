@@ -19,38 +19,24 @@ namespace WPF_first_touch.MVC.View
 {
     public class View
     {
-        public int field_size;
-        public Point[] x_array = new Point[4];
-
+        public Canvas Canvas_field;
         public int grid_size;
 
-        public Storyboard x_Story = new Storyboard();
-        public Storyboard x_Story1 = new Storyboard();
-
-        public int o_size = 0;
-        public int o_position_x = 0;
-        public int o_position_y = 0;
-
-        public Point[] o_cooardinate_list = new Point[361];
-        public double one_radian = 6.28 / 360;
-        public Storyboard o_Story = new Storyboard();
-
-        public SaveFileDialog my_save_window = new SaveFileDialog();
-        string save_path = Directory.GetCurrentDirectory() + "\\Save";
-
-        public OpenFileDialog my_open_window = new OpenFileDialog();
-
-
-        public Label label_num_count;
-        public Label label_OX_turn;
-
-        public Canvas Canvas_field;
-        public Canvas my_Canvas;
-
         private Model model;
+        private int field_size;
+        private int o_size = 0;
+        private int o_position_x = 0;
+        private int o_position_y = 0;
+        private Point[] x_cooardinate_array = new Point[4];
+        private Point[] o_cooardinate_array = new Point[361];
+        private Storyboard x_Story = new Storyboard();
+        private Storyboard x_Story1 = new Storyboard();
+        private Storyboard o_Story = new Storyboard();
+        private Label label_num_count;
+        private Label label_OX_turn;
+        private Canvas my_Canvas;
 
-        Line my_line = new Line();
-        Line my_line1 = new Line();
+        const double ONE_RADIAN = 6.28 / 360;
 
         public View(Model model , Canvas my_Canvas , Label label_num_count , Label label_OX_turn) 
         {
@@ -59,6 +45,7 @@ namespace WPF_first_touch.MVC.View
             this.label_num_count = label_num_count;
             this.label_OX_turn = label_OX_turn;
         }
+
         public void Create_board(MouseButtonEventHandler Canvas_field_click , MouseEventHandler Canvas_Mouse_Move) 
         {
             my_Canvas.Children.Remove(Canvas_field);
@@ -80,103 +67,7 @@ namespace WPF_first_touch.MVC.View
 
         }
 
-        public void Board_line_show() 
-        {
-            for (int row = 1; row< model.BoardSize; row++) 
-            {
-                draw_line(row,0, "board_horizontal");
-            }
-            for (int col = 1; col < model.BoardSize; col++)
-            {
-                draw_line(0, col, "board_vertical");
-            }
-        }
-        
-
-        private void draw_line(int row , int col, string type_line) 
-        {
-            my_line = new Line();
-            my_line.StrokeThickness = 4;
-            my_line.Stroke = Brushes.Black;
-            double start_point_X;
-            double start_point_Y;
-            double end_point_X;
-            double end_point_Y;
-            if (type_line == "board_vertical") 
-            {
-                start_point_X = col*grid_size ;
-                start_point_Y = 0;
-                end_point_X = col*grid_size;
-                end_point_Y = field_size;
-
-            }
-            else if(type_line == "board_horizontal")
-            {
-                start_point_X = 0;
-                start_point_Y = row * grid_size;
-                end_point_X = field_size;
-                end_point_Y = row * grid_size;
-            }
-            else if(type_line == "horizontal_winner")
-            {
-                my_line.StrokeThickness = 10;
-                my_line.Stroke = Brushes.LimeGreen;
-                start_point_X = 0;
-                start_point_Y = ((row + row + 1) * grid_size) / 2;
-                end_point_X = field_size;
-                end_point_Y = ((row + row + 1) * grid_size) / 2;
-            }
-            else if (type_line == "vertical_winner") 
-            {
-                my_line.StrokeThickness = 10;
-                my_line.Stroke = Brushes.LimeGreen; 
-                start_point_X = ((col + col + 1) * grid_size) / 2;
-                start_point_Y = 0;
-                end_point_X =  ((col + col + 1) * grid_size) / 2;
-                end_point_Y = field_size;
-            }
-            else if (type_line == "diagonal_up_winner")
-            {
-                my_line.StrokeThickness = 10;
-                my_line.Stroke = Brushes.LimeGreen;
-                start_point_X = 0;
-                start_point_Y = field_size;
-                end_point_X = field_size;
-                end_point_Y = 0;
-            }
-            else 
-            {
-                my_line.StrokeThickness = 10;
-                my_line.Stroke = Brushes.LimeGreen; 
-                start_point_X = 0;
-                start_point_Y =0;
-                end_point_X = field_size;
-                end_point_Y = field_size;
-            }
-            my_line.X1 = start_point_X;
-            my_line.Y1 = start_point_Y;
-            my_line.X2 = start_point_X;
-            my_line.Y2 = start_point_Y;
-
-            Canvas_field.Children.Add(my_line);
-            DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(1000)));
-            varX.BeginTime = TimeSpan.FromMilliseconds(0);
-            DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(1000)));
-            varY.BeginTime = TimeSpan.FromMilliseconds(0);
-
-            o_Story.Children.Add(varX);
-            o_Story.Children.Add(varY);
-            Storyboard.SetTarget(varX, my_line);
-            Storyboard.SetTarget(varY, my_line);
-            Storyboard.SetTargetProperty(varX, new PropertyPath(Line.X2Property));
-            Storyboard.SetTargetProperty(varY, new PropertyPath(Line.Y2Property));
-            varX = null;
-            varY = null;
-            o_Story.Begin();
-            o_Story.Children.Clear();
-        }
-
-        public void  winner_show(int winner_found , int row , int col) 
+        public void winner_show(int winner_found , int row , int col) 
         {
             if (winner_found == 1) 
             {
@@ -195,60 +86,54 @@ namespace WPF_first_touch.MVC.View
                 draw_line(row, col, "diagonal_up_winner");
             }
         }
-       
-        
-       
 
-
-       public void label_update()
+        public void label_update()
         {
             label_OX_turn.Content = model.GetCurrentTurn().ToUpper() ;         
             label_num_count.Content = model.TurnCount.ToString();
         }
 
-        public String Save_window_call()
-
+        public string Save_window_call()
         {
+            SaveFileDialog my_save_window = new SaveFileDialog();
             MessageBoxResult confirm_result = MessageBox.Show("Do you want to save file?", "Alert!!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (confirm_result == MessageBoxResult.Yes)
             {
-                my_save_window.InitialDirectory = save_path;
+                my_save_window.InitialDirectory = model.SavePath;
                 my_save_window.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 my_save_window.FilterIndex = 1;
 
-                if (!Directory.Exists(save_path))
+                if (!Directory.Exists(model.SavePath))
                 {
-                    Directory.CreateDirectory(save_path);
+                    Directory.CreateDirectory(model.SavePath);
                 }
 
                 if (my_save_window.ShowDialog() == true) // press save the saveFileDialog.show will return true
                 {
-
                     return my_save_window.FileName ; 
                 }
             }
             return null;
         }
 
-        public String Load_window_call()
+        public string Load_window_call()
         {
+            OpenFileDialog my_open_window = new OpenFileDialog();
             MessageBoxResult confirm_result = MessageBox.Show("Do you want to Load save?", "Alert!!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (confirm_result == MessageBoxResult.Yes)
             {
-                my_open_window.InitialDirectory = save_path;
+                my_open_window.InitialDirectory = model.SavePath;
                 my_open_window.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 my_open_window.FilterIndex = 1;
 
-                if (!Directory.Exists(save_path))
+                if (!Directory.Exists(model.SavePath))
                 {
-                    Directory.CreateDirectory(save_path);
+                    Directory.CreateDirectory(model.SavePath);
                 }
 
                 if (my_open_window.ShowDialog() == true) // press save the saveFileDialog.show will return true
                 {
-
                     return my_open_window.FileName;
-
                 }
             }
             return null;
@@ -256,6 +141,7 @@ namespace WPF_first_touch.MVC.View
 
         public void O_draw(int row, int col)
         {
+            Line my_line;
             int n = model.BoardSize;
             o_size = 210 / (2 * n);
             o_position_x = (45 / n) + (col * grid_size);
@@ -263,22 +149,20 @@ namespace WPF_first_touch.MVC.View
 
             for (int i = 0; i < 361; i++)
             {
-                Double x_point = Math.Round(((o_size) * Math.Cos(i * one_radian) + (o_size)) + o_position_x, 5);
-                Double y_point = Math.Round(((o_size) * Math.Sin(i * one_radian) + (o_size)) + o_position_y, 5);
-                o_cooardinate_list[i] = new Point(x_point, y_point);
-                //o_cooardinate_list[720] = o_cooardinate_list[1];
+                Double x_point = Math.Round(((o_size) * Math.Cos(i * ONE_RADIAN) + (o_size)) + o_position_x, 5);
+                Double y_point = Math.Round(((o_size) * Math.Sin(i * ONE_RADIAN) + (o_size)) + o_position_y, 5);
+                o_cooardinate_array[i] = new Point(x_point, y_point);
             }
             for (int i = 0; i < 360; i++)
             {
-
                 my_line = new Line();
                 my_line.StrokeThickness = 4;
                 my_line.Stroke = Brushes.Red;
 
-                double start_point_X = o_cooardinate_list[i].X;
-                double start_point_Y = o_cooardinate_list[i].Y;
-                double end_point_X = o_cooardinate_list[i + 1].X;
-                double end_point_Y = o_cooardinate_list[i + 1].Y;
+                double start_point_X = o_cooardinate_array[i].X;
+                double start_point_Y = o_cooardinate_array[i].Y;
+                double end_point_X = o_cooardinate_array[i + 1].X;
+                double end_point_Y = o_cooardinate_array[i + 1].Y;
 
                 my_line.X1 = start_point_X;
                 my_line.Y1 = start_point_Y;
@@ -297,9 +181,6 @@ namespace WPF_first_touch.MVC.View
                 Storyboard.SetTarget(varY, my_line);
                 Storyboard.SetTargetProperty(varX, new PropertyPath(Line.X2Property));
                 Storyboard.SetTargetProperty(varY, new PropertyPath(Line.Y2Property));
-                varX = null;
-                varY = null;
-
             }
             o_Story.Begin();
             o_Story.Children.Clear();
@@ -307,11 +188,13 @@ namespace WPF_first_touch.MVC.View
 
         public void X_draw(int row, int col)
         {
+            Line my_line;
+            Line my_line1;
             int n = model.BoardSize;
-            x_array[0] = new Point((60 / n) + col * grid_size, (60 / n) + row * grid_size);
-            x_array[1] = new Point((240 / n) + col * grid_size, (240 / n) + row * grid_size);
-            x_array[2] = new Point((60 / n) + col * grid_size, (240 / n) + row * grid_size);
-            x_array[3] = new Point((240 / n) + col * grid_size, (60 / n) + row * grid_size);
+            x_cooardinate_array[0] = new Point((60 / n) + col * grid_size, (60 / n) + row * grid_size);
+            x_cooardinate_array[1] = new Point((240 / n) + col * grid_size, (240 / n) + row * grid_size);
+            x_cooardinate_array[2] = new Point((60 / n) + col * grid_size, (240 / n) + row * grid_size);
+            x_cooardinate_array[3] = new Point((240 / n) + col * grid_size, (60 / n) + row * grid_size);
 
             // line property
             my_line = new Line();
@@ -322,14 +205,14 @@ namespace WPF_first_touch.MVC.View
             my_line1.Stroke = Brushes.Blue;
 
             // set variable
-            double start_point_X = x_array[0].X;
-            double start_point_Y = x_array[0].Y;
-            double end_point_X = x_array[1].X; ;
-            double end_point_Y = x_array[1].Y; ;
-            double start_point1_X = x_array[2].X;
-            double start_point1_Y = x_array[2].Y;
-            double end_point1_X = x_array[3].X; ;
-            double end_point1_Y = x_array[3].Y; ;
+            double start_point_X = x_cooardinate_array[0].X;
+            double start_point_Y = x_cooardinate_array[0].Y;
+            double end_point_X = x_cooardinate_array[1].X; ;
+            double end_point_Y = x_cooardinate_array[1].Y; ;
+            double start_point1_X = x_cooardinate_array[2].X;
+            double start_point1_Y = x_cooardinate_array[2].Y;
+            double end_point1_X = x_cooardinate_array[3].X; ;
+            double end_point1_Y = x_cooardinate_array[3].Y; ;
 
             //set initial state of line and that to UI
             my_line.X1 = start_point_X;
@@ -377,6 +260,101 @@ namespace WPF_first_touch.MVC.View
             x_Story.Children.Clear();
             x_Story1.Children.Clear();
 
+        }
+
+        private void draw_line(int row, int col, string type_line)
+        {
+            Line my_line = new Line();
+            my_line.StrokeThickness = 4;
+            my_line.Stroke = Brushes.Black;
+            double start_point_X;
+            double start_point_Y;
+            double end_point_X;
+            double end_point_Y;
+            if (type_line == "board_vertical")
+            {
+                start_point_X = col * grid_size;
+                start_point_Y = 0;
+                end_point_X = col * grid_size;
+                end_point_Y = field_size;
+
+            }
+            else if (type_line == "board_horizontal")
+            {
+                start_point_X = 0;
+                start_point_Y = row * grid_size;
+                end_point_X = field_size;
+                end_point_Y = row * grid_size;
+            }
+            else if (type_line == "horizontal_winner")
+            {
+                my_line.StrokeThickness = 10;
+                my_line.Stroke = Brushes.LimeGreen;
+                start_point_X = 0;
+                start_point_Y = ((row + row + 1) * grid_size) / 2;
+                end_point_X = field_size;
+                end_point_Y = ((row + row + 1) * grid_size) / 2;
+            }
+            else if (type_line == "vertical_winner")
+            {
+                my_line.StrokeThickness = 10;
+                my_line.Stroke = Brushes.LimeGreen;
+                start_point_X = ((col + col + 1) * grid_size) / 2;
+                start_point_Y = 0;
+                end_point_X = ((col + col + 1) * grid_size) / 2;
+                end_point_Y = field_size;
+            }
+            else if (type_line == "diagonal_up_winner")
+            {
+                my_line.StrokeThickness = 10;
+                my_line.Stroke = Brushes.LimeGreen;
+                start_point_X = 0;
+                start_point_Y = field_size;
+                end_point_X = field_size;
+                end_point_Y = 0;
+            }
+            else
+            {
+                my_line.StrokeThickness = 10;
+                my_line.Stroke = Brushes.LimeGreen;
+                start_point_X = 0;
+                start_point_Y = 0;
+                end_point_X = field_size;
+                end_point_Y = field_size;
+            }
+            my_line.X1 = start_point_X;
+            my_line.Y1 = start_point_Y;
+            my_line.X2 = start_point_X;
+            my_line.Y2 = start_point_Y;
+
+            Canvas_field.Children.Add(my_line);
+            DoubleAnimation varX = new DoubleAnimation(end_point_X, new Duration(TimeSpan.FromMilliseconds(1000)));
+            varX.BeginTime = TimeSpan.FromMilliseconds(0);
+            DoubleAnimation varY = new DoubleAnimation(end_point_Y, new Duration(TimeSpan.FromMilliseconds(1000)));
+            varY.BeginTime = TimeSpan.FromMilliseconds(0);
+
+            o_Story.Children.Add(varX);
+            o_Story.Children.Add(varY);
+            Storyboard.SetTarget(varX, my_line);
+            Storyboard.SetTarget(varY, my_line);
+            Storyboard.SetTargetProperty(varX, new PropertyPath(Line.X2Property));
+            Storyboard.SetTargetProperty(varY, new PropertyPath(Line.Y2Property));
+            varX = null;
+            varY = null;
+            o_Story.Begin();
+            o_Story.Children.Clear();
+        }
+
+        private void Board_line_show()
+        {
+            for (int row = 1; row < model.BoardSize; row++)
+            {
+                draw_line(row, 0, "board_horizontal");
+            }
+            for (int col = 1; col < model.BoardSize; col++)
+            {
+                draw_line(0, col, "board_vertical");
+            }
         }
     }
 }
