@@ -31,13 +31,6 @@ public class Model
         TurnCount = 0;
     }
 
-    public void SwitchTurn()
-    {
-        // Switch player's turn.
-        turnCheck++;
-        turnCheck %= 2;
-    }
-
     public string GetCurrentTurn()
     {
         // Return string current turn.
@@ -134,16 +127,15 @@ public class Model
         return 0;
     }
 
-    public void SaveGame(string saveName)
+    public void SaveGame(string fullPath)
     {
         // Save in .txt file
-        if (saveName.Substring(saveName.Length - 4) != ".txt")
+        if (fullPath.Substring(fullPath.Length - 4) != ".txt")
         {
-            saveName += ".txt";
+            fullPath += ".txt";
         }
 
         // Replace file if saveName exist.
-        string fullPath = Path.Join(SavePath, saveName);
         if (File.Exists(fullPath))
         {
             File.Delete(fullPath);
@@ -158,12 +150,11 @@ public class Model
 
     }
 
-    public bool LoadGame(string saveName)
+    public bool LoadGame(string fullPath)
     {
         // Return false if the loading not complete.
         // Return true if the loading is complete.
 
-        string fullPath = Path.Join(SavePath, saveName);
         if (!File.Exists(fullPath)) 
         {
             return false;
@@ -241,5 +232,11 @@ public class Model
             }
         }
         return result;
+    }
+    private void SwitchTurn()
+    {
+        // Switch player's turn.
+        turnCheck++;
+        turnCheck %= 2;
     }
 }
