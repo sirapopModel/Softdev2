@@ -15,6 +15,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
 using WPF_first_touch.MVC.Controller;
 
+
 namespace WPF_first_touch.MVC.View
 {
     public class View
