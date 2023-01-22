@@ -27,7 +27,7 @@ namespace WPF_first_touch.MVC.Controller
 
         public void Play_Setup(int n)
         {
-            model.ChangeBoardSize(n);
+            model.NewGame(n);
             view.Create_board(Canvas_field_click, Canvas_Mouse_Move);
         }
 
@@ -44,9 +44,10 @@ namespace WPF_first_touch.MVC.Controller
             int row = Convert.ToInt32(Math.Floor(my_point.Y / view.grid_size));
             int col = Convert.ToInt32(Math.Floor(my_point.X / view.grid_size));
 
-            if (model.PlayerPlay(row, col) )
+            if (String.IsNullOrWhiteSpace(model.GetBoardValue(row, col)))
             {
-                int winner_found = model.CheckEndGame(row, col);
+                model.SetValue(row, col);
+                int winner_found = model.CheckWin(row, col);
                 view.label_update();
                 
                 if (model.GetBoardValue(row,col) == "x")
@@ -99,9 +100,9 @@ namespace WPF_first_touch.MVC.Controller
                 model.LoadGame(Loadfile_name);
                 view.Create_board(Canvas_field_click , Canvas_Mouse_Move);
 
-                for (int row = 0; row < model.BoardSize; row++)
+                for (int row = 0; row < model.GetBoardSize(); row++)
                 {
-                    for (int col = 0; col < model.BoardSize; col++)
+                    for (int col = 0; col < model.GetBoardSize(); col++)
                     {
                         if ( model.GetBoardValue(row,col) == "x")
                         {

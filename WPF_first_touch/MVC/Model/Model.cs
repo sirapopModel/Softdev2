@@ -6,30 +6,38 @@ using System.Threading.Channels;
 
 public class Model
 {
-    public string SavePath { get; }
-    public int BoardSize { get; protected set; }
-    public int TurnCount { get; protected set; }
+    private string _savePath = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
+    public string SavePath
+    { 
+        get { return _savePath; }
+    }
 
+    private int _turnCount = 0;
+    public int TurnCount
+    { 
+        get { return _turnCount; }
+    }
+
+    private int boardSize;
     private string[,] boardArray = new string[3, 3];
     private int turnCheck = 0;
-
-    public Model()
+    
+    public int GetBoardSize()
     {
-        this.SavePath = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
-        this.TurnCount = 0;
+        return boardSize;
     }
     public string GetBoardValue(int row, int column)
     {
         return boardArray[row, column];
     }
 
-    public void ChangeBoardSize(int size)
+    public void NewGame(int size)
     {
         // Change BoardSize, Create new array,
         // reset Turncount to 0.
-        BoardSize = size;
+        boardSize = size;
         boardArray = new string[size, size];
-        TurnCount = 0;
+        _turnCount = 0;
     }
 
     public string GetCurrentTurn()
@@ -42,22 +50,15 @@ public class Model
         return "o";
     }
 
-    public bool PlayerPlay(int row, int column)
+    public void SetValue(int row, int column)
     {
-        // If that row,column was played already, then return.
-        if (!String.IsNullOrWhiteSpace(boardArray[row, column]))
-        {
-            return false;
-        }
-
         // Insert "x" or "o" into boardArray and switch turn.
         boardArray[row, column] = GetCurrentTurn();
-        TurnCount++;
+        _turnCount++;
         SwitchTurn();
-        return true;
     }
 
-    public int CheckEndGame(int row, int column)
+    public int CheckWin(int row, int column)
     {
         // Return 0 if the game not end yet.
         // Return 1 if win by horizontal.
@@ -67,25 +68,25 @@ public class Model
         // Return -1 if tie.
 
         // Check win for horizontal.
-        for (int i = 1; i < BoardSize; i++)
+        for (int i = 1; i < boardSize; i++)
         {
             if (boardArray[row, 0] != boardArray[row, i] || String.IsNullOrEmpty(boardArray[row, i]))
             {
                 break;
             }
-            if (i == BoardSize - 1)
+            if (i == boardSize - 1)
             {
                 return 1;
             }
         }
         // Check win for vertical.
-        for (int i = 1; i < BoardSize; i++)
+        for (int i = 1; i < boardSize; i++)
         {
             if (boardArray[0, column] != boardArray[i, column] || String.IsNullOrEmpty(boardArray[i, column]))
             {
                 break;
             }
-            if (i == BoardSize - 1)
+            if (i == boardSize - 1)
             {
                 return 2;
             }
@@ -93,35 +94,35 @@ public class Model
         // Check win for diagonal 1.
         if (row == column)
         {
-            for (int i = 1; i < BoardSize; i++)
+            for (int i = 1; i < boardSize; i++)
             {
                 if (boardArray[0, 0] != boardArray[i, i] || String.IsNullOrEmpty(boardArray[i, i]))
                 {
                     break;
                 }
-                if (i == BoardSize - 1)
+                if (i == boardSize - 1)
                 {
                     return 3;
                 }
             }
         }
         // Check win for diagonal 2.
-        if (row + column == BoardSize - 1)
+        if (row + column == boardSize - 1)
         {
-            for (int i = 1; i < BoardSize; i++)
+            for (int i = 1; i < boardSize; i++)
             {
-                if (boardArray[0, BoardSize - 1] != boardArray[i, BoardSize - 1 - i] || String.IsNullOrEmpty(boardArray[i, BoardSize - 1 - i]))
+                if (boardArray[0, boardSize - 1] != boardArray[i, boardSize - 1 - i] || String.IsNullOrEmpty(boardArray[i, boardSize - 1 - i]))
                 {
                     break;
                 }
-                if (i == BoardSize - 1)
+                if (i == boardSize - 1)
                 {
                     return 4;
                 }
             }
         }
         // Check for tie.
-        if (TurnCount == (BoardSize * BoardSize))
+        if (TurnCount == (boardSize * boardSize))
         {
             return -1;
         }
@@ -143,7 +144,7 @@ public class Model
         }
 
         StreamWriter streamWriter = new StreamWriter(fullPath);
-        streamWriter.WriteLine(BoardSize);
+        streamWriter.WriteLine(boardSize);
         streamWriter.WriteLine(GetBoardArrayToString());
         streamWriter.WriteLine(GetCurrentTurn());
         streamWriter.Write(TurnCount);
@@ -151,21 +152,18 @@ public class Model
 
     }
 
-    public bool LoadGame(string fullPath)
+    public void LoadGame(string fullPath)
     {
-        // Return false if the loading not complete.
-        // Return true if the loading is complete.
-
         if (!File.Exists(fullPath))
         {
-            return false;
+            return;
         }
 
         string[] allLines = File.ReadAllLines(fullPath);
         try
         {
-            BoardSize = Int32.Parse(allLines[0]);
-            ChangeBoardSize(BoardSize);
+            boardSize = Int32.Parse(allLines[0]);
+            NewGame(boardSize);
 
             string boardArray = allLines[1];
             UpdateArray(boardArray);
@@ -173,23 +171,23 @@ public class Model
             string currentTurn = allLines[2];
             SetTurn(currentTurn);
 
-            TurnCount = Int32.Parse(allLines[3]);
+            _turnCount = Int32.Parse(allLines[3]);
         }
         catch (System.Exception e)
         {
             Console.WriteLine("Wrong save file format.");
             Console.WriteLine(e.Message);
-            return false;
+            return;
         }
-        return true;
+        return;
     }
 
     private void UpdateArray(string resultText)
     {
         int indexText = 0;
-        for (int row = 0; row < BoardSize; row++)
+        for (int row = 0; row < boardSize; row++)
         {
-            for (int col = 0; col < BoardSize; col++)
+            for (int col = 0; col < boardSize; col++)
             {
                 if (resultText[indexText] == 'n')
                 {

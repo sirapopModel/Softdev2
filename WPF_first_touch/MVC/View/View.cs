@@ -51,8 +51,8 @@ namespace WPF_first_touch.MVC.View
         {
             my_Canvas.Children.Remove(Canvas_field);
 
-            grid_size = 300 / model.BoardSize ;
-            field_size = grid_size * model.BoardSize;
+            grid_size = 300 / model.GetBoardSize();
+            field_size = grid_size * model.GetBoardSize();
 
             Canvas_field = new Canvas();
 
@@ -143,7 +143,7 @@ namespace WPF_first_touch.MVC.View
         public void O_draw(int row, int col)
         {
             Line my_line;
-            int n = model.BoardSize;
+            int n = model.GetBoardSize();
             o_size = 210 / (2 * n);
             o_position_x = (45 / n) + (col * grid_size);
             o_position_y = (45 / n) + (row * grid_size);
@@ -191,7 +191,7 @@ namespace WPF_first_touch.MVC.View
         {
             Line my_line;
             Line my_line1;
-            int n = model.BoardSize;
+            int n = model.GetBoardSize();
             x_cooardinate_array[0] = new Point((60 / n) + col * grid_size, (60 / n) + row * grid_size);
             x_cooardinate_array[1] = new Point((240 / n) + col * grid_size, (240 / n) + row * grid_size);
             x_cooardinate_array[2] = new Point((60 / n) + col * grid_size, (240 / n) + row * grid_size);
@@ -348,11 +348,11 @@ namespace WPF_first_touch.MVC.View
 
         private void Board_line_show()
         {
-            for (int row = 1; row < model.BoardSize; row++)
+            for (int row = 1; row < model.GetBoardSize(); row++)
             {
                 draw_line(row, 0, "board_horizontal");
             }
-            for (int col = 1; col < model.BoardSize; col++)
+            for (int col = 1; col < model.GetBoardSize(); col++)
             {
                 draw_line(0, col, "board_vertical");
             }
