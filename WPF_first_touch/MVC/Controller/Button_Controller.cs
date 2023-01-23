@@ -50,7 +50,7 @@ namespace WPF_first_touch.MVC.Controller
                 int winner_found = model.CheckWin(row, col);
                 view.label_update();
                 
-                if (model.GetBoardValue(row,col) == "x")
+                if (model.GetBoardValue(row,col) == "X")
                 {
                     view.X_draw(row, col);
                     if (winner_found > 0)
@@ -104,11 +104,11 @@ namespace WPF_first_touch.MVC.Controller
                 {
                     for (int col = 0; col < model.GetBoardSize(); col++)
                     {
-                        if ( model.GetBoardValue(row,col) == "x")
+                        if ( model.GetBoardValue(row,col) == "X")
                         {
                             view.X_draw(row , col);
                         }
-                        else if (model.GetBoardValue(row, col) == "o")
+                        else if (model.GetBoardValue(row, col) == "O")
                         {
                             view.O_draw(row, col);
                         }

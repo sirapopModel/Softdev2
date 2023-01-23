@@ -36,6 +36,7 @@ namespace WPF_first_touch.MVC.View
         private Label label_num_count;
         private Label label_OX_turn;
         private Canvas my_Canvas;
+        private string SavePath = System.IO.Path.GetFullPath(System.IO.Path.Join(Directory.GetCurrentDirectory(), "Save"));
 
         const double ONE_RADIAN = 6.28 / 360;
 
@@ -91,7 +92,7 @@ namespace WPF_first_touch.MVC.View
         public void label_update()
         {
             label_OX_turn.Content = model.GetCurrentTurn().ToUpper() ;         
-            label_num_count.Content = model.TurnCount.ToString();
+            label_num_count.Content = model.TurnsPassed.ToString();
         }
 
         public string Save_window_call()
@@ -100,13 +101,13 @@ namespace WPF_first_touch.MVC.View
             MessageBoxResult confirm_result = MessageBox.Show("Do you want to save file?", "Alert!!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (confirm_result == MessageBoxResult.Yes)
             {
-                my_save_window.InitialDirectory = model.SavePath;
+                my_save_window.InitialDirectory = SavePath;
                 my_save_window.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 my_save_window.FilterIndex = 1;
 
-                if (!Directory.Exists(model.SavePath))
+                if (!Directory.Exists(SavePath))
                 {
-                    Directory.CreateDirectory(model.SavePath);
+                    Directory.CreateDirectory(SavePath);
                 }
 
                 if (my_save_window.ShowDialog() == true) // press save the saveFileDialog.show will return true
@@ -123,13 +124,13 @@ namespace WPF_first_touch.MVC.View
             MessageBoxResult confirm_result = MessageBox.Show("Do you want to Load save?", "Alert!!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (confirm_result == MessageBoxResult.Yes)
             {
-                my_open_window.InitialDirectory = model.SavePath;
+                my_open_window.InitialDirectory = SavePath;
                 my_open_window.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 my_open_window.FilterIndex = 1;
 
-                if (!Directory.Exists(model.SavePath))
+                if (!Directory.Exists(SavePath))
                 {
-                    Directory.CreateDirectory(model.SavePath);
+                    Directory.CreateDirectory(SavePath);
                 }
 
                 if (my_open_window.ShowDialog() == true) // press save the saveFileDialog.show will return true

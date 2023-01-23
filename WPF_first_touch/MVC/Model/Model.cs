@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
@@ -8,20 +9,20 @@ public class Model
 {
     private string _savePath = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
     public string SavePath
-    { 
+    {
         get { return _savePath; }
     }
 
-    private int _turnCount = 0;
-    public int TurnCount
-    { 
-        get { return _turnCount; }
+    private int _turnsPassed = 0;
+    public int TurnsPassed
+    {
+        get { return _turnsPassed; }
     }
 
     private int boardSize;
     private string[,] boardArray = new string[3, 3];
     private int turnCheck = 0;
-    
+
     public int GetBoardSize()
     {
         return boardSize;
@@ -37,7 +38,7 @@ public class Model
         // reset Turncount to 0.
         boardSize = size;
         boardArray = new string[size, size];
-        _turnCount = 0;
+        _turnsPassed = 0;
     }
 
     public string GetCurrentTurn()
@@ -45,16 +46,16 @@ public class Model
         // Return string current turn.
         if (turnCheck == 0)
         {
-            return "x";
+            return "X";
         }
-        return "o";
+        return "O";
     }
 
     public void SetValue(int row, int column)
     {
         // Insert "x" or "o" into boardArray and switch turn.
         boardArray[row, column] = GetCurrentTurn();
-        _turnCount++;
+        _turnsPassed++;
         SwitchTurn();
     }
 
@@ -122,7 +123,7 @@ public class Model
             }
         }
         // Check for tie.
-        if (TurnCount == (boardSize * boardSize))
+        if (TurnsPassed == (boardSize * boardSize))
         {
             return -1;
         }
@@ -147,7 +148,7 @@ public class Model
         streamWriter.WriteLine(boardSize);
         streamWriter.WriteLine(GetBoardArrayToString());
         streamWriter.WriteLine(GetCurrentTurn());
-        streamWriter.Write(TurnCount);
+        streamWriter.Write(TurnsPassed);
         streamWriter.Close();
 
     }
@@ -171,7 +172,7 @@ public class Model
             string currentTurn = allLines[2];
             SetTurn(currentTurn);
 
-            _turnCount = Int32.Parse(allLines[3]);
+            _turnsPassed = Int32.Parse(allLines[3]);
         }
         catch (System.Exception e)
         {
@@ -195,7 +196,7 @@ public class Model
                 }
                 else
                 {
-                    boardArray[row, col] = resultText[indexText].ToString();
+                    boardArray[row, col] = resultText[indexText].ToString().ToUpper();
                 }
                 indexText++;
             }
@@ -227,7 +228,7 @@ public class Model
             }
             else
             {
-                result += Text;
+                result += Text.ToLower();
             }
         }
         return result;
