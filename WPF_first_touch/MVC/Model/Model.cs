@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading.Channels;
 
+
 public class Model
 {
     private string _savePath = Path.GetFullPath(Path.Join(Directory.GetCurrentDirectory(), "Save"));
@@ -56,7 +57,10 @@ public class Model
         // Insert "x" or "o" into boardArray and switch turn.
         boardArray[row, column] = GetCurrentTurn();
         _turnsPassed++;
-        SwitchTurn();
+        if (CheckWin(row,column) == 0)
+        {
+            SwitchTurn();
+        }
     }
 
     public int CheckWin(int row, int column)
